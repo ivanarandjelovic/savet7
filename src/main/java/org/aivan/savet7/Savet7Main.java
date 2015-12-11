@@ -7,7 +7,6 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource("classpath:/application.properties")
 public class Savet7Main extends SpringBootServletInitializer {
 
 	@Override
