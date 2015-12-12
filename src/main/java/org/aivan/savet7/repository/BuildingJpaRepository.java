@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 
 	@Repository
 	public interface BuildingJpaRepository extends JpaRepository<Building, Long> {
-		List<Building> findByName(@Param("name") String name);
+		List<Building> findByNameLike(@Param("name") String name);
 	}
