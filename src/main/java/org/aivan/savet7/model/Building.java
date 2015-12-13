@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Building {
@@ -14,6 +15,9 @@ public class Building {
 
 	@Column
 	String name;
+
+	@ManyToOne
+	private Address address;
 
 	public Long getId() {
 		return id;
@@ -30,5 +34,15 @@ public class Building {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	
 
 }
