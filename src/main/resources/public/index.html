@@ -1,8 +1,17 @@
-<html>
+<html ng-app="savet7App">
 <head>
 <title>Savet7 app</title>
+<script src="js/angular.js"></script>
+<script src="js/controllers/BuildingListCtrl.js"></script>
 </head>
-<body>
-So ... here it is.
+<body ng-controller="BuildingListCtrl">
+	So ... here it is.
+	<br /> Nothing here {{'yet' + '!'}}
+	<br /> Buildings:
+	<ul>
+		<li ng-repeat="building in buildings"><span>{{building.name}}</span>
+			<p>{{building.address}}</p></li>
+	</ul>
+
 </body>
 </html>
