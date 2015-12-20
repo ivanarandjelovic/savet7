@@ -4,3 +4,5 @@ gradle
 .gradle
 .settings
 
+/.idea/
+/savet7.iml
