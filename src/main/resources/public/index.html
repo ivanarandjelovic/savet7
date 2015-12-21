@@ -1,17 +1,22 @@
 <html ng-app="savet7App">
 <head>
 <title>Savet7 app</title>
+<link rel="stylesheet" href="css/bootstrap.css"></link>
+<link rel="stylesheet" href="css/bootstrap-theme.css"></link>
+<script src="js/jquery-2.1.4.js"></script>
+<script src="js/bootstrap.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/controllers/BuildingListCtrl.js"></script>
 </head>
 <body ng-controller="BuildingListCtrl">
-	So ... here it is.
-	<br /> Nothing here {{'yet' + '!'}}
-	<br /> Buildings:
-	<ul>
-		<li ng-repeat="building in buildings"><span>{{building.name}}</span>
-			<p>{{building.address}}</p></li>
-	</ul>
+	<div class="container">
+		<h2>So ... here it is.</h2>
+		<br /> Nothing here {{'yet' + '!'}} <br /> Buildings:
+		<ul>
+			<li ng-repeat="building in buildings"><span>{{building.name}}</span>
+				<p>{{building.address}}</p></li>
+		</ul>
 
+	</div>
 </body>
 </html>
