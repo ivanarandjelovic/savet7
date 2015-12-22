@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return new AuthenticationManagerBuilder(new NopPostProcessor())
-                       .inMemoryAuthentication().withUser("user").password("password1").roles("USER")
+                       .inMemoryAuthentication().withUser("user").password("password").roles("USER")
                        .and().and().build();
     }
 
