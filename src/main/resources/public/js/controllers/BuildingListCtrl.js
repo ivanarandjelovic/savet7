@@ -1,7 +1,12 @@
 savet7App.controller('BuildingListCtrl', function($scope, $http) {
 
-	$http.get('/api/buildings').success(function(data) {
-		$scope.buildings = data._embedded.buildings;
+	$http.get('/api/buildings').then(function successCallback(response) {
+		$scope.buildings = response.data._embedded.buildings;
+	}, function errorCallback(response) {
+		if(response.status === 401) {
+			// we are not logged in
+			// TODO ...
+		}
 	});
 
 });

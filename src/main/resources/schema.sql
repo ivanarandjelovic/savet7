@@ -1,3 +1,10 @@
+create table user (
+	id IDENTITY primary key,
+	username VARCHAR(200),
+	password VARCHAR(200),
+	role VARCHAR(200)
+);
+
 create table address (
 	id IDENTITY primary key,
 	street VARCHAR(200),
