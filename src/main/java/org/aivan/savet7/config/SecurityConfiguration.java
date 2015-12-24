@@ -1,7 +1,14 @@
 package org.aivan.savet7.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.aivan.savet7.security.DatabaseUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,7 +32,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private DatabaseUserDetailsService userDetailsService;
+	
+/*	@Bean
+	public ProviderManager providerManager() {
+		List<AuthenticationProvider> authProviders = new ArrayList<AuthenticationProvider>();
+		authProviders.add(DatabaseUserDetailsService);
+		ProviderManager pm = new ProviderManager( { userDetailsService});
+		retur pm
+	} */
 
 	private static class NopPostProcessor implements ObjectPostProcessor {
         @Override
@@ -43,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/*.html", "/", "/partials/**");
+        web.ignoring().antMatchers("userService/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/*.html", "/", "/partials/**");
     }
     
 	@Override
