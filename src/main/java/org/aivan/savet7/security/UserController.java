@@ -35,13 +35,22 @@ public class UserController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET, produces = JSON)
 	public @ResponseBody UserBean get() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = null;
+		
 		UserBean user = new UserBean();
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (auth != null) {
+		
+			Object principal = auth.getPrincipal();
 
-		if (principal instanceof UserDetails) {
-			userDetails = (UserDetails) principal;
-			user.setUsername(userDetails.getUsername());
+			if (principal instanceof UserDetails) {
+				
+				UserDetails userDetails = (UserDetails) principal;
+				user.setUsername(userDetails.getUsername());
+				// TODO: add some more properties to User, if needed (by reading from user service maybe).
+				
+			}
 		}
 
 		return user;
@@ -58,7 +67,8 @@ public class UserController {
 
 		if (userDetails != null) {
 
-			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password,
+					userDetails.getAuthorities());
 			Authentication authentication;
 			try {
 				authentication = authenticationManager.authenticate(token);

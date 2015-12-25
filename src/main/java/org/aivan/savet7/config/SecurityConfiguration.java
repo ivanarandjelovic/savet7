@@ -1,14 +1,11 @@
 package org.aivan.savet7.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.aivan.savet7.security.DatabaseUserDetailsService;
+import org.aivan.savet7.security.RESTAuthenticationEntryPoint;
+import org.aivan.savet7.security.RESTAuthenticationFailureHandler;
+import org.aivan.savet7.security.RESTAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,59 +13,73 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
-/*	@Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return new AuthenticationManagerBuilder(new NopPostProcessor())
-                       .inMemoryAuthentication().withUser("user").password("password1").roles("USER")
-                       .and().and().build();
-    }*/
-	
-	
+
+	@Autowired
+	private RESTAuthenticationEntryPoint authenticationEntryPoint;
+	@Autowired
+	private RESTAuthenticationFailureHandler authenticationFailureHandler;
+	@Autowired
+	private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
+
+	/*
+	 * @Bean public AuthenticationManager authenticationManager() throws
+	 * Exception { return new AuthenticationManagerBuilder(new
+	 * NopPostProcessor())
+	 * .inMemoryAuthentication().withUser("user").password("password1").roles(
+	 * "USER") .and().and().build(); }
+	 */
+
 	@Autowired
 	private DatabaseUserDetailsService userDetailsService;
-	
-/*	@Bean
-	public ProviderManager providerManager() {
-		List<AuthenticationProvider> authProviders = new ArrayList<AuthenticationProvider>();
-		authProviders.add(DatabaseUserDetailsService);
-		ProviderManager pm = new ProviderManager( { userDetailsService});
-		retur pm
-	} */
+
+	/*
+	 * @Bean public ProviderManager providerManager() {
+	 * List<AuthenticationProvider> authProviders = new
+	 * ArrayList<AuthenticationProvider>();
+	 * authProviders.add(DatabaseUserDetailsService); ProviderManager pm = new
+	 * ProviderManager( { userDetailsService}); retur pm }
+	 */
 
 	private static class NopPostProcessor implements ObjectPostProcessor {
-        @Override
-        @SuppressWarnings("unchecked")
-        public Object postProcess(Object object) {
-            return object;
-        }
-    };
-    
+		@Override
+		@SuppressWarnings("unchecked")
+		public Object postProcess(Object object) {
+			return object;
+		}
+	};
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 	}
 
-    
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("userService/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/*.html", "/", "/partials/**");
-    }
-    
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/api/**").access("hasRole('USER') or hasRole('ADMIN')").and().httpBasic().and().csrf().disable();
+	public void configure(WebSecurity web) throws Exception {
+		//web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/*.html", "/",
+		//		"/partials/**");
 	}
 
-	
-/*	@Bean
-	public DatabaseUserDetailsService userDetailsService() {
-		return userDetailsService;
-	}*/
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.formLogin().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
+				.csrf().disable().authorizeRequests().antMatchers("/api/**","/userService/**")
+				.access("hasRole('USER') or hasRole('ADMIN')").and().exceptionHandling()
+				.authenticationEntryPoint(authenticationEntryPoint);
+
+		// http.authorizeRequests().antMatchers("/api/**").access("hasRole('USER')
+		// or hasRole('ADMIN')").and().csrf()
+		// .disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().formLogin()
+		// .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
+		// ;
+	}
+
+	/*
+	 * @Bean public DatabaseUserDetailsService userDetailsService() { return
+	 * userDetailsService; }
+	 */
 }
