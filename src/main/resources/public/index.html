@@ -1,13 +1,17 @@
 <html ng-app="savet7App">
 <head>
 <title>Savet7 app</title>
+
 <link rel="stylesheet" href="css/bootstrap.css"></link>
 <link rel="stylesheet" href="css/bootstrap-theme.css"></link>
+<link href="css/toastr.css" rel="stylesheet"/>
+
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-route.js"></script>
 <script src="js/ui-bootstrap-tpls-0.14.3.js"></script>
+<script src="js/toastr.js"></script>
 
 <script src="js/savet7App.js"></script>
 <script src="js/controllers/BuildingListCtrl.js"></script>
@@ -58,17 +62,17 @@
 				</form>
 				 -->
 				<ul class="nav navbar-nav navbar-right">
-				
 					<li ng-if="!loggedIn"><a href="#" ng-click="login()">Login</a></li>
+					<li ng-if="loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
 				
-					<li ng-if="loggedIn" class="dropdown"><a href="#" class="dropdown-toggle"
+					<!-- <li ng-if="loggedIn" class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">{{user.username}}  <span class="caret"></a>
 						<ul class="dropdown-menu">
 							<li role="separator" class="divider"></li>
-							<li><a href="/logout">Logout</a></li>
+							<li><a href="#" ng-click="logout()">Logout</a></li>
 						</ul>
-					</li>
+					</li> -->
 
 <!-- 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -83,6 +87,7 @@
  -->				
  
  					</ul>
+				<p class="navbar-text navbar-right" ng-if="loggedIn">Logged in as: <b>{{user.username}}</b></p>
 
 			</div>
 			<!-- /.navbar-collapse -->
