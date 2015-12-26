@@ -1,4 +1,5 @@
-var savet7App = angular.module('savet7App', ['ngRoute']);
+var savet7App = angular.module('savet7App', [ 'ngRoute',
+		'ui.bootstrap' ]);
 
 // Routes:
 

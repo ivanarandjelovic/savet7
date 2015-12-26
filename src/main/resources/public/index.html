@@ -7,10 +7,14 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-route.js"></script>
+<script src="js/ui-bootstrap-tpls-0.14.3.js"></script>
 
 <script src="js/savet7App.js"></script>
 <script src="js/controllers/BuildingListCtrl.js"></script>
-<body>
+<script src="js/controllers/UserCtrl.js"></script>
+
+
+<body ng-controller="UserCtrl">
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -52,9 +56,21 @@
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
+				 -->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Link</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+				
+					<li ng-if="!loggedIn"><a href="#" ng-click="login()">Login</a></li>
+				
+					<li ng-if="loggedIn" class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">{{user.username}}  <span class="caret"></a>
+						<ul class="dropdown-menu">
+							<li role="separator" class="divider"></li>
+							<li><a href="/logout">Logout</a></li>
+						</ul>
+					</li>
+
+<!-- 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Dropdown <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -64,8 +80,10 @@
 							<li role="separator" class="divider"></li>
 							<li><a href="#">Separated link</a></li>
 						</ul></li>
-				</ul>
- -->
+ -->				
+ 
+ 					</ul>
+
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>

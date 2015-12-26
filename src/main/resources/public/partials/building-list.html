@@ -3,11 +3,12 @@
 		<h3 class="panel-title">Building list</h3>
 	</div>
 	<div class="panel-body">
-		<ul>
+		<ul ng-if="loggedIn">
 			<li ng-repeat="building in buildings"><a
 				href="#/buildings/{{building.id}}"><span>{{building.name}}</span></a>
 				<p>{{building.address}}</p></li>
 		</ul>
+		<span ng-if="!loggedIn">Not logged in.</span>
 	</div>
 </div>
 
