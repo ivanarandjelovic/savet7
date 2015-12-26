@@ -4,6 +4,7 @@ import org.aivan.savet7.security.DatabaseUserDetailsService;
 import org.aivan.savet7.security.RESTAuthenticationEntryPoint;
 import org.aivan.savet7.security.RESTAuthenticationFailureHandler;
 import org.aivan.savet7.security.RESTAuthenticationSuccessHandler;
+import org.aivan.savet7.security.RESTLogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,6 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private RESTAuthenticationFailureHandler authenticationFailureHandler;
 	@Autowired
 	private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
+
+	@Autowired
+	private RESTLogoutHandler logoutHandler;
 
 	/*
 	 * @Bean public AuthenticationManager authenticationManager() throws
@@ -68,8 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
 				.csrf().disable().authorizeRequests().antMatchers("/api/**", "/userService/**")
-				.access("hasRole('USER') or hasRole('ADMIN')").and().exceptionHandling()
-				.authenticationEntryPoint(authenticationEntryPoint);
+				.access("hasRole('USER') or hasRole('ADMIN')").and().logout().addLogoutHandler(logoutHandler).and()
+				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
 		// http.authorizeRequests().antMatchers("/api/**").access("hasRole('USER')
 		// or hasRole('ADMIN')").and().csrf()
