@@ -1,13 +1,18 @@
 savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $location) {
 
+	toastr.options.closeButton = true;
+	toastr.options.positionClass = "toast-top-center";
+	
 	$scope.loggedIn = false;
 	
 	$scope.getUser = function() {
 		$http.get('/userService/get').then(function successCallback(response) {
 			$scope.user = response.data;
-			$scope.loggedIn = true;
-			toastr.success('Are you logged in');
-			
+			if($scope.user.username === null) {
+				$scope.loggedIn = false;
+			} else {
+				$scope.loggedIn = true;
+			}
 		}, function errorCallback(response) {
 			if (response.status === 401) {
 				// we are not logged in
@@ -33,6 +38,7 @@ savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $locat
 			// Login was performed ///
 			// TODO: what now? reload user, or simply re-load page?
 			$scope.getUser();
+			toastr.success('Are you logged in');
 		}, function() {
 			$log.info('Login dismissed at: ' + new Date());
 		});
@@ -54,9 +60,9 @@ savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $locat
 savet7App.controller('LoginInstanceCtrl', function($scope, $http,
 		$uibModalInstance) {
 	$scope.login = function() {
-//		$uibModalInstance.close($scope.selected.item);
-		//alert($scope.username);
-		//alert($scope.password);
+// $uibModalInstance.close($scope.selected.item);
+		// alert($scope.username);
+		// alert($scope.password);
         var config = {
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
