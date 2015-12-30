@@ -1,33 +1,35 @@
-savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $location) {
+savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, userService) {
 
 	toastr.options.closeButton = true;
 	toastr.options.positionClass = "toast-top-center";
 	
 	$scope.loggedIn = false;
 	
-	$scope.getUser = function() {
+	$scope.loadUser = function() {
 		$http.get('/userService/get').then(function successCallback(response) {
-			$scope.user = response.data;
-			if($scope.user.username === null) {
-				$scope.loggedIn = false;
+			var user = response.data;
+			if(user.username === null) {
+				userService.setLoggedIn(false);
 			} else {
-				$scope.loggedIn = true;
+				userService.setLoggedIn(true);
+				userService.setUser(user);
 			}
 		}, function errorCallback(response) {
 			if (response.status === 401) {
 				// we are not logged in
 				// TODO ...
-				$scope.user = null;
-				$scope.loggedIn = false;
+				userService.setLoggedIn(false);
+				userService.setUser(null);
 			}
 		});
 	}
 	
 	$scope.login = function() {
+		
 		var modalInstance = $uibModal.open({
 			animation : true,
 			templateUrl : 'partials/login-form.html',
-			controller : 'LoginInstanceCtrl'
+			controller : 'loginInstanceCtrl'
 		// size: size,
 		/*
 		 * resolve: { items: function () { return $scope.items; } }
@@ -37,7 +39,7 @@ savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $locat
 		modalInstance.result.then(function(modalResult) {
 			// Login was performed ///
 			// TODO: what now? reload user, or simply re-load page?
-			$scope.getUser();
+			$scope.loadUser();
 			toastr.success('Are you logged in');
 		}, function() {
 			$log.info('Login dismissed at: ' + new Date());
@@ -46,18 +48,27 @@ savet7App.controller('UserCtrl', function($scope, $http, $uibModal, $log, $locat
 
 	$scope.logout = function() {
 		$http.get('/logout').then(function successCallback(response) {
-			$scope.user = null;
-			$scope.loggedIn = false;
+			userService.setUser(null);
+			userService.setLoggedIn(false);
 			toastr.warning('Are you logged out');
+			$location.path( "/" );
 		});
-		$location.path( "/" );
 	}
 	
-	$scope.getUser();
+	$scope.loadUser();
+	
+	// Common part to make all controller user-aware
+    $scope.loggedIn = userService.isLoggedIn();
+	$scope.user = userService.getUser();
+	$scope.$watch( userService.isLoggedIn, function ( loggedIn ) {
+	    $scope.loggedIn = loggedIn;
+	    $scope.user = userService.getUser();
+	  }, true);
+	// END Common part to make all controller user-aware
 	
 });
 
-savet7App.controller('LoginInstanceCtrl', function($scope, $http,
+savet7App.controller('loginInstanceCtrl', function($scope, $http,
 		$uibModalInstance) {
 	$scope.login = function() {
 // $uibModalInstance.close($scope.selected.item);

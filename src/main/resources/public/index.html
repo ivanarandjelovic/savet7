@@ -14,11 +14,12 @@
 <script src="js/toastr.js"></script>
 
 <script src="js/savet7App.js"></script>
-<script src="js/controllers/BuildingListCtrl.js"></script>
-<script src="js/controllers/UserCtrl.js"></script>
+<script src="js/controllers/buildingListCtrl.js"></script>
+<script src="js/services/userService.js"></script>
+<script src="js/controllers/userCtrl.js"></script>
 
 
-<body ng-controller="UserCtrl">
+<body ng-controller="userCtrl">
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -62,8 +63,8 @@
 				</form>
 				 -->
 				<ul class="nav navbar-nav navbar-right">
-					<li ng-if="!loggedIn"><a href="#" ng-click="login()">Login</a></li>
-					<li ng-if="loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
+					<li ng-if="!loggedIn"><a href="" ng-click="login()">Login</a></li>
+					<li ng-if="loggedIn"><a href="" ng-click="logout()">Logout</a></li>
 				
 					<!-- <li ng-if="loggedIn" class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
