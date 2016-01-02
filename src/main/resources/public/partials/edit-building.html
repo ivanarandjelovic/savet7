@@ -1,0 +1,26 @@
+
+<form novalidate="novalidate" class="form-horizontal" name="buildingForm">
+	<div class="col-sm-offset-2 col-sm-10">
+		<h2>Edit building details:</h2>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Id</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="id" readonly
+				ng-model="building.id" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Name</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="name"
+				ng-model="building.name" ng-minlength="5" ng-required="true"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-success" ng-click="submit()">Save</button>
+			<button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</form>

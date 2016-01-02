@@ -1,6 +1,6 @@
-<p>
-{{address.street}} {{address.number}} {{address.appartment}}<br/>
-{{address.postalCode}} {{address.city}}<br/>
-{{address.state}}<br/>
-{{address.country}}
-</p>
+<div>
+	<div>{{address.street}} {{address.number}} {{address.appartment}}</div>
+	<div>{{address.postalCode}} {{address.city}}</div>
+	<div ng-if="address.state">{{address.state}}</div>
+	<div>{{address.country}}</div>
+</div>

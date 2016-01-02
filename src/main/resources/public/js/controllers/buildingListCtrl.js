@@ -15,31 +15,63 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService) {
 	};
 
 	$scope.loadBuildings();
-	
+
 	// Common part to make all controller user-aware
-    $scope.loggedIn = userService.isLoggedIn();
+	$scope.loggedIn = userService.isLoggedIn();
 	$scope.user = userService.getUser();
-	$scope.$watch( userService.isLoggedIn, function ( loggedIn ) {
-//		if( $scope.loggedIn !== loggedIn) {
-		    $scope.loggedIn = loggedIn;
-		    $scope.user = userService.getUser();
-//		}
-	  }, true);
+	$scope.$watch(userService.isLoggedIn, function(loggedIn) {
+		// if( $scope.loggedIn !== loggedIn) {
+		$scope.loggedIn = loggedIn;
+		$scope.user = userService.getUser();
+		// }
+	}, true);
 	// END Common part to make all controller user-aware
 
 	// re-load buildings when we login
-	$scope.$watch('loggedIn', function( loggedIn ) {
+	$scope.$watch('loggedIn', function(loggedIn) {
 		$scope.loadBuildings()
 	}, true);
 
 });
 
-savet7App.controller('buildingDetailCtrl',
-		function($scope, $http, $routeParams) {
+savet7App.controller('buildingDetailCtrl', function($scope, $http,
+		$routeParams, $location) {
 
-			$http.get('/api/buildings/' + $routeParams.buildingId).success(
-					function(data) {
-						$scope.building = data;
+	$http.get(
+			'/api/buildings/' + $routeParams.buildingId
+					+ '?projection=inlineAddress').success(function(data) {
+		$scope.building = data;
+	});
+
+	$scope.edit = function() {
+		$location.path("/editBuilding/" + $scope.building.id);
+	};
+
+});
+
+savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
+		$location) {
+
+	$http.get('/api/buildings/' + $routeParams.buildingId).success(
+			function(data) {
+				$scope.building = data;
+			});
+
+	$scope.submit = function() {
+		if ($scope.buildingForm.$valid) {
+			$http.patch('/api/buildings/'+$scope.building.id,$scope.building).then(
+					function successCallback(response) {
+						$location.path("/buildings/" + $scope.building.id);
+					}, function errorCallback(response) {
+						alert('Update failed!?');
 					});
+		} else {
+			alert("form invalid!");
+		}
+	};
 
-		});
+	$scope.cancel = function() {
+		$location.path("/buildings/" + $scope.building.id);
+	};
+
+});

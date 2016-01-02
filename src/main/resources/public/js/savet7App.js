@@ -10,6 +10,9 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 	}).when('/buildings/:buildingId', {
 		templateUrl : 'partials/building-detail.html',
 		controller : 'buildingDetailCtrl'
+	}).when('/editBuilding/:buildingId', {
+		templateUrl : 'partials/edit-building.html',
+		controller : 'editBuildingCtrl'
 	}).otherwise({
 		redirectTo : '/buildings'
 	});
