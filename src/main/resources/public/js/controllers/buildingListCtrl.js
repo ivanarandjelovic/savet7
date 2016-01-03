@@ -32,6 +32,10 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService) {
 		$scope.loadBuildings()
 	}, true);
 
+	$scope.addBuilding = function() {
+		$location.path("/addBuilding/");
+	}
+
 });
 
 savet7App.controller('buildingDetailCtrl', function($scope, $http,
@@ -52,26 +56,50 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http,
 savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 		$location) {
 
-	$http.get('/api/buildings/' + $routeParams.buildingId).success(
-			function(data) {
-				$scope.building = data;
-			});
+	if ($routeParams.buildingId === undefined) {
+		$scope.adding = true;
+		$scope.building = {};
+	} else {
+		$scope.adding = false;
+	}
+
+	if (!$scope.adding) {
+		$http.get('/api/buildings/' + $routeParams.buildingId).success(
+				function(data) {
+					$scope.building = data;
+				});
+	}
 
 	$scope.submit = function() {
 		if ($scope.buildingForm.$valid) {
-			$http.patch('/api/buildings/'+$scope.building.id,$scope.building).then(
-					function successCallback(response) {
-						$location.path("/buildings/" + $scope.building.id);
-					}, function errorCallback(response) {
-						alert('Update failed!?');
-					});
+			if ($scope.adding) {
+				$http.post('/api/buildings/' ,
+						$scope.building).then(
+						function successCallback(response) {
+							$location.path("/buildings/"+response.data.id);
+						}, function errorCallback(response) {
+							alert('Creation failed!?');
+						});
+			} else {
+				$http.patch('/api/buildings/' + $scope.building.id,
+						$scope.building).then(
+						function successCallback(response) {
+							$location.path("/buildings/" + $scope.building.id);
+						}, function errorCallback(response) {
+							alert('Update failed!?');
+						});
+			}
 		} else {
 			alert("form invalid!");
 		}
 	};
 
 	$scope.cancel = function() {
-		$location.path("/buildings/" + $scope.building.id);
+		if ($scope.adding) {
+			$location.path("/buildings");
+		} else {
+			$location.path("/buildings/" + $scope.building.id);
+		}
 	};
 
 });

@@ -1,11 +1,13 @@
 
-		<h3>Building list</h3>
+<h3>Building list</h3>
 
-		
-			<div ng-repeat="building in buildings">
-				<s7-building building="building"/>
-				</div>
+<a href="#/addBuilding" class="btn btn-primary">Add building</a>
 
-		<span ng-if="!loggedIn">Not logged in.</span>
+
+<div ng-repeat="building in buildings">
+	<s7-building building="building" />
+</div>
+
+<span ng-if="!loggedIn">Not logged in.</span>
 
 
