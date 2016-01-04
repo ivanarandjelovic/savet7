@@ -1,6 +1,8 @@
-savet7App.controller('buildingListCtrl', function($scope, $http, userService, $log) {
+savet7App.controller('buildingListCtrl', function($scope, $http, userService, $log, spinnerService) {
 
-	$log.debug("buildingListCtrl start");
+	//spinnerService.show('s7Spinner');
+	
+	//$log.debug("buildingListCtrl start");
 
 	$scope.loadBuildings = function() {
 		if (userService.isLoggedIn() === true) {
@@ -38,7 +40,9 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService, $l
 		$location.path("/addBuilding/");
 	}
 
-	$log.debug("buildingListCtrl end");
+	//$log.debug("buildingListCtrl end");
+	
+	//spinnerService.hide('s7Spinner');
 });
 
 savet7App.controller('buildingDetailCtrl', function($scope, $http,
@@ -59,7 +63,7 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http,
 savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 		$location, $log) {
 
-	$log.debug("editBuildingCtrl start");
+	//$log.debug("editBuildingCtrl start");
 	
 	$scope.showFormError = false;
 
@@ -118,6 +122,6 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 		return ($scope.buildingForm[fieldName].$invalid && $scope.buildingForm[fieldName].$touched) || ($scope.buildingForm[fieldName].$invalid && $scope.submitted);
 	};
 
-	$log.debug("editBuildingCtrl end");
+	//$log.debug("editBuildingCtrl end");
 
 });

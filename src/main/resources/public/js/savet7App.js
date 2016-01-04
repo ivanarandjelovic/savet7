@@ -19,7 +19,7 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 	}).otherwise({
 		redirectTo : '/buildings'
 	});
-} ]).run(function($rootScope, $location, spinnerService, $log) {
+} ])/*.run(function($rootScope, $location, spinnerService, $log) {
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		spinnerService.show('s7Spinner');
 		$log.debug("Route change start");
@@ -32,4 +32,4 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 		spinnerService.hide('s7Spinner');
 		$log.debug("Route change error");
 	});
-});
+})*/;
