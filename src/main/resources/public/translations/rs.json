@@ -1,0 +1,18 @@
+{
+	"APP_TITLE" : "Kućni savet 7",
+	"APP_LANGUAGE" : "Jezik {{langCd}}",
+	"APP_LANG_CURRENT" : "Srpski",
+	"APP_LANG_ENGLISH" : "Engleski",
+	"APP_LANG_SERBIAN" : "Srpski",
+	"APP_LOGIN_AS" : "Ulogovan kao korisnik:",
+	"APP_LOGIN_LOGIN" : "Uloguj se",
+	"APP_LOGIN_LOGOUT" : "Izloguj se",
+	"APP_NAV_TOGGLE" : "Uključi/isključi navigaciju",
+	"APP_LOGIN_USERNAME" : "Korisničko ime",
+	"APP_LOGIN_PASSWORD" : "Lozinka",
+	"APP_LOGIN_TO" : "Uloguj se u",
+	"APP_LOGIN_CANCEL" : "Otkaži",
+	"APP_LOGIN_SUCCESS" : "Ulogovani ste",
+	"APP_LOGOUT_SUCCESS" : "Izlogovani ste",
+	"APP_LOGIN_BAD": "Korisničko ime ili lozinka su neispravni"
+}

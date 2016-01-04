@@ -1,4 +1,4 @@
-savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, userService) {
+savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, userService, $translate) {
 
 	toastr.options.closeButton = true;
 	toastr.options.positionClass = "toast-top-center";
@@ -40,7 +40,7 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 			// Login was performed ///
 			// TODO: what now? reload user, or simply re-load page?
 			$scope.loadUser();
-			toastr.success('Are you logged in');
+			$translate('APP_LOGIN_SUCCESS').then(function(text) {toastr.success(text);});
 		}, function() {
 			$log.info('Login dismissed at: ' + new Date());
 		});
@@ -50,7 +50,7 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 		$http.get('/logout').then(function successCallback(response) {
 			userService.setUser(null);
 			userService.setLoggedIn(false);
-			toastr.warning('Are you logged out');
+			$translate('APP_LOGOUT_SUCCESS').then(function(text) {toastr.warning(text);});
 			$location.path( "/" );
 		});
 	}
@@ -69,7 +69,7 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 });
 
 savet7App.controller('loginInstanceCtrl', function($scope, $http,
-		$uibModalInstance) {
+		$uibModalInstance, $translate) {
 	$scope.login = function() {
 // $uibModalInstance.close($scope.selected.item);
 		// alert($scope.username);
@@ -90,7 +90,8 @@ savet7App.controller('loginInstanceCtrl', function($scope, $http,
 			$uibModalInstance.close(1);
 		}, function errorCallback(response) {
 			// Login error, show message:
-			alert("Bad login!");
+			$translate('APP_LOGIN_BAD').then(function(text) {toastr.error(text);});
+			//alert("Bad login!");
 		});
 	};
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="savet7App">
 <head>
-<title>Savet7 app</title>
+<title>{{'APP_TITLE' | translate}}</title>
 
 <link rel="stylesheet" href="css/savet7.css"></link>
 <link rel="stylesheet" href="css/bootstrap.css"></link>
@@ -16,11 +16,14 @@
 <script src="js/ui-bootstrap-tpls-0.14.3.js"></script>
 <script src="js/toastr.js"></script>
 <script src="js/angular-spinners.min.js"></script>
+<script src="js/angular-translate.js"></script>
+<script src="js/angular-translate-loader-static-files.js"></script>
 
 <script src="js/savet7App.js"></script>
 <script src="js/controllers/buildingListCtrl.js"></script>
 <script src="js/services/userService.js"></script>
 <script src="js/controllers/userCtrl.js"></script>
+<script src="js/controllers/langCtrl.js"></script>
 
 <script src="js/directives/s7Building.js"></script>
 <script src="js/directives/s7Address.js"></script>
@@ -34,11 +37,11 @@
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 					aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> <span
+					<span class="sr-only">{{'APP_NAV_TOGGLE' | translate}}</span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Savet7</a>
+				<a class="navbar-brand" href="#">{{'APP_TITLE' | translate}}</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -69,8 +72,8 @@
 				</form>
 				 -->
 				<ul class="nav navbar-nav navbar-right">
-					<li ng-if="!loggedIn"><a href="" ng-click="login()">Login</a></li>
-					<li ng-if="loggedIn"><a href="" ng-click="logout()">Logout</a></li>
+					<li ng-if="!loggedIn"><a href="" ng-click="login()">{{'APP_LOGIN_LOGIN' | translate}}</a></li>
+					<li ng-if="loggedIn"><a href="" ng-click="logout()">{{'APP_LOGIN_LOGOUT' | translate}}</a></li>
 				
 					<!-- <li ng-if="loggedIn" class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -94,7 +97,17 @@
  -->				
  
  					</ul>
-				<p class="navbar-text navbar-right" ng-if="loggedIn">Logged in as: <b>{{user.username}}</b></p>
+				<p class="navbar-text navbar-right" ng-if="loggedIn">{{'APP_LOGIN_AS' | translate}} <b>{{user.username}}</b></p>
+				<ul class="nav navbar-nav navbar-right" ng-controller="langCtrl">
+<!-- 					<li class="navbar-text">{{'APP_LANGUAGE' | translate }}:</li> -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">{{'APP_LANG_CURRENT' | translate}}<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-class="{active : langData.langCd == 'en'}"><a ng-click="useLang('en')">{{'APP_LANG_ENGLISH' | translate}}</a></li>
+							<li ng-class="{active : langData.langCd == 'rs'}"><a ng-click="useLang('rs')">{{'APP_LANG_SERBIAN' | translate}}</a></li>
+						</ul></li>
+				</ul>
 
 			</div>
 			<!-- /.navbar-collapse -->

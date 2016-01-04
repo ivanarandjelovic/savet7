@@ -1,0 +1,18 @@
+{
+	"APP_TITLE" : "Savet7",
+	"APP_LANGUAGE" : "Language {{langCd}}",
+	"APP_LANG_CURRENT" : "English",
+	"APP_LANG_ENGLISH" : "English",
+	"APP_LANG_SERBIAN" : "Serbian",
+	"APP_LOGIN_AS" : "Logged in as:",
+	"APP_LOGIN_LOGIN" : "Login",
+	"APP_LOGIN_LOGOUT" : "Logout",
+	"APP_NAV_TOGGLE" : "Toggle navigation",
+	"APP_LOGIN_USERNAME" : "Username",
+	"APP_LOGIN_PASSWORD" : "Password",
+	"APP_LOGIN_TO" : "Login to",
+	"APP_LOGIN_CANCEL" : "Cancel",
+	"APP_LOGIN_SUCCESS" : "Are you logged in",
+	"APP_LOGOUT_SUCCESS" : "You have been logged out",
+	"APP_LOGIN_BAD": "Invalid username or password"
+}
