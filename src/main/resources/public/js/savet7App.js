@@ -1,5 +1,5 @@
 var savet7App = angular.module('savet7App', [ 'ngRoute', 'ui.bootstrap',
-		'angularSpinners', 'pascalprecht.translate' ]);
+		'angularSpinners', 'pascalprecht.translate', 'ngSanitize' ]);
 
 // Routes:
 
@@ -39,5 +39,6 @@ savet7App.config(['$translateProvider', function($translateProvider) {
 	    suffix: '.json'
 	});
 	$translateProvider.preferredLanguage('en');
+	$translateProvider.useSanitizeValueStrategy('escape');
 }]);
 
