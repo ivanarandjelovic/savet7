@@ -56,6 +56,8 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http,
 savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 		$location) {
 
+	$scope.showFormError = false;
+
 	if ($routeParams.buildingId === undefined) {
 		$scope.adding = true;
 		$scope.building = {};
@@ -75,6 +77,7 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 		$scope.submitted = true;
 		
 		if ($scope.buildingForm.$valid) {
+			$scope.showFormError = false;
 			if ($scope.adding) {
 				$http.post('/api/buildings/', $scope.building).then(
 						function successCallback(response) {
@@ -92,7 +95,9 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams,
 						});
 			}
 		} else {
-			alert("form invalid!");
+//			alert("form invalid!");
+			$scope.showFormError = true;
+
 		}
 	};
 
