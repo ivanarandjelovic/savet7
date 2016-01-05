@@ -1,29 +1,29 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Building details</h3>
+		<h3 class="panel-title">{{'BUILDING_DETAILS' | translate}}</h3>
 		
 	</div>
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-sm-2 text-right">
-				<strong>Id:</strong>
+				<strong>{{'EDIT_BUILDING_ID' | translate}}:</strong>
 			</div>
 			<div class="col-sm-10">{{building.id}}</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-2 text-right">
-				<strong>Name:</strong>
+				<strong>{{'EDIT_BUILDING_NAME' | translate}}:</strong>
 			</div>
 			<div class="col-sm-10">{{building.name}}</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-2 text-right">
-				<strong>Address:</strong>
+				<strong>{{'ADDRESS' | translate}}:</strong>
 			</div>
 			<div class="col-sm-10"><s7-address address="building.address"/></div>
 		</div>
-		<a class="btn btn-default" href="#/buildings">Back</a>
-		<button class="btn btn-primary pull-right" ng-click="edit()"><span class="glyphicon glyphicon-edit"/> Edit</button>
+		<a class="btn btn-default" href="#/buildings">{{'APP_BACK' | translate}}</a>
+		<button class="btn btn-primary pull-right" ng-click="edit()"><span class="glyphicon glyphicon-edit"/> {{'APP_EDIT' | translate}}</button>
 	</div>
 </div>
 

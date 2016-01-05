@@ -1,5 +1,6 @@
-var savet7App = angular.module('savet7App', [ 'ngRoute', 'ui.bootstrap',
-		'angularSpinners', 'pascalprecht.translate', 'ngSanitize' ]);
+var savet7App = angular.module('savet7App',
+		[ 'ngRoute', 'ui.bootstrap', 'angularSpinners',
+				'pascalprecht.translate', 'ngSanitize', 'ngCookies' ]);
 
 // Routes:
 
@@ -22,23 +23,22 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 } ]);
 
 /*
-	 * .run(function($rootScope, $location, spinnerService, $log) {
-	 * $rootScope.$on("$routeChangeStart", function(event, next, current) {
-	 * spinnerService.show('s7Spinner'); $log.debug("Route change start"); });
-	 * $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
-	 * spinnerService.hide('s7Spinner'); $log.debug("Route change success"); });
-	 * $rootScope.$on("$routeChangeError", function(event, next, current) {
-	 * spinnerService.hide('s7Spinner'); $log.debug("Route change error"); }); })
-	 */
+ * .run(function($rootScope, $location, spinnerService, $log) {
+ * $rootScope.$on("$routeChangeStart", function(event, next, current) {
+ * spinnerService.show('s7Spinner'); $log.debug("Route change start"); });
+ * $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
+ * spinnerService.hide('s7Spinner'); $log.debug("Route change success"); });
+ * $rootScope.$on("$routeChangeError", function(event, next, current) {
+ * spinnerService.hide('s7Spinner'); $log.debug("Route change error"); }); })
+ */
 
 // Translations:
-
-savet7App.config(['$translateProvider', function($translateProvider) {
+savet7App.config([ '$translateProvider', function($translateProvider) {
 	$translateProvider.useStaticFilesLoader({
-	    prefix: '/translations/',
-	    suffix: '.json'
+		prefix : '/translations/',
+		suffix : '.json'
 	});
 	$translateProvider.preferredLanguage('en');
 	$translateProvider.useSanitizeValueStrategy('escape');
-}]);
-
+	$translateProvider.useLocalStorage();
+} ]);

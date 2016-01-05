@@ -1,13 +1,13 @@
 
-<h3>Building list</h3>
+<h3>{{'BUILDING_LIST' | translate}}</h3>
 
-<a ng-show="loggedIn" href="#/addBuilding" class="btn btn-primary">Add building</a>
+<a ng-show="loggedIn" href="#/addBuilding" class="btn btn-primary">{{'ADD_BUILDING' | translate}}</a>
 
 
 <div ng-repeat="building in buildings">
 	<s7-building building="building" />
 </div>
 
-<span ng-if="!loggedIn">Not logged in.</span>
+<span ng-if="!loggedIn">{{'APP_NOT_LOGGED_IN' | translate}}</span>
 
 
