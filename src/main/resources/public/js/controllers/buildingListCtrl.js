@@ -32,9 +32,9 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService, $l
 	// END Common part to make all controller user-aware
 
 	// re-load buildings when we login
-	$scope.$watch('loggedIn', function(loggedIn) {
+/*	$scope.$watch('loggedIn', function(loggedIn) {
 		$scope.loadBuildings()
-	}, true);
+	});*/
 
 	$scope.addBuilding = function() {
 		$location.path("/addBuilding/");

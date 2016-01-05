@@ -1,4 +1,4 @@
-savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, userService, $translate) {
+savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, $routeParams, $route, userService, $translate) {
 
 	toastr.options.closeButton = true;
 	toastr.options.positionClass = "toast-top-center";
@@ -14,6 +14,8 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 				userService.setLoggedIn(true);
 				userService.setUser(user);
 			}
+			// Maybe it's good to refresh current view
+			$route.reload();
 		}, function errorCallback(response) {
 			if (response.status === 401) {
 				// we are not logged in
@@ -21,6 +23,8 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 				userService.setLoggedIn(false);
 				userService.setUser(null);
 			}
+			// Maybe it's good to refresh current view
+			$route.reload();
 		});
 	}
 	
@@ -41,6 +45,9 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 			// TODO: what now? reload user, or simply re-load page?
 			$scope.loadUser();
 			$translate('APP_LOGIN_SUCCESS').then(function(text) {toastr.success(text);});
+			$location.path( "/" );
+
+			
 		}, function() {
 			$log.info('Login dismissed at: ' + new Date());
 		});
