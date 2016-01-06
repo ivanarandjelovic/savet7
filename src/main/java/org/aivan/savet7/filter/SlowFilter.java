@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SlowFilter implements javax.servlet.Filter {
 
-	private static final long SLOW_DOWN_MS = 500;
+	private static final long SLOW_DOWN_MS = 1000;
 
 	public FilterConfig filterConfig;
 
