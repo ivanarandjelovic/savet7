@@ -20,17 +20,21 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 	}).otherwise({
 		redirectTo : '/buildings'
 	});
-} ]);
-
-/*
- * .run(function($rootScope, $location, spinnerService, $log) {
- * $rootScope.$on("$routeChangeStart", function(event, next, current) {
- * spinnerService.show('s7Spinner'); $log.debug("Route change start"); });
- * $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
- * spinnerService.hide('s7Spinner'); $log.debug("Route change success"); });
- * $rootScope.$on("$routeChangeError", function(event, next, current) {
- * spinnerService.hide('s7Spinner'); $log.debug("Route change error"); }); })
- */
+} ]).run(function($rootScope, $location, waitService, $log) {
+	$rootScope.$on("$routeChangeStart", function(event, next, current) {
+		waitService.showWait();
+		// $log.debug("Route change start");
+	});
+	$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
+		waitService.hideWait();
+		// $log.debug("Route change success");
+	});
+	$rootScope.$on("$routeChangeError", function(event, next, current) {
+		waitService.hideWait();
+		// $log.debug("Route change error");
+	});
+});
+;
 
 // Translations:
 savet7App.config([ '$translateProvider', function($translateProvider) {
@@ -42,3 +46,4 @@ savet7App.config([ '$translateProvider', function($translateProvider) {
 	$translateProvider.useSanitizeValueStrategy('escape');
 	$translateProvider.useLocalStorage();
 } ]);
+

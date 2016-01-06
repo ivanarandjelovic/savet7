@@ -20,12 +20,12 @@ public class Savet7Main extends SpringBootServletInitializer {
 		SpringApplication.run(Savet7Main.class, args);
 	}
 
-/*	@Bean
-	public FilterRegistrationBean filterRegistrationBean() {
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		SlowFilter slowFilter = new SlowFilter();
-		registrationBean.setFilter(slowFilter);
-		registrationBean.setOrder(1);
-		return registrationBean;
-	}*/
+//	@Bean
+//	public FilterRegistrationBean filterRegistrationBean() {
+//		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//		SlowFilter slowFilter = new SlowFilter();
+//		registrationBean.setFilter(slowFilter);
+//		registrationBean.setOrder(1);
+//		return registrationBean;
+//	}
 }

@@ -1,4 +1,4 @@
-savet7App.controller('buildingListCtrl', function($scope, $http, userService, $log, spinnerService) {
+savet7App.controller('buildingListCtrl', function($scope, $http, userService, $log) {
 
 	//spinnerService.show('s7Spinner');
 	
@@ -6,14 +6,17 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService, $l
 
 	$scope.loadBuildings = function() {
 		if (userService.isLoggedIn() === true) {
+			//waitService.showWait();
 			$http.get('/api/buildings').then(
 					function successCallback(response) {
 						$scope.buildings = response.data._embedded.buildings;
+						//waitService.hideWait();
 					}, function errorCallback(response) {
 						if (response.status === 401) {
 							// we are not logged in
 							// TODO ...
 						}
+						//waitService.hideWait();
 					});
 		}
 	};
