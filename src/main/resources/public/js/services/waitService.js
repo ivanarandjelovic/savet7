@@ -77,6 +77,13 @@ savet7App.factory('waitServiceInterceptor', function($log, waitService) {
 			}
 			return config;
 		},
+		requestError : function(rejection) {
+			if (rejection.config.url.indexOf('/api/') >= 0) {
+				// $log.debug("intercepted response: " + response.config.url);
+				waitService.hideWait();
+			}
+			return rejection;
+		},
 		response : function(response) {
 			if (response.config.url.indexOf('/api/') >= 0) {
 				// $log.debug("intercepted response: " + response.config.url);
