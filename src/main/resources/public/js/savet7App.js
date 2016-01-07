@@ -17,6 +17,9 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
 	}).when('/addBuilding', {
 		templateUrl : 'partials/edit-building.html',
 		controller : 'editBuildingCtrl'
+	}).when('/editAddress/:addressId?/:buildingId', {
+		templateUrl : 'partials/edit-address.html',
+		controller : 'editAddressCtrl'
 	}).otherwise({
 		redirectTo : '/buildings'
 	});
@@ -45,5 +48,6 @@ savet7App.config([ '$translateProvider', function($translateProvider) {
 	$translateProvider.preferredLanguage('en');
 	$translateProvider.useSanitizeValueStrategy('escape');
 	$translateProvider.useLocalStorage();
+	$translateProvider.fallbackLanguage('en');
 } ]);
 

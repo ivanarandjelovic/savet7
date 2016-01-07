@@ -1,12 +1,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{'BUILDING_DETAILS' | translate}}</h3>
-		
+
 	</div>
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-sm-2 text-right">
-				<strong>{{'EDIT_BUILDING_ID' | translate}}:</strong>
+				<strong>{{'EDIT_ID' | translate}}:</strong>
 			</div>
 			<div class="col-sm-10">{{building.id}}</div>
 		</div>
@@ -20,10 +20,21 @@
 			<div class="col-sm-2 text-right">
 				<strong>{{'ADDRESS' | translate}}:</strong>
 			</div>
-			<div class="col-sm-10"><s7-address address="building.address"/></div>
+			<div class="col-sm-8">
+				<s7-address address="building.address" />
+			</div>
+			<div class="col-sm-2">
+				<button class="btn btn-primary pull-right" ng-click="editAddress()">
+					<span class="glyphicon glyphicon-edit" /> {{'APP_EDIT_ADDRESS' |
+					translate}}
+				</button>
+			</div>
 		</div>
-		<a class="btn btn-default" href="#/buildings">{{'APP_BACK' | translate}}</a>
-		<button class="btn btn-primary pull-right" ng-click="edit()"><span class="glyphicon glyphicon-edit"/> {{'APP_EDIT' | translate}}</button>
+		<a class="btn btn-default" href="#/buildings">{{'APP_BACK' |
+			translate}}</a>
+		<button class="btn btn-primary pull-right" ng-click="edit()">
+			<span class="glyphicon glyphicon-edit" /> {{'APP_EDIT' | translate}}
+		</button>
 	</div>
 </div>
 

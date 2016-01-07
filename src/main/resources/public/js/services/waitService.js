@@ -71,28 +71,28 @@ savet7App.factory('waitServiceInterceptor', function($log, waitService) {
 
 	var waitServiceInterceptor = {
 		request : function(config) {
-			if (config.url.indexOf('/api/') >= 0) {
+			if (config.url!== undefined && config.url.indexOf('/api/') >= 0) {
 				// $log.debug("intercepted request: " + config.url);
 				waitService.showWait();
 			}
 			return config;
 		},
 		requestError : function(rejection) {
-			if (rejection.config.url.indexOf('/api/') >= 0) {
+			if (rejection.config!== v && rejection.config.url!== undefined && rejection.config.url.indexOf('/api/') >= 0) {
 				// $log.debug("intercepted response: " + response.config.url);
 				waitService.hideWait();
 			}
 			return rejection;
 		},
 		response : function(response) {
-			if (response.config.url.indexOf('/api/') >= 0) {
+			if (response.config.url!== undefined && response.config.url.indexOf('/api/') >= 0) {
 				// $log.debug("intercepted response: " + response.config.url);
 				waitService.hideWait();
 			}
 			return response;
 		},
 		responseError : function(rejection) {
-			if (rejection.config.url.indexOf('/api/') >= 0) {
+			if (rejection.config!== undefined && rejection.config.url!== undefined && rejection.config.url.indexOf('/api/') >= 0) {
 				// $log.debug("intercepted response: " + response.config.url);
 				waitService.hideWait();
 			}
