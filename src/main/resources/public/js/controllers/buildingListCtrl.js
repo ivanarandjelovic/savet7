@@ -4,11 +4,22 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService, $l
 
 	// $log.debug("buildingListCtrl start");
 
+	$scope.currentPage = 1;
+	$scope.totalPages = 0;
+	$scope.totalItems = 0;
+	$scope.itemsPerPage = 0;
+	
 	$scope.loadBuildings = function() {
 		if (userService.isLoggedIn() === true) {
 			// waitService.showWait();
-			$http.get('/api/buildings').then(function successCallback(response) {
+			var paging = "";
+			paging = "?page="+($scope.currentPage - 1);
+			$http.get('/api/buildings'+paging).then(function successCallback(response) {
 				$scope.buildings = response.data._embedded.buildings;
+				$scope.currentPage = response.data.page.number + 1;
+				$scope.totalPages = response.data.page.totalPages;
+				$scope.totalItems = response.data.page.totalElements;
+				$scope.itemsPerPage = response.data.page.size;
 				// waitService.hideWait();
 			}, function errorCallback(response) {
 				if (response.status === 401) {
@@ -45,6 +56,9 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService, $l
 	// $log.debug("buildingListCtrl end");
 
 	// spinnerService.hide('s7Spinner');
+	$scope.pageChanged = function() {
+		$scope.loadBuildings();
+	}
 });
 
 savet7App.controller('buildingDetailCtrl', function($scope, $http, $routeParams, $location) {

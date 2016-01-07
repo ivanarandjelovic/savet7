@@ -1,12 +1,24 @@
 
 <h3>{{'BUILDING_LIST' | translate}}</h3>
 
-<a ng-show="loggedIn" href="#/addBuilding" class="btn btn-primary">{{'ADD_BUILDING' | translate}}</a>
+<div>
+	<a ng-show="loggedIn" href="#/addBuilding" class="btn btn-primary">{{'ADD_BUILDING'
+		| translate}}</a>
+</div>
 
+<uib-pagination ng-change="pageChanged()" total-items="totalItems"
+	ng-model="currentPage" max-size="5" class="pagination-sm"
+	boundary-links="true" rotate="false" num-pages="totalPages"
+	items-per-page="itemsPerPage"></uib-pagination>
 
 <div ng-repeat="building in buildings">
 	<s7-building building="building" />
 </div>
+
+<uib-pagination ng-change="pageChanged()" total-items="totalItems"
+	ng-model="currentPage" max-size="5" class="pagination-sm"
+	boundary-links="true" rotate="false" num-pages="totalPages"
+	items-per-page="itemsPerPage"></uib-pagination>
 
 <span ng-if="!loggedIn">{{'APP_NOT_LOGGED_IN' | translate}}</span>
 
