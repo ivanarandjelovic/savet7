@@ -1,14 +1,15 @@
-savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, $routeParams, $route, userService, $translate) {
+savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $location, $routeParams, $route, userService,
+		$translate) {
 
 	toastr.options.closeButton = true;
 	toastr.options.positionClass = "toast-top-center";
-	
+
 	$scope.loggedIn = false;
-	
+
 	$scope.loadUser = function() {
 		$http.get('/userService/get').then(function successCallback(response) {
 			var user = response.data;
-			if(user.username === null) {
+			if (user.username === null) {
 				userService.setLoggedIn(false);
 			} else {
 				userService.setLoggedIn(true);
@@ -27,9 +28,9 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 			$route.reload();
 		});
 	}
-	
+
 	$scope.login = function() {
-		
+
 		var modalInstance = $uibModal.open({
 			animation : true,
 			templateUrl : 'partials/login-form.html',
@@ -44,10 +45,11 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 			// Login was performed ///
 			// TODO: what now? reload user, or simply re-load page?
 			$scope.loadUser();
-			$translate('APP_LOGIN_SUCCESS').then(function(text) {toastr.success(text);});
-			$location.path( "/" );
+			$translate('APP_LOGIN_SUCCESS').then(function(text) {
+				toastr.success(text);
+			});
+			$location.path("/");
 
-			
 		}, function() {
 			$log.info('Login dismissed at: ' + new Date());
 		});
@@ -57,48 +59,51 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $log, $locat
 		$http.get('/logout').then(function successCallback(response) {
 			userService.setUser(null);
 			userService.setLoggedIn(false);
-			$translate('APP_LOGOUT_SUCCESS').then(function(text) {toastr.warning(text);});
-			$location.path( "/" );
+			$translate('APP_LOGOUT_SUCCESS').then(function(text) {
+				toastr.warning(text);
+			});
+			$location.path("/");
 		});
 	}
-	
+
 	$scope.loadUser();
-	
+
 	// Common part to make all controller user-aware
-    $scope.loggedIn = userService.isLoggedIn();
+	$scope.loggedIn = userService.isLoggedIn();
 	$scope.user = userService.getUser();
-	$scope.$watch( userService.isLoggedIn, function ( loggedIn ) {
-	    $scope.loggedIn = loggedIn;
-	    $scope.user = userService.getUser();
-	  }, true);
+	$scope.$watch(userService.isLoggedIn, function(loggedIn) {
+		$scope.loggedIn = loggedIn;
+		$scope.user = userService.getUser();
+	}, true);
 	// END Common part to make all controller user-aware
-	
+
 });
 
-savet7App.controller('loginInstanceCtrl', function($scope, $http,
-		$uibModalInstance, $translate) {
+savet7App.controller('loginInstanceCtrl', function($scope, $http, $uibModalInstance, $translate) {
 	$scope.login = function() {
-// $uibModalInstance.close($scope.selected.item);
+		// $uibModalInstance.close($scope.selected.item);
 		// alert($scope.username);
 		// alert($scope.password);
-        var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-            };
-        
-        var data = $.param({
-        	username: $scope.username,
-        	password: $scope.password
-        });
-        
-		$http.post('/login',data, config).then(function successCallback(response) {
+		var config = {
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8;'
+			}
+		};
+
+		var data = $.param({
+			username : $scope.username,
+			password : $scope.password
+		});
+
+		$http.post('/login', data, config).then(function successCallback(response) {
 			// Yup, we are logged in
 			$uibModalInstance.close(1);
 		}, function errorCallback(response) {
 			// Login error, show message:
-			$translate('APP_LOGIN_BAD').then(function(text) {toastr.error(text);});
-			//alert("Bad login!");
+			$translate('APP_LOGIN_BAD').then(function(text) {
+				toastr.error(text);
+			});
+			// alert("Bad login!");
 		});
 	};
 

@@ -2,22 +2,22 @@
 savet7App.factory('userService', function($http, $uibModal, $log, $location) {
 
 	var userServiceState = {
-			loggedIn : false,
-			user: null,
+		loggedIn : false,
+		user : null,
 	}
-	
+
 	return {
-		isLoggedIn: function() {
+		isLoggedIn : function() {
 			return userServiceState.loggedIn;
 		},
-		getUser: function() {
+		getUser : function() {
 			return userServiceState.user;
 		},
-		
-		setLoggedIn: function(isLoggedIn) {
+
+		setLoggedIn : function(isLoggedIn) {
 			userServiceState.loggedIn = isLoggedIn;
 		},
-		setUser: function(user) {
+		setUser : function(user) {
 			userServiceState.user = user;
 		}
 	}

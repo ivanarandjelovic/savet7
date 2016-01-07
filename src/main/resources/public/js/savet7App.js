@@ -1,6 +1,5 @@
-var savet7App = angular.module('savet7App',
-		[ 'ngRoute', 'ui.bootstrap', 'angularSpinners',
-				'pascalprecht.translate', 'ngSanitize', 'ngCookies' ]);
+var savet7App = angular.module('savet7App', [ 'ngRoute', 'ui.bootstrap', 'angularSpinners', 'pascalprecht.translate',
+		'ngSanitize', 'ngCookies' ]);
 
 // Routes:
 
@@ -50,4 +49,3 @@ savet7App.config([ '$translateProvider', function($translateProvider) {
 	$translateProvider.useLocalStorage();
 	$translateProvider.fallbackLanguage('en');
 } ]);
-

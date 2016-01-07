@@ -1,5 +1,4 @@
-savet7App.controller('buildingListCtrl', function($scope, $http, userService,
-		$log) {
+savet7App.controller('buildingListCtrl', function($scope, $http, userService, $log) {
 
 	// spinnerService.show('s7Spinner');
 
@@ -8,17 +7,16 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService,
 	$scope.loadBuildings = function() {
 		if (userService.isLoggedIn() === true) {
 			// waitService.showWait();
-			$http.get('/api/buildings').then(
-					function successCallback(response) {
-						$scope.buildings = response.data._embedded.buildings;
-						// waitService.hideWait();
-					}, function errorCallback(response) {
-						if (response.status === 401) {
-							// we are not logged in
-							// TODO ...
-						}
-						// waitService.hideWait();
-					});
+			$http.get('/api/buildings').then(function successCallback(response) {
+				$scope.buildings = response.data._embedded.buildings;
+				// waitService.hideWait();
+			}, function errorCallback(response) {
+				if (response.status === 401) {
+					// we are not logged in
+					// TODO ...
+				}
+				// waitService.hideWait();
+			});
 		}
 	};
 
@@ -49,12 +47,9 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService,
 	// spinnerService.hide('s7Spinner');
 });
 
-savet7App.controller('buildingDetailCtrl', function($scope, $http,
-		$routeParams, $location) {
+savet7App.controller('buildingDetailCtrl', function($scope, $http, $routeParams, $location) {
 
-	$http.get(
-			'/api/buildings/' + $routeParams.buildingId
-					+ '?projection=inlineAddress').success(function(data) {
+	$http.get('/api/buildings/' + $routeParams.buildingId + '?projection=inlineAddress').success(function(data) {
 		$scope.building = data;
 	});
 
@@ -64,8 +59,7 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http,
 
 	$scope.editAddress = function() {
 		if ($scope.building.address !== null) {
-			$location.path("/editAddress/" + $scope.building.address.id + "/"
-					+ $scope.building.id);
+			$location.path("/editAddress/" + $scope.building.address.id + "/" + $scope.building.id);
 		} else {
 			$location.path("/editAddress//" + $scope.building.id);
 		}
@@ -73,80 +67,64 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http,
 
 });
 
-savet7App
-		.controller(
-				'editBuildingCtrl',
-				function($scope, $http, $routeParams, $location, $log) {
+savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $location, $log) {
 
-					// $log.debug("editBuildingCtrl start");
+	// $log.debug("editBuildingCtrl start");
 
-					$scope.showFormError = false;
+	$scope.showFormError = false;
 
-					if ($routeParams.buildingId === undefined) {
-						$scope.adding = true;
-						$scope.building = {};
-					} else {
-						$scope.adding = false;
-					}
+	if ($routeParams.buildingId === undefined) {
+		$scope.adding = true;
+		$scope.building = {};
+	} else {
+		$scope.adding = false;
+	}
 
-					if (!$scope.adding) {
-						$http.get('/api/buildings/' + $routeParams.buildingId)
-								.success(function(data) {
-									$scope.building = data;
-								});
-					}
+	if (!$scope.adding) {
+		$http.get('/api/buildings/' + $routeParams.buildingId).success(function(data) {
+			$scope.building = data;
+		});
+	}
 
-					$scope.submit = function() {
+	$scope.submit = function() {
 
-						$scope.submitted = true;
+		$scope.submitted = true;
 
-						if ($scope.buildingForm.$valid) {
-							$scope.showFormError = false;
-							if ($scope.adding) {
-								$http
-										.post('/api/buildings/',
-												$scope.building)
-										.then(
-												function successCallback(
-														response) {
-													$location
-															.path("/buildings/"
-																	+ response.data.id);
-												},
-												function errorCallback(response) {
-													alert('Creation failed!?');
-												});
-							} else {
-								$http.patch(
-										'/api/buildings/' + $scope.building.id,
-										$scope.building).then(
-										function successCallback(response) {
-											$location.path("/buildings/"
-													+ $scope.building.id);
-										}, function errorCallback(response) {
-											alert('Update failed!?');
-										});
-							}
-						} else {
-							// alert("form invalid!");
-							$scope.showFormError = true;
-
-						}
-					};
-
-					$scope.cancel = function() {
-						if ($scope.adding) {
-							$location.path("/buildings");
-						} else {
-							$location.path("/buildings/" + $scope.building.id);
-						}
-					};
-
-					$scope.showError = function(fieldName) {
-						return ($scope.buildingForm[fieldName].$invalid && $scope.buildingForm[fieldName].$touched)
-								|| ($scope.buildingForm[fieldName].$invalid && $scope.submitted);
-					};
-
-					// $log.debug("editBuildingCtrl end");
-
+		if ($scope.buildingForm.$valid) {
+			$scope.showFormError = false;
+			if ($scope.adding) {
+				$http.post('/api/buildings/', $scope.building).then(function successCallback(response) {
+					$location.path("/buildings/" + response.data.id);
+				}, function errorCallback(response) {
+					alert('Creation failed!?');
 				});
+			} else {
+				$http.patch('/api/buildings/' + $scope.building.id, $scope.building).then(function successCallback(response) {
+					$location.path("/buildings/" + $scope.building.id);
+				}, function errorCallback(response) {
+					alert('Update failed!?');
+				});
+			}
+		} else {
+			// alert("form invalid!");
+			$scope.showFormError = true;
+
+		}
+	};
+
+	$scope.cancel = function() {
+		if ($scope.adding) {
+			$location.path("/buildings");
+		} else {
+			$location.path("/buildings/" + $scope.building.id);
+		}
+	};
+
+	$scope.showError = function(fieldName) {
+		return ($scope.buildingForm[fieldName].$invalid && $scope.buildingForm[fieldName].$touched)
+				|| ($scope.buildingForm[fieldName].$invalid && $scope.submitted);
+	};
+
+	// $log.debug("editBuildingCtrl end");
+
+});
