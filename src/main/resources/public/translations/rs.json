@@ -37,5 +37,9 @@
 	"ADDRESS_POSTAL_CODE" : "Poštanski broj",
 	"ADDRESS_CITY" : "Grad",
 	"ADDRESS_STATE" : "Država",
-	"ADDRESS_COUNTRY" : "Zemlja"
+	"ADDRESS_COUNTRY" : "Zemlja",
+	"NAVIGATE_PREIVIOUS" : "Prethodna",
+	"NAVIGATE_NEXT": "Sledeća",
+	"NAVIGATE_FIRST" : "Prva",
+	"NAVIGATE_LAST" : "Poslednja"
 }

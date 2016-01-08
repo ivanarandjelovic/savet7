@@ -37,5 +37,9 @@
 	"ADDRESS_POSTAL_CODE" : "Postal code",
 	"ADDRESS_CITY" : "City",
 	"ADDRESS_STATE" : "State",
-	"ADDRESS_COUNTRY" : "Country"
+	"ADDRESS_COUNTRY" : "Country",
+	"NAVIGATE_PREIVIOUS" : "Previous",
+	"NAVIGATE_NEXT": "Next",
+	"NAVIGATE_FIRST" : "First",
+	"NAVIGATE_LAST" : "Last"
 }

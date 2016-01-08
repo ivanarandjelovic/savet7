@@ -6,19 +6,31 @@
 		| translate}}</a>
 </div>
 
-<uib-pagination ng-change="pageChanged()" total-items="totalItems"
-	ng-model="currentPage" max-size="5" class="pagination-sm"
-	boundary-links="true" rotate="false" num-pages="totalPages"
-	items-per-page="itemsPerPage"></uib-pagination>
+<uib-pagination ng-show="loggedIn" ng-change="pageChanged()"
+	total-items="totalItems" ng-model="currentPage" max-size="5"
+	class="pagination-sm" boundary-links="true" rotate="false"
+	num-pages="totalPages" items-per-page="itemsPerPage"
+	previous-text="{{'NAVIGATE_PREIVIOUS' | translate}}"
+	next-text="{{'NAVIGATE_NEXT' | translate}}"
+	first-text="{{'NAVIGATE_FIRST' | translate}}"
+	last-text="{{'NAVIGATE_LAST' | translate}}"></uib-pagination>
 
-<div ng-repeat="building in buildings">
-	<s7-building building="building" />
-</div>
+<table class="table table-striped">
+	<tr ng-show="loggedIn" ng-repeat="building in buildings">
+		<td><a href="#/buildings/{{building.id}}"><span>{{building.name}}</span></a>
+		</td>
+		<td><s7-address address="building.address" /></td>
+	</tr>
+</table>
 
-<uib-pagination ng-change="pageChanged()" total-items="totalItems"
-	ng-model="currentPage" max-size="5" class="pagination-sm"
-	boundary-links="true" rotate="false" num-pages="totalPages"
-	items-per-page="itemsPerPage"></uib-pagination>
+<uib-pagination ng-show="loggedIn" ng-change="pageChanged()"
+	total-items="totalItems" ng-model="currentPage" max-size="5"
+	class="pagination-sm" boundary-links="true" rotate="false"
+	num-pages="totalPages" items-per-page="itemsPerPage"
+	previous-text="{{'NAVIGATE_PREIVIOUS' | translate}}"
+	next-text="{{'NAVIGATE_NEXT' | translate}}"
+	first-text="{{'NAVIGATE_FIRST' | translate}}"
+	last-text="{{'NAVIGATE_LAST' | translate}}"></uib-pagination>
 
 <span ng-if="!loggedIn">{{'APP_NOT_LOGGED_IN' | translate}}</span>
 
