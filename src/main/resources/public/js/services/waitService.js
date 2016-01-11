@@ -2,11 +2,11 @@
 savet7App.factory('waitService', function(spinnerService, $log, $timeout) {
 
 	// Once shown, wait screen will be visible at least this much milliseconds.
-	var minWaitDurationTimeMs = 500;
+	var minWaitDurationTimeMs = 400;
 
 	// Wait show delay time. If request to hide comes sooner, we will not show
 	// wait screen at all
-	var delayDurationTimeMs = 100;
+	var delayDurationTimeMs = 200;
 
 	var state = {
 		showWait : 0,
