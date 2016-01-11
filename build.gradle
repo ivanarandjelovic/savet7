@@ -13,6 +13,16 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+    baseName = 'savet7'
+    version =  '0.0.1'
+}
+
+configurations {
+    providedRuntime
+}
 
 jar {
     baseName = 'savet7'

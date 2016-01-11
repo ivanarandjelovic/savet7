@@ -1,7 +1,7 @@
 package org.aivan.savet7;
 
 public class TestDataGenerator {
-	private static final int TEST_DATA_COUNT = 77;
+	private static final int TEST_DATA_COUNT = 177;
 
 	public static void main(String[] args) {
 		for (int i = 1; i <= TEST_DATA_COUNT; i++) {
