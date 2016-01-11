@@ -20,6 +20,10 @@ war {
     version =  '0.0.1'
 }
 
+task stage {
+  dependsOn war
+}
+
 configurations {
     providedRuntime
 }
