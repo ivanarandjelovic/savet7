@@ -1,4 +1,4 @@
-package org.aivan.savet7;
+package org.aivan.savet7.util;
 
 public class TestDataGenerator {
 	private static final int TEST_DATA_COUNT = 177;
