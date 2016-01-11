@@ -21,7 +21,7 @@ war {
 }
 
 task stage {
-  dependsOn war
+  dependsOn build
 }
 
 configurations {
