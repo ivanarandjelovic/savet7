@@ -103,6 +103,12 @@ public class BuildingRestControllerTest {
     }
 
     @Test
+    public void getBuildings() throws Exception {
+        this.mockMvc.perform(get("/api/buildings"))
+                .andExpect(jsonPath("$..name",hasSize(2)));
+    }
+    
+    @Test
     public void createBuilding() throws Exception {
         Building b1 = new Building();
         b1.setId(new Long(3));
@@ -167,7 +173,8 @@ public class BuildingRestControllerTest {
                 .andExpect(status().isCreated());
     }*/
 
-    protected String json(Object o) throws IOException {
+    @SuppressWarnings("unchecked")
+	protected String json(Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
