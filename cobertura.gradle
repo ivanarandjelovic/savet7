@@ -32,7 +32,7 @@ cobertura.doFirst  {
     'cobertura-instrument'(datafile: serFile) {
       fileset(dir: classes,
               includes:"**/*.class",
-              excludes:"**/*Test.class")
+              excludes:"**/Savet7Main.class,**/SlowFilter.class,**/config/*.class,**/*Test.class")
     }
   }
 }
