@@ -1,112 +1,40 @@
 package org.aivan.savet7.util;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.aivan.savet7.Savet7Main;
-import org.aivan.savet7.config.JpaConfiguration;
-import org.aivan.savet7.config.RepositoryConfig;
-import org.aivan.savet7.config.WebConfiguration;
-import org.aivan.savet7.model.Address;
-import org.aivan.savet7.model.Building;
-import org.aivan.savet7.model.User;
-import org.aivan.savet7.privateRepository.UserJpaRepository;
-import org.aivan.savet7.repository.AddressJpaRepository;
-import org.aivan.savet7.repository.BuildingJpaRepository;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.mock.http.MockHttpOutputMessage;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Savet7Main.class)
 @WebAppConfiguration   
-@IntegrationTest("server.port:0") 
-public class UserControllerTest {
+//@IntegrationTest("server.port:0") 
+public class UserControllerTest extends SecurityTest {
 
-	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-
-	private MediaType contentTypeForm = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
-			MediaType.APPLICATION_FORM_URLENCODED.getSubtype(), Charset.forName("utf8"));
-
-	private MockMvc mockMvc;
-
-	private String userName = "user";
-	private String userPassword = "user";
-
-	private User user;
-
-	private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-	@Autowired
-	private WebApplicationContext webApplicationContext;
-
-	@Autowired
-	private UserJpaRepository userRepository;
-
-	@Autowired
-	void setConverters(HttpMessageConverter<?>[] converters) {
-
-		this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
-				.filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().get();
-
-		Assert.assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
-	}
-
-	@Before
-	public void setup() throws Exception {
-		this.mockMvc =  MockMvcBuilders
-	            .webAppContextSetup(webApplicationContext)
-	            .apply(springSecurity())
-	            .build(); 
-				//webAppContextSetup(webApplicationContext).build();
-
-		userRepository.deleteAllInBatch();
-		
-		User u = new User();
-		u.setId(new Long(1));
-		u.setUsername(userName);
-		u.setPassword(userPassword);
-		u.setRole("ROLE_USER");
-		this.user = userRepository.save(u);
-
+	@Test
+	public void loginUser() throws Exception {
+		loginWithUser();
 	}
 
 	@Test
-	public void login() throws Exception {
-		this.mockMvc.perform(post("/login").contentType(contentTypeForm).param("username",userName).param("password",  userPassword)).andExpect(status().is2xxSuccessful());
+	public void loginAdmin() throws Exception {
+		loginWithAdmin();
 	}
 
+	@Test
+	public void loginWrongPassword() throws Exception {
+		mockMvc.perform(post("/login").contentType(contentTypeForm).param("username",adminName).param("password",  adminPassword+"xxx")).andExpect(status().isUnauthorized());
+	}
+	@Test
+	public void loginWrongUsername() throws Exception {
+		mockMvc.perform(post("/login").contentType(contentTypeForm).param("username",adminName+"xxx").param("password",  adminPassword)).andExpect(status().isUnauthorized());
+	}
+	
 /*	@Test
 	public void getAddresses() throws Exception {
 		this.mockMvc.perform(get("/api/addresses")).andExpect(jsonPath("$..street", hasSize(2)));
@@ -184,11 +112,4 @@ public class UserControllerTest {
 	 * .contentType(contentType) .content(bookmarkJson))
 	 * .andExpect(status().isCreated()); }
 	 */
-
-	@SuppressWarnings("unchecked")
-	protected String json(Object o) throws IOException {
-		MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-		this.mappingJackson2HttpMessageConverter.write(o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-		return mockHttpOutputMessage.getBodyAsString();
-	}
 }
