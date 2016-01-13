@@ -84,7 +84,7 @@ public abstract class SecurityTest {
 		a.setPassword(adminPassword);
 		a.setRole(adminRole);
 		this.admin = userRepository.save(a);
-		
+
 		assertEquals(admin.getRole(), adminRole);
 
 	}
@@ -97,10 +97,12 @@ public abstract class SecurityTest {
 	}
 
 	protected MockHttpSession loginWithUser() throws Exception {
-		HttpSession session = mockMvc.perform(
+		return createMockSession(mockMvc.perform(
 				post("/login").contentType(contentTypeForm).param("username", userName).param("password", userPassword))
-				.andExpect(status().isOk()).andReturn().getRequest().getSession();
+				.andExpect(status().isOk()).andReturn().getRequest().getSession());
+	}
 
+	protected MockHttpSession createMockSession(HttpSession session) {
 		MockHttpSession mockSession = new MockHttpSession();
 		Enumeration<String> sessAttrs = session.getAttributeNames();
 		while (sessAttrs.hasMoreElements()) {
@@ -111,9 +113,11 @@ public abstract class SecurityTest {
 		return mockSession;
 	}
 
-	protected HttpSession loginWithAdmin() throws Exception {
-		return mockMvc.perform(post("/login").contentType(contentTypeForm).param("username", adminName)
-				.param("password", adminPassword)).andExpect(status().isOk()).andReturn().getRequest().getSession();
+	protected MockHttpSession loginWithAdmin() throws Exception {
+
+		return createMockSession(mockMvc.perform(post("/login").contentType(contentTypeForm)
+				.param("username", adminName).param("password", adminPassword)).andExpect(status().isOk()).andReturn()
+				.getRequest().getSession());
 	}
 
 }

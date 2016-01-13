@@ -9,8 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.aivan.savet7.Savet7Main;
 import org.aivan.savet7.model.Address;
 import org.aivan.savet7.model.Building;

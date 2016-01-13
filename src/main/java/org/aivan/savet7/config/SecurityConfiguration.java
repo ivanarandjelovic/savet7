@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
+				.csrf().disable().authorizeRequests().antMatchers("/userService/admin/**").access("hasRole('ADMIN')").and()
 				.csrf().disable().authorizeRequests().antMatchers("/api/**")
 				.access("hasRole('USER') or hasRole('ADMIN')").and().logout().addLogoutHandler(logoutHandler).and()
 				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);

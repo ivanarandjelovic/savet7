@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.aivan.savet7.Savet7Main;
+import org.aivan.savet7.model.BaseUser;
+import org.aivan.savet7.model.Building;
+import org.aivan.savet7.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -19,6 +22,19 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration   
 //@IntegrationTest("server.port:0") 
 public class UserControllerTest extends SecurityTest {
+
+	BaseUser newUser;
+	
+	@Override
+	public void setup() throws Exception {
+		// TODO Auto-generated method stub
+		super.setup();
+		
+		 newUser = new BaseUser();
+		 newUser.setUsername("newUser");
+		 newUser.setPassword("newUserPassword");
+		 newUser.setRole("ROLE_USER");
+	}
 
 	@Test
 	public void loginUser() throws Exception {
@@ -49,6 +65,18 @@ public class UserControllerTest extends SecurityTest {
 	public void getUser() throws Exception {
 		MockHttpSession session = loginWithUser();
 		mockMvc.perform(get("/userService/get").session(session)).andExpect(jsonPath("$..username", hasSize(1)));
+	}
+	
+	@Test
+	public void adminCreateUser() throws Exception {
+		MockHttpSession session = loginWithAdmin();
+		mockMvc.perform(post("/userService/admin/create").session(session).content(json(newUser)).contentType(contentTypeJson)).andExpect(jsonPath("$..id", hasSize(1)));
+	}
+	
+	@Test
+	public void adminCreateUserAccessDenied() throws Exception {
+		MockHttpSession session = loginWithUser();
+		mockMvc.perform(post("/userService/admin/create").session(session).content(json(newUser))).andExpect(status().isForbidden());
 	}
 	
 /*	@Test
