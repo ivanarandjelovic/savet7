@@ -28,6 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -44,6 +45,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Savet7Main.class)
@@ -83,7 +85,11 @@ public class UserControllerTest {
 
 	@Before
 	public void setup() throws Exception {
-		this.mockMvc = webAppContextSetup(webApplicationContext).build();
+		this.mockMvc =  MockMvcBuilders
+	            .webAppContextSetup(webApplicationContext)
+	            .apply(springSecurity())
+	            .build(); 
+				//webAppContextSetup(webApplicationContext).build();
 
 		userRepository.deleteAllInBatch();
 		
@@ -91,13 +97,14 @@ public class UserControllerTest {
 		u.setId(new Long(1));
 		u.setUsername(userName);
 		u.setPassword(userPassword);
+		u.setRole("ROLE_USER");
 		this.user = userRepository.save(u);
 
 	}
 
 	@Test
 	public void login() throws Exception {
-		this.mockMvc.perform(post("/login").contentType(contentTypeForm).content("username="+userName+"&password="+userPassword)).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post("/login").contentType(contentTypeForm).param("username",userName).param("password",  userPassword)).andExpect(status().is2xxSuccessful());
 	}
 
 /*	@Test
