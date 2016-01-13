@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.junit.Assert.*;
+
 /**
  * Holds basic security related setup for other tests.
  * 
@@ -33,6 +35,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public abstract class SecurityTest {
 
+	private static final String adminRole = "ROLE_ADMIN";
+	private static final String userRole = "ROLE_USER";
 	protected MediaType contentTypeJson = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 	protected MediaType contentTypeForm = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
@@ -71,15 +75,17 @@ public abstract class SecurityTest {
 		u.setId(new Long(1));
 		u.setUsername(userName);
 		u.setPassword(userPassword);
-		u.setRole("ROLE_USER");
+		u.setRole(userRole);
 		this.user = userRepository.save(u);
 
 		User a = new User();
 		a.setId(new Long(2));
 		a.setUsername(adminName);
 		a.setPassword(adminPassword);
-		a.setRole("ROLE_ADMIN");
+		a.setRole(adminRole);
 		this.admin = userRepository.save(a);
+		
+		assertEquals(admin.getRole(), adminRole);
 
 	}
 

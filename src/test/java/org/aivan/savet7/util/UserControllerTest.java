@@ -1,12 +1,16 @@
 package org.aivan.savet7.util;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.aivan.savet7.Savet7Main;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -33,6 +37,18 @@ public class UserControllerTest extends SecurityTest {
 	@Test
 	public void loginWrongUsername() throws Exception {
 		mockMvc.perform(post("/login").contentType(contentTypeForm).param("username",adminName+"xxx").param("password",  adminPassword)).andExpect(status().isUnauthorized());
+	}
+	
+	@Test
+	public void logout() throws Exception {
+		MockHttpSession session = loginWithUser();
+		mockMvc.perform(post("/logout").session(session).contentType(contentTypeForm)).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getUser() throws Exception {
+		MockHttpSession session = loginWithUser();
+		mockMvc.perform(get("/userService/get").session(session)).andExpect(jsonPath("$..username", hasSize(1)));
 	}
 	
 /*	@Test

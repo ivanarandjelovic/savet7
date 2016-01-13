@@ -56,7 +56,7 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = JSON)
+/*	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = JSON)
 	public @ResponseBody String login(@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password) {
 		System.out.println("username=" + username + ", password=" + password);
@@ -81,6 +81,6 @@ public class UserController {
 		}
 
 		return result;
-	}
+	}*/
 
 }

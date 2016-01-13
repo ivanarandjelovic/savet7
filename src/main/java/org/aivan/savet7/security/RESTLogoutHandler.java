@@ -18,8 +18,8 @@ public class RESTLogoutHandler implements LogoutHandler {
 		try {
 			response.sendError(HttpServletResponse.SC_OK);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
