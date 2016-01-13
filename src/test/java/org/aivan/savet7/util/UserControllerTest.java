@@ -1,6 +1,9 @@
 package org.aivan.savet7.util;
 
 import org.aivan.savet7.Savet7Main;
+import org.aivan.savet7.config.JpaConfiguration;
+import org.aivan.savet7.config.RepositoryConfig;
+import org.aivan.savet7.config.WebConfiguration;
 import org.aivan.savet7.model.Address;
 import org.aivan.savet7.model.Building;
 import org.aivan.savet7.model.User;
@@ -12,12 +15,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,35 +46,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Savet7Main.class)
-@WebAppConfiguration
-public class BuildingRestControllerTest {
+@SpringApplicationConfiguration(Savet7Main.class)
+@WebAppConfiguration   
+@IntegrationTest("server.port:0") 
+public class UserControllerTest {
 
 	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
+	private MediaType contentTypeForm = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
+			MediaType.APPLICATION_FORM_URLENCODED.getSubtype(), Charset.forName("utf8"));
+
 	private MockMvc mockMvc;
 
 	private String userName = "user";
+	private String userPassword = "user";
 
 	private User user;
 
 	private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-	private List<Building> buildingList = new ArrayList<>();
-	private List<Address> addressList = new ArrayList<>();
-
-	@Autowired
-	private BuildingJpaRepository buildingRepository;
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
 	@Autowired
 	private UserJpaRepository userRepository;
-
-	@Autowired
-	private AddressJpaRepository addressRepository;
 
 	@Autowired
 	void setConverters(HttpMessageConverter<?>[] converters) {
@@ -82,57 +85,22 @@ public class BuildingRestControllerTest {
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-		this.buildingRepository.deleteAllInBatch();
-		this.addressRepository.deleteAllInBatch();
-
+		userRepository.deleteAllInBatch();
+		
 		User u = new User();
+		u.setId(new Long(1));
 		u.setUsername(userName);
-		u.setPassword("password");
+		u.setPassword(userPassword);
 		this.user = userRepository.save(u);
 
-		Building b1 = new Building();
-		b1.setId(new Long(1));
-		b1.setName("n1");
-
-		Building b2 = new Building();
-		b2.setId(new Long(2));
-		b2.setName("n2");
-
-		this.buildingList.add(buildingRepository.save(b1));
-		this.buildingList.add(buildingRepository.save(b2));
-
-		Address a1 = new Address();
-		a1.setId(new Long(1));
-		a1.setState("Street1");
-		a1.setNumber("n1");
-		a1.setApartment("a1");
-		a1.setPostalCode("pk1");
-		a1.setCity("c1");
-		a1.setState("s1");
-		a1.setCountry("c1");
-		
-		Address a2 = new Address();
-		a2.setId(new Long(2));
-		a2.setState("Street2");
-		a2.setNumber("n2");
-		a2.setApartment("a2");
-		a2.setPostalCode("pk2");
-		a2.setCity("c2");
-		a2.setState("s2");
-		a2.setCountry("c2");
-
-		this.addressList.add(addressRepository.save(a1));
-		this.addressList.add(addressRepository.save(a2));
-		
-		
 	}
 
 	@Test
-	public void getBuildings() throws Exception {
-		this.mockMvc.perform(get("/api/buildings")).andExpect(jsonPath("$..name", hasSize(2)));
+	public void login() throws Exception {
+		this.mockMvc.perform(post("/login").contentType(contentTypeForm).content("username="+userName+"&password="+userPassword)).andExpect(status().is2xxSuccessful());
 	}
 
-	@Test
+/*	@Test
 	public void getAddresses() throws Exception {
 		this.mockMvc.perform(get("/api/addresses")).andExpect(jsonPath("$..street", hasSize(2)));
 	}
@@ -171,7 +139,7 @@ public class BuildingRestControllerTest {
 		mockMvc.perform(get("/george/bookmarks/").content(this.json(new Building())).contentType(contentType))
 				.andExpect(status().isNotFound());
 	}
-
+*/
 	/*
 	 * @Test public void userNotFound() throws Exception {
 	 * mockMvc.perform(post("/george/bookmarks/") .content(this.json(new
