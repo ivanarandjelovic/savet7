@@ -21,7 +21,7 @@ public class RESTLogoutHandler implements LogoutHandler {
 			response.sendError(HttpServletResponse.SC_OK);
 		} catch (IOException e) {
 			log.warn("IOException when sending response code for successfull login", e);
-			throw new RuntimeException(e);
+			throw new SecurityException(e);
 		}
 	}
 

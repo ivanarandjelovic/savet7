@@ -29,33 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private RESTLogoutHandler logoutHandler;
 
-	/*
-	 * @Bean public AuthenticationManager authenticationManager() throws
-	 * Exception { return new AuthenticationManagerBuilder(new
-	 * NopPostProcessor())
-	 * .inMemoryAuthentication().withUser("user").password("password1").roles(
-	 * "USER") .and().and().build(); }
-	 */
-
 	@Autowired
 	private DatabaseUserDetailsService userDetailsService;
 
-	/*
-	 * @Bean public ProviderManager providerManager() {
-	 * List<AuthenticationProvider> authProviders = new
-	 * ArrayList<AuthenticationProvider>();
-	 * authProviders.add(DatabaseUserDetailsService); ProviderManager pm = new
-	 * ProviderManager( { userDetailsService}); retur pm }
-	 */
-
-	/*
-	 * private static class NopPostProcessor implements ObjectPostProcessor {
-	 * 
-	 * @Override
-	 * 
-	 * @SuppressWarnings("unchecked") public Object postProcess(Object object) {
-	 * return object; } };
-	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
@@ -63,28 +39,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// web.ignoring().antMatchers("/css/**", "/js/**", "/img/**",
-		// "/fonts/**", "/*.html", "/",
-		// "/partials/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
-				.csrf().disable().authorizeRequests().antMatchers("/userService/admin/**").access("hasRole('ADMIN')").and()
-				.csrf().disable().authorizeRequests().antMatchers("/api/**")
+				.csrf().disable().authorizeRequests().antMatchers("/userService/admin/**").access("hasRole('ADMIN')")
+				.and().csrf().disable().authorizeRequests().antMatchers("/api/**")
 				.access("hasRole('USER') or hasRole('ADMIN')").and().logout().addLogoutHandler(logoutHandler).and()
 				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
-		// http.authorizeRequests().antMatchers("/api/**").access("hasRole('USER')
-		// or hasRole('ADMIN')").and().csrf()
-		// .disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().formLogin()
-		// .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
-		// ;
 	}
 
-	/*
-	 * @Bean public DatabaseUserDetailsService userDetailsService() { return
-	 * userDetailsService; }
-	 */
 }
