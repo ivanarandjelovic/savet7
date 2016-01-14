@@ -26,10 +26,12 @@ public class SlowFilter implements javax.servlet.Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		// There is no need to save filterConfig
 	}
 
 	@Override
 	public void destroy() {
+		// Nothing to do here :)
 	}
 
 	/**
