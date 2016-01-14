@@ -58,15 +58,6 @@ public class BaseUser {
 		this.role = role;
 	}
 
-	public static BaseUser fromUser(User u) {
-		BaseUser bu = new BaseUser();
-		bu.setId(u.getId());
-		bu.setUsername(u.getUsername());
-		bu.setPassword(u.getPassword());
-		bu.setRole(u.getRole());
-		return bu;
-	}
-
 	public User toUser() {
 		User u = new User();
 		u.setId(getId());
