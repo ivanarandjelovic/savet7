@@ -74,7 +74,7 @@ public class UserController {
 
 		User newUser = userRepository.save(baseUser.toUser());
 		// do some things with json, put some header information in json
-		return BaseUser.fromUser(newUser);
+		return newUser;
 
 	}
 

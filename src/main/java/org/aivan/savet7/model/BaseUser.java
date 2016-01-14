@@ -1,19 +1,31 @@
 package org.aivan.savet7.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * Simple POJO user for admin operations
  * 
  * @author aivan
  *
  */
+@MappedSuperclass
 public class BaseUser {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 
+	@Column
 	String username;
+	@Column
 	String password;
+	@Column
 	String role;
-
+	
 	public Long getId() {
 		return id;
 	}
