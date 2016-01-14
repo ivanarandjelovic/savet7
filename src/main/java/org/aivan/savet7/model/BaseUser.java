@@ -54,7 +54,7 @@ public class BaseUser {
 		bu.setRole(u.getRole());
 		return bu;
 	}
-	
+
 	public User toUser() {
 		User u = new User();
 		u.setId(getId());
@@ -62,6 +62,6 @@ public class BaseUser {
 		u.setPassword(getPassword());
 		u.setRole(getRole());
 		return u;
-		
+
 	}
 }

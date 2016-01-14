@@ -66,7 +66,7 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		Collection<GrantedAuthority> authorities = new HashSet<>();
 		authorities.add(new SimpleGrantedAuthority(role));
 		return authorities;
 	}
