@@ -17,7 +17,6 @@ public class RESTLogoutHandler implements LogoutHandler {
 	
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-		// TODO Auto-generated method stub
 		try {
 			response.sendError(HttpServletResponse.SC_OK);
 		} catch (IOException e) {
