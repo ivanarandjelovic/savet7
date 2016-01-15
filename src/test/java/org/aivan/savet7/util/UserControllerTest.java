@@ -1,7 +1,8 @@
 package org.aivan.savet7.util;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -66,7 +67,12 @@ public class UserControllerTest extends SecurityTest {
 	@Test
 	public void getUser() throws Exception {
 		MockHttpSession session = loginWithUser();
-		mockMvc.perform(get("/userService/get").session(session)).andExpect(jsonPath("$..username", hasSize(1)));
+		mockMvc.perform(get("/userService/get").session(session)).andExpect(jsonPath("$.username", notNullValue()));
+	}
+
+	@Test
+	public void getUserNotLoggedIn() throws Exception {
+		mockMvc.perform(get("/userService/get")).andExpect(jsonPath("$.username", nullValue()));
 	}
 
 	@Test

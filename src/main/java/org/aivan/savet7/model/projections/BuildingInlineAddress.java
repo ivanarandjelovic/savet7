@@ -7,9 +7,9 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(name = "inlineAddress", types = { Building.class })
 public interface BuildingInlineAddress {
 
-	Long getId();
+    Long getId();
 
-	String getName();
+    String getName();
 
-	Address getAddress();
+    Address getAddress();
 }

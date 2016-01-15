@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource(excerptProjection = BuildingInlineAddress.class)
 public interface BuildingJpaRepository extends JpaRepository<Building, Long> {
-	List<Building> findByNameLike(@Param("name") String name);
+    List<Building> findByNameLike(@Param("name") String name);
 }

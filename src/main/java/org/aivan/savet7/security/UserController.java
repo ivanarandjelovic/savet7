@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.aivan.savet7.security.JsonParsingException;;
+import org.aivan.savet7.security.JsonParsingException;
 
 /**
  * Provides REST access to the user login service (and others)
@@ -30,54 +30,52 @@ import org.aivan.savet7.security.JsonParsingException;;
 @RequestMapping(value = "/userService", produces = "application/json; charset=utf-8")
 public class UserController {
 
-	public static final String JSON = "application/json; charset=utf-8";
+    public static final String JSON = "application/json; charset=utf-8";
 
-	@Autowired
-	@Qualifier("authenticationManager")
-	protected AuthenticationManager authenticationManager;
+    @Autowired
+    @Qualifier("authenticationManager")
+    protected AuthenticationManager authenticationManager;
 
-	@Autowired
-	private UserJpaRepository userRepository;
+    @Autowired
+    private UserJpaRepository userRepository;
 
-	@RequestMapping(value = "/get", method = RequestMethod.GET, produces = JSON)
-	public @ResponseBody UserBean get() {
+    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = JSON)
+    public @ResponseBody UserBean get() {
 
-		UserBean user = new UserBean();
+        UserBean user = new UserBean();
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		if (auth != null) {
+        if (auth != null) {
 
-			Object principal = auth.getPrincipal();
+            Object principal = auth.getPrincipal();
 
-			if (principal instanceof UserDetails) {
+            if (principal instanceof UserDetails) {
 
-				UserDetails userDetails = (UserDetails) principal;
-				user.setUsername(userDetails.getUsername());
-				// TODO: add some more properties to User, if needed (by reading
-				// from user service maybe).
+                UserDetails userDetails = (UserDetails) principal;
+                user.setUsername(userDetails.getUsername());
 
-			}
-		}
+            }
+        }
 
-		return user;
-	}
+        return user;
+    }
 
-	@RequestMapping(value = "/admin/create", method = RequestMethod.POST, produces = JSON, consumes = JSON)
-	public @ResponseBody BaseUser createUser(@RequestBody String json) throws JsonParsingException {
+    @RequestMapping(value = "/admin/create", method = RequestMethod.POST, produces = JSON, consumes = JSON)
+    public @ResponseBody BaseUser createUser(@RequestBody String json) throws JsonParsingException {
 
-		BaseUser baseUser;
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			baseUser = mapper.readValue(json, BaseUser.class);
-		} catch (IOException e) {
-			throw new JsonParsingException("Unable to parse JSON request data",e);
-		}
+        BaseUser baseUser;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            baseUser = mapper.readValue(json, BaseUser.class);
+        } catch (IOException e) {
+            throw new JsonParsingException("Unable to parse JSON request data", e);
+        }
 
-		User newUser = userRepository.save(baseUser.toUser());
-		// do some things with json, put some header information in json
-		return newUser;
+        User newUser = userRepository.save(baseUser.toUser());
+        // do some things with json, put some header information in json
+        return newUser;
 
-	}
+    }
 
 }

@@ -15,24 +15,24 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(Savet7Configuration.class)
 public class Savet7Main extends SpringBootServletInitializer {
 
-	@Autowired
-	Savet7Configuration savet7Configuration;
+    @Autowired
+    Savet7Configuration savet7Configuration;
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Savet7Main.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Savet7Main.class);
+    }
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Savet7Main.class, args);
-	}
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Savet7Main.class, args);
+    }
 
-	@Bean
-	public FilterRegistrationBean filterRegistrationBean() {
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		SlowFilter slowFilter = new SlowFilter(savet7Configuration.isUseSlowFilter());
-		registrationBean.setFilter(slowFilter);
-		registrationBean.setOrder(1);
-		return registrationBean;
-	}
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        SlowFilter slowFilter = new SlowFilter(savet7Configuration.isUseSlowFilter());
+        registrationBean.setFilter(slowFilter);
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
 }

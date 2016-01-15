@@ -21,8 +21,8 @@ public class RepositoryConfig extends RepositoryRestMvcConfiguration {
 	}
 
 	@Override
-	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(Building.class);
+    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.exposeIdsFor(Building.class);
 		config.exposeIdsFor(Address.class);
 		config.exposeIdsFor(User.class);
 	}

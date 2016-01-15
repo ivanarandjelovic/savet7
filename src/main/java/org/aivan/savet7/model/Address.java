@@ -9,94 +9,93 @@ import javax.persistence.Id;
 @Entity
 public class Address {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
 
-	@Column
-	String street;
-	
-	@Column
-	String number;
+    @Column
+    String street;
 
-	@Column
-	String apartment;
+    @Column
+    String number;
 
-	@Column(name="postalcode")
-	String postalCode;
+    @Column
+    String apartment;
 
-	@Column
-	String city;
+    @Column(name = "postalcode")
+    String postalCode;
 
-	@Column
-	String state;
+    @Column
+    String city;
 
-	@Column
-	String country;
+    @Column
+    String state;
 
-	public Long getId() {
-		return id;
-	}
+    @Column
+    String country;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNumber() {
-		return number;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    public String getNumber() {
+        return number;
+    }
 
-	public String getApartment() {
-		return apartment;
-	}
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
-	public void setApartment(String apartment) {
-		this.apartment = apartment;
-	}
+    public String getApartment() {
+        return apartment;
+    }
 
-	public String getPostalCode() {
-		return postalCode;
-	}
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
+    }
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getStreet() {
-		return street;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-	
-	
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
 }

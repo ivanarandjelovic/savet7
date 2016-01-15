@@ -13,59 +13,59 @@ import org.apache.log4j.Logger;
 
 public class SlowFilter implements javax.servlet.Filter {
 
-	static Logger log = Logger.getLogger(SlowFilter.class);
+    static Logger log = Logger.getLogger(SlowFilter.class);
 
-	private static final long SLOW_DOWN_MS = 1000;
+    private static final long SLOW_DOWN_MS = 1000;
 
-	/**
-	 * Is the filter enabled or not
-	 */
-	private boolean enabled;
+    /**
+     * Is the filter enabled or not
+     */
+    private boolean enabled;
 
-	public SlowFilter(boolean enabled) {
-		super();
-		this.enabled = enabled;
-	}
+    public SlowFilter(boolean enabled) {
+        super();
+        this.enabled = enabled;
+    }
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// There is no need to save filterConfig
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // There is no need to save filterConfig
+    }
 
-	@Override
-	public void destroy() {
-		// Nothing to do here :)
-	}
+    @Override
+    public void destroy() {
+        // Nothing to do here :)
+    }
 
-	/**
-	 * Development filter to slow down each request, for testing UI in such
-	 * conditions
-	 * 
-	 * @param request
-	 * @param response
-	 * @param chain
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-	
-		if (enabled) {
+    /**
+     * Development filter to slow down each request, for testing UI in such
+     * conditions
+     * 
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-			String url = ((HttpServletRequest) request).getRequestURL().toString();
+        if (enabled) {
 
-			if (url.contains("/api")) {
-				try {
-					log.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
-					Thread.sleep(SLOW_DOWN_MS);
-				} catch (InterruptedException ie) {
-					log.warn("Interrupted!");
-				}
-			}
-		}
-		
-		chain.doFilter(request, response);
-	}
+            String url = ((HttpServletRequest) request).getRequestURL().toString();
+
+            if (url.contains("/api")) {
+                try {
+                    log.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
+                    Thread.sleep(SLOW_DOWN_MS);
+                } catch (InterruptedException ie) {
+                    log.warn("Interrupted!");
+                }
+            }
+        }
+
+        chain.doFilter(request, response);
+    }
 
 }

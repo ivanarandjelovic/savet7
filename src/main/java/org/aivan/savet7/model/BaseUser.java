@@ -15,56 +15,56 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
 
-	@Column
-	String username;
-	@Column
-	String password;
-	@Column
-	String role;
-	
-	public Long getId() {
-		return id;
-	}
+    @Column
+    String username;
+    @Column
+    String password;
+    @Column
+    String role;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public User toUser() {
-		User u = new User();
-		u.setId(getId());
-		u.setUsername(getUsername());
-		u.setPassword(getPassword());
-		u.setRole(getRole());
-		return u;
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	}
+    public User toUser() {
+        User u = new User();
+        u.setId(getId());
+        u.setUsername(getUsername());
+        u.setPassword(getPassword());
+        u.setRole(getRole());
+        return u;
+
+    }
 }
