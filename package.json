@@ -1,0 +1,14 @@
+{
+  "name": "savet7",
+  "version": "0.0.1",
+  "description": "Manages some stuff, and demonstrates some test-driven techniques",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanarandjelovic/savet7.git"
+  },
+  "devDependencies": {
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6"
+  }
+}

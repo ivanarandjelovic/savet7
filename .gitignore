@@ -5,3 +5,4 @@ build
 
 /.idea/
 /savet7.iml
+/node_modules/
