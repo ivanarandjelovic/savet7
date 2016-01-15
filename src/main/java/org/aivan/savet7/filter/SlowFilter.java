@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 public class SlowFilter implements javax.servlet.Filter {
 
-    static Logger log = Logger.getLogger(SlowFilter.class);
+    private static final Logger LOG = Logger.getLogger(SlowFilter.class);
 
     private static final long SLOW_DOWN_MS = 1000;
 
@@ -57,10 +57,10 @@ public class SlowFilter implements javax.servlet.Filter {
 
             if (url.contains("/api")) {
                 try {
-                    log.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
+                    LOG.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
                     Thread.sleep(SLOW_DOWN_MS);
                 } catch (InterruptedException ie) {
-                    log.warn("Interrupted!");
+                    LOG.warn("Interrupted!");
                 }
             }
         }

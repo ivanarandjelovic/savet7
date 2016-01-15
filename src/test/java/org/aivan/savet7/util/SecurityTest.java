@@ -12,7 +12,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
 
 import org.aivan.savet7.model.User;
-import org.aivan.savet7.privateRepository.UserJpaRepository;
+import org.aivan.savet7.privaterepository.UserJpaRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;

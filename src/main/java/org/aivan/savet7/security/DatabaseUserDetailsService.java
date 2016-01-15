@@ -1,7 +1,7 @@
 package org.aivan.savet7.security;
 
 import org.aivan.savet7.model.User;
-import org.aivan.savet7.privateRepository.UserJpaRepository;
+import org.aivan.savet7.privaterepository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.aivan.savet7.model.BaseUser;
 import org.aivan.savet7.model.User;
-import org.aivan.savet7.privateRepository.UserJpaRepository;
+import org.aivan.savet7.privaterepository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +40,8 @@ public class UserController {
     private UserJpaRepository userRepository;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = JSON)
-    public @ResponseBody UserBean get() {
+    @ResponseBody
+    public UserBean get() {
 
         UserBean user = new UserBean();
 
@@ -62,7 +63,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/create", method = RequestMethod.POST, produces = JSON, consumes = JSON)
-    public @ResponseBody BaseUser createUser(@RequestBody String json) throws JsonParsingException {
+    @ResponseBody
+    public BaseUser createUser(@RequestBody String json) throws JsonParsingException {
 
         BaseUser baseUser;
         ObjectMapper mapper = new ObjectMapper();
@@ -72,9 +74,7 @@ public class UserController {
             throw new JsonParsingException("Unable to parse JSON request data", e);
         }
 
-        User newUser = userRepository.save(baseUser.toUser());
-        // do some things with json, put some header information in json
-        return newUser;
+        return userRepository.save(baseUser.toUser());
 
     }
 

@@ -11,20 +11,21 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 @Configuration
 public class RepositoryConfig extends RepositoryRestMvcConfiguration {
 
-	/**
-	 * We need this so that standard REST properties are read from application.properties
-	 */
-	@Override
-	@ConfigurationProperties(prefix = "spring.data.rest")
-	public RepositoryRestConfiguration config() {
-		return super.config();
-	}
+    /**
+     * We need this so that standard REST properties are read from
+     * application.properties
+     */
+    @Override
+    @ConfigurationProperties(prefix = "spring.data.rest")
+    public RepositoryRestConfiguration config() {
+        return super.config();
+    }
 
-	@Override
+    @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Building.class);
-		config.exposeIdsFor(Address.class);
-		config.exposeIdsFor(User.class);
-	}
+        config.exposeIdsFor(Address.class);
+        config.exposeIdsFor(User.class);
+    }
 
 }

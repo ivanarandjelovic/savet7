@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class RESTLogoutHandler implements LogoutHandler {
 
-    static Logger log = Logger.getLogger(RESTLogoutHandler.class);
+    private static final Logger LOG = Logger.getLogger(RESTLogoutHandler.class);
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         try {
             response.sendError(HttpServletResponse.SC_OK);
         } catch (IOException e) {
-            log.warn("IOException when sending response code for successfull login", e);
+            LOG.warn("IOException when sending response code for successfull login", e);
             throw new SecurityException(e);
         }
     }

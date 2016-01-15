@@ -1,4 +1,4 @@
-package org.aivan.savet7.privateRepository;
+package org.aivan.savet7.privaterepository;
 
 import org.aivan.savet7.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
