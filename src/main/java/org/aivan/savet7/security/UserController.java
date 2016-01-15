@@ -3,7 +3,6 @@ package org.aivan.savet7.security;
 import java.io.IOException;
 
 import org.aivan.savet7.model.BaseUser;
-import org.aivan.savet7.model.User;
 import org.aivan.savet7.privaterepository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
