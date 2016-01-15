@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.aivan.savet7.security.JsonParsingException;;
+
 /**
  * Provides REST access to the user login service (and others)
  * 
@@ -62,14 +64,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/admin/create", method = RequestMethod.POST, produces = JSON, consumes = JSON)
-	public @ResponseBody BaseUser createUser(@RequestBody String json) throws IOException {
+	public @ResponseBody BaseUser createUser(@RequestBody String json) throws JsonParsingException {
 
 		BaseUser baseUser;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			baseUser = mapper.readValue(json, BaseUser.class);
 		} catch (IOException e) {
-			throw e;
+			throw new JsonParsingException("Unable to parse JSON request data",e);
 		}
 
 		User newUser = userRepository.save(baseUser.toUser());

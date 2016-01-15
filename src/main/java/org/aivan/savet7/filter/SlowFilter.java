@@ -9,20 +9,23 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.aivan.savet7.config.Savet7Configuration;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class SlowFilter implements javax.servlet.Filter {
 
 	static Logger log = Logger.getLogger(SlowFilter.class);
 
 	private static final long SLOW_DOWN_MS = 1000;
 
-	@Autowired
-	Savet7Configuration config;
+	/**
+	 * Is the filter enabled or not
+	 */
+	private boolean enabled;
+
+	public SlowFilter(boolean enabled) {
+		super();
+		this.enabled = enabled;
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -47,17 +50,21 @@ public class SlowFilter implements javax.servlet.Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+	
+		if (enabled) {
 
-		String url = ((HttpServletRequest) request).getRequestURL().toString();
+			String url = ((HttpServletRequest) request).getRequestURL().toString();
 
-		if (config != null && config.isUseSlowFilter() && url.contains("/api")) {
-			try {
-				log.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
-				Thread.sleep(SLOW_DOWN_MS);
-			} catch (InterruptedException ie) {
-				log.warn("Interrupted!");
+			if (url.contains("/api")) {
+				try {
+					log.debug("Slowing down ... for " + SLOW_DOWN_MS + " milliseconds.");
+					Thread.sleep(SLOW_DOWN_MS);
+				} catch (InterruptedException ie) {
+					log.warn("Interrupted!");
+				}
 			}
 		}
+		
 		chain.doFilter(request, response);
 	}
 

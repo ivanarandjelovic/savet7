@@ -30,11 +30,9 @@ public class Savet7Main extends SpringBootServletInitializer {
 	@Bean
 	public FilterRegistrationBean filterRegistrationBean() {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		if (savet7Configuration.isUseSlowFilter()) {
-			SlowFilter slowFilter = new SlowFilter();
-			registrationBean.setFilter(slowFilter);
-			registrationBean.setOrder(1);
-		}
+		SlowFilter slowFilter = new SlowFilter(savet7Configuration.isUseSlowFilter());
+		registrationBean.setFilter(slowFilter);
+		registrationBean.setOrder(1);
 		return registrationBean;
 	}
 }

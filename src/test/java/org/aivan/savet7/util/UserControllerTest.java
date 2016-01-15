@@ -1,7 +1,6 @@
 package org.aivan.savet7.util;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.hasValue;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -83,6 +82,14 @@ public class UserControllerTest extends SecurityTest {
 		MockHttpSession session = loginWithUser();
 		mockMvc.perform(post("/userService/admin/create").session(session).content(json(newUser)))
 				.andExpect(status().isForbidden());
+	}
+
+	@Test
+	public void adminCreateUserBadJson() throws Exception {
+		MockHttpSession session = loginWithAdmin();
+		mockMvc.perform(
+				post("/userService/admin/create").session(session).content("{ bad :bad :bad}").contentType(contentTypeJson))
+				.andExpect(status().isInternalServerError());
 	}
 
 	/*
