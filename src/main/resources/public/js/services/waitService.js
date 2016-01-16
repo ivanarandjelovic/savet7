@@ -61,14 +61,8 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
     getMinWaitDurationTimeMs : function() {
       return minWaitDurationTimeMs;
     },
-    setMinWaitDurationTimeMs : function(newMinWaitDurationTimeMs) {
-      minWaitDurationTimeMs = newMinWaitDurationTimeMs;
-    },
     getDelayDurationTimeMs : function() {
       return delayDurationTimeMs;
-    },
-    setDelayDurationTimeMss : function(newDelayDurationTimeMs) {
-      delayDurationTimeMs = newDelayDurationTimeMs;
     }
   };
 });
