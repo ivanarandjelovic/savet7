@@ -73,7 +73,7 @@ savet7App.factory('waitServiceInterceptor', function(waitService) {
       return config;
     },
     requestError : function(rejection) {
-      if (rejection.config !== v && rejection.config.url !== undefined && rejection.config.url.indexOf('/api/') >= 0) {
+      if (rejection.config !== undefined && rejection.config.url !== undefined && rejection.config.url.indexOf('/api/') >= 0) {
         waitService.hideWait();
       }
       return rejection;
