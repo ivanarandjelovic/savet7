@@ -17,16 +17,16 @@ module.exports = function(config) {
     files : [ 'src/main/resources/public/js/lib/jquery-2.1.4.js', 'src/main/resources/public/js/lib/bootstrap.js',
         'src/main/resources/public/js/lib/angular.js', 'src/main/resources/public/js/lib/angular-route.js',
         'src/main/resources/public/js/lib/ui-bootstrap-tpls-0.14.3.js', 'src/main/resources/public/js/lib/toastr.js',
-        'src/main/resources/public/js/lib/angular-spinners.min.js',
+        'src/main/resources/public/js/lib/angular-spinners.js',
         'src/main/resources/public/js/lib/angular-translate.js',
         'src/main/resources/public/js/lib/angular-translate-loader-static-files.js',
         'src/main/resources/public/js/lib/angular-sanitize.js', 'src/main/resources/public/js/lib/angular-cookies.js',
         'src/main/resources/public/js/lib/angular-translate-storage-cookie.js',
         'src/main/resources/public/js/lib/angular-translate-storage-local.js',
-        'src/main/resources/public/js/savet7App.js', 'src/main/resources/public/js/services/*.js',
-        'src/main/resources/public/js/controllers/*.js', 'src/main/resources/public/js/directives/*.js',
-        'src/main/resources/public/js/lib/**.js', 'src/test/js/angular/angular-mocks.js', 'src/test/js/**/*Test.js',
-        'src/test/js/*Test.js' ],
+        'src/main/resources/public/js/lib/underscore-min.js', 'src/main/resources/public/js/savet7App.js',
+        'src/main/resources/public/js/services/*.js', 'src/main/resources/public/js/controllers/*.js',
+        'src/main/resources/public/js/directives/*.js', 'src/main/resources/public/js/lib/**.js',
+        'src/test/js/angular/angular-mocks.js', 'src/test/js/**/*Mock.js','src/test/js/**/*Test.js', 'src/test/js/*Test.js' ],
 
     // list of files to exclude
     exclude : [],
@@ -45,7 +45,6 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters:
     // https://npmjs.org/browse/keyword/karma-reporter
-    singleRun : true,
 
     reporters : [ 'progress', 'junit', 'coverage' ],
 
@@ -105,7 +104,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun : false,
+    singleRun : true,
 
     // Concurrency level
     // how many browser should be started simultaneous
