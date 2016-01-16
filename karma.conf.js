@@ -25,8 +25,9 @@ module.exports = function(config) {
         'src/main/resources/public/js/lib/angular-translate-storage-local.js',
         'src/main/resources/public/js/lib/underscore-min.js', 'src/main/resources/public/js/savet7App.js',
         'src/main/resources/public/js/services/*.js', 'src/main/resources/public/js/controllers/*.js',
-        'src/main/resources/public/js/directives/*.js', 'src/main/resources/public/js/lib/**.js',
-        'src/test/js/angular/angular-mocks.js', 'src/test/js/**/*Mock.js','src/test/js/**/*Test.js', 'src/test/js/*Test.js' ],
+        'src/main/resources/public/js/directives/*.js', 'src/main/resources/public/js/lib/**.js', '**/*.html',
+        'src/test/js/angular/angular-mocks.js', 'src/test/js/**/*Mock.js', 'src/test/js/**/*Test.js',
+        'src/test/js/*Test.js' ],
 
     // list of files to exclude
     exclude : [],
@@ -38,7 +39,8 @@ module.exports = function(config) {
       'src/main/resources/public/js/savet7App.js' : [ 'coverage' ],
       'src/main/resources/public/js/services/*.js' : [ 'coverage' ],
       'src/main/resources/public/js/controllers/*.js' : [ 'coverage' ],
-      'src/main/resources/public/js/directives/*.js' : [ 'coverage' ]
+      'src/main/resources/public/js/directives/*.js' : [ 'coverage' ],
+      '**/*.html' : [ 'ng-html2js' ]
     },
 
     // test results reporter to use
@@ -108,6 +110,22 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency : Infinity
+    concurrency : Infinity,
+
+    ngHtml2JsPreprocessor : {
+      // strip this from the file path
+      stripPrefix : 'src/main/resources/public'
+
+      // - setting this option will create only a single module that contains
+      // templates
+      // from all the files, so you can load them all with module('foo')
+      // - you may provide a function(htmlPath, originalPath) instead of a
+      // string
+      // if you'd like to generate modules dynamically
+      // htmlPath is a originalPath stripped and/or prepended
+      // with all provided suffixes and prefixes
+      //moduleName : 'savet7templates'
+    }
+
   })
 }
