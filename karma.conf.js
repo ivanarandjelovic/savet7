@@ -76,6 +76,10 @@ module.exports = function(config) {
       }, {
         type : 'lcov',
         subdir : 'report-lcov'
+      }, {
+        type : 'cobertura',
+        subdir : '.',
+        file : 'cobertura.xml'
       } ]
     },
 
