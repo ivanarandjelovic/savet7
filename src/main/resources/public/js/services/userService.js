@@ -1,28 +1,28 @@
 // Just holds state for now ...
 savet7App.factory('userService', function() {
 
-    var userServiceState = {
-        loggedIn : false,
-        user : null
-    };
+  var userServiceState = {
+    loggedIn : false,
+    user : null
+  };
 
-    return {
+  return {
 
-        isLoggedIn : function() {
-            return userServiceState.loggedIn;
-        },
+    isLoggedIn : function() {
+      return userServiceState.loggedIn;
+    },
 
-        getUser : function() {
-            return userServiceState.user;
-        },
+    getUser : function() {
+      return userServiceState.user;
+    },
 
-        setUser : function(user) {
-            userServiceState.user = user;
-            if (user === null || user.username === null) {
-                userServiceState.loggedIn = false;
-            } else {
-                userServiceState.loggedIn = true;
-            }
-        }
-    };
+    setUser : function(user) {
+      userServiceState.user = user;
+      if (user === null || user.username === null) {
+        userServiceState.loggedIn = false;
+      } else {
+        userServiceState.loggedIn = true;
+      }
+    }
+  };
 });
