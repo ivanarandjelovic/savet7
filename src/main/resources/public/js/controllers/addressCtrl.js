@@ -23,7 +23,7 @@ savet7App.controller('editAddressCtrl', function($scope, $http, $routeParams, $l
     if ($scope.addressForm.$valid) {
       $scope.showFormError = false;
       if ($scope.adding) {
-        $http.post('/api/addresses/', $scope.address).then(function () {
+        $http.post('/api/addresses/', $scope.address).then(function (response) {
           $http.put('/api/buildings/' + $scope.buildingId + "/address", response.data._links.self.href, {
             headers : {
               'Content-type' : 'text/uri-list'

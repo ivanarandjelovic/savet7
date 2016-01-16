@@ -87,7 +87,7 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $
     if ($scope.buildingForm.$valid) {
       $scope.showFormError = false;
       if ($scope.adding) {
-        $http.post('/api/buildings/', $scope.building).then(function() {
+        $http.post('/api/buildings/', $scope.building).then(function(response) {
           $location.path("/buildings/" + response.data.id);
         }, function() {
           toastr.warning('Creation failed!?');
