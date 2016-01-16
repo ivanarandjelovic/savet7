@@ -65,6 +65,7 @@ describe("WaitService test", function() {
     expect(waitServiceObj.getState().showWait).toEqual(0);
     expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
     expect(s7spinner.getState().visible).toBeFalsy();
+    timeout.flush();
   });
 
   it('sshould show spinner according to sequence of show/hide calls', function() {
