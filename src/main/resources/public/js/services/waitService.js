@@ -1,12 +1,12 @@
 // Just holds state for now ...
 savet7App.factory('waitService', function(spinnerService, $timeout) {
 
-  // Once shown, wait screen will be visible at least this much milliseconds.
-  var minWaitDurationTimeMs = 300;
-
   // Wait show delay time. If request to hide comes sooner, we will not show
   // wait screen at all
   var delayDurationTimeMs = 500;
+  
+  // Once shown, wait screen will be visible at least this much milliseconds.
+  var minWaitDurationTimeMs = 300;
 
   var state = {
     showWait : 0,
@@ -58,7 +58,18 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
     getState : function() {
       return _.clone(state);
     },
-    "spinnerService" : spinnerService
+    getMinWaitDurationTimeMs : function() {
+      return minWaitDurationTimeMs;
+    },
+    setMinWaitDurationTimeMs : function(newMinWaitDurationTimeMs) {
+      minWaitDurationTimeMs = newMinWaitDurationTimeMs;
+    },
+    getDelayDurationTimeMs : function() {
+      return delayDurationTimeMs;
+    },
+    setDelayDurationTimeMss : function(newDelayDurationTimeMs) {
+      delayDurationTimeMs = newDelayDurationTimeMs;
+    }
   };
 });
 
@@ -73,7 +84,8 @@ savet7App.factory('waitServiceInterceptor', function(waitService) {
       return config;
     },
     requestError : function(rejection) {
-      if (rejection.config !== undefined && rejection.config.url !== undefined && rejection.config.url.indexOf('/api/') >= 0) {
+      if (rejection.config !== undefined && rejection.config.url !== undefined
+          && rejection.config.url.indexOf('/api/') >= 0) {
         waitService.hideWait();
       }
       return rejection;
