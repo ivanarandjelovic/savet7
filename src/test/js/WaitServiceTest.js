@@ -44,7 +44,7 @@ describe("WaitService test", function() {
   it('should initially return state with default values', function() {
     var initialState = waitServiceObj.getState();
     expect(initialState.showWait).toEqual(0);
-    expect(initialState.hideWaitScheduled).toEqual(false);
+    expect(initialState.hideWaitScheduled).toBeFalsy();
   });
 
   it('should returned state must not be reference to real state, rather a clone', function() {
@@ -53,140 +53,140 @@ describe("WaitService test", function() {
     initialState.hideWaitScheduled = true;
     var newState = waitServiceObj.getState();
     expect(newState.showWait).toEqual(0);
-    expect(newState.hideWaitScheduled).toEqual(false);
+    expect(newState.hideWaitScheduled).toBeFalsy();
   });
 
   it('should change state according to public show/hide calls', function() {
     waitServiceObj.showWait();
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
     waitServiceObj.hideWait();
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
   });
 
   it('sshould show spinner according to sequence of show/hide calls', function() {
     waitServiceObj.showWait();
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time forward but only a little bit:
     timeout.flush(delayDurationTimeMs-1);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time a lot forward:
     timeout.flush(2);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Ask to hide it (but should be still visible, only hiding scheduled)
     waitServiceObj.hideWait();
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Finaly, it should become invisible
     timeout.flush(minWaitDurationTimeMs);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
 
   it('should show spinner in more complex event sequence', function() {
     waitServiceObj.showWait();
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time forward but only a little bit:
     timeout.flush(delayDurationTimeMs-1);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // ask again to show it
     waitServiceObj.showWait();
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time a lot forward:
     timeout.flush(2);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // ask again to show it
     waitServiceObj.showWait();
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Ask to hide it (but should be still visible, only hiding scheduled)
     waitServiceObj.hideWait();
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // ask again to hide it after small pause
     timeout.flush(minWaitDurationTimeMs-1);
     waitServiceObj.hideWait();
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Finaly, it should become invisible
     timeout.flush(2);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
 
   it('should show spinner for successfull calls to API', function() {
     waitServiceInterceptorObj.request(interceptorConfigForApi);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time forward but only a little bit:
     timeout.flush(delayDurationTimeMs-1);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     // Now move time a lot forward:
     timeout.flush(2);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Ask to hide it (but should be still visible, only hiding scheduled)
     waitServiceInterceptorObj.response(generalResponseApi);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
 
     // Finaly, it should become invisible
     timeout.flush(minWaitDurationTimeMs+1);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
 
   it('should show spinner for failed calls to API', function() {
     waitServiceInterceptorObj.request(interceptorConfigForApi);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     timeout.flush(delayDurationTimeMs+1);
     
@@ -194,16 +194,16 @@ describe("WaitService test", function() {
     waitServiceInterceptorObj.requestError(generalResponseApi);
     timeout.flush(minWaitDurationTimeMs+1);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
   
   it('should show spinner for failed calls to API - response error', function() {
     waitServiceInterceptorObj.request(interceptorConfigForApi);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
     timeout.flush(delayDurationTimeMs+1);
     
@@ -211,8 +211,8 @@ describe("WaitService test", function() {
     waitServiceInterceptorObj.responseError(generalResponseApi);
     timeout.flush(minWaitDurationTimeMs+1);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
 
@@ -221,35 +221,35 @@ describe("WaitService test", function() {
     // Request, but not for API, should not turn it on
     waitServiceInterceptorObj.request(interceptorConfigNotForApi);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
    
     // Request for API, should turn it on
     waitServiceInterceptorObj.request(interceptorConfigForApi);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
     
     timeout.flush(delayDurationTimeMs+1);
     
     // Request, but not for API, should not hide it
     waitServiceInterceptorObj.response(generalResponseNotApi);
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(true);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
     
     timeout.flush(minWaitDurationTimeMs+1);
     
     // Still visible
     expect(waitServiceObj.getState().showWait).toEqual(1);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(true);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeTruthy();
     
     // This should hide it immediately
     waitServiceInterceptorObj.response(generalResponseApi);
     expect(waitServiceObj.getState().showWait).toEqual(0);
-    expect(waitServiceObj.getState().hideWaitScheduled).toEqual(false);
-    expect(s7spinner.getState().visible).toEqual(false);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
 
   });
   

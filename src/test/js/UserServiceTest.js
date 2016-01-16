@@ -13,8 +13,8 @@ describe("UserService test", function() {
   }));
 
   it('should initially not be logged in and user should be null', function() {
-    expect(userServiceObj.isLoggedIn()).toEqual(false);
-    expect(userServiceObj.getUser()).toEqual(null);
+    expect(userServiceObj.isLoggedIn()).toBeFalsy();
+    expect(userServiceObj.getUser()).toBeNull();
   });
 
   it('should report user after setting it', function() {
@@ -24,16 +24,16 @@ describe("UserService test", function() {
 
   it('should report as logged in after setting user and as logged out afterwards', function() {
     userServiceObj.setUser(user);
-    expect(userServiceObj.isLoggedIn()).toEqual(true);
+    expect(userServiceObj.isLoggedIn()).toBeTruthy();
     userServiceObj.setUser(nullUser);
-    expect(userServiceObj.isLoggedIn()).toEqual(false);
+    expect(userServiceObj.isLoggedIn()).toBeFalsy();
   });
   
   it('should report as logged in after setting null as a user', function() {
     userServiceObj.setUser(user);
-    expect(userServiceObj.isLoggedIn()).toEqual(true);
+    expect(userServiceObj.isLoggedIn()).toBeTruthy();
     userServiceObj.setUser(null);
-    expect(userServiceObj.isLoggedIn()).toEqual(false);
+    expect(userServiceObj.isLoggedIn()).toBeFalsy();
   });
 
 });
