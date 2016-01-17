@@ -73,11 +73,9 @@ savet7App.controller('loginInstanceCtrl', function($scope, $http, $uibModalInsta
     });
 
     $http.post('/login', data, config).then(function() {
-      console.log("success");
       // Yup, we are logged in
       $uibModalInstance.close(1);
     }, function() {
-      console.log("error");
       // Login error, show message:
       $translate('APP_LOGIN_BAD').then(function(text) {
         toastr.error(text);

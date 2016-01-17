@@ -18,6 +18,7 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
       try {
         spinnerService.hide('s7Spinner');
       } catch (err) {
+        // Can happen during unit testing
       }
     }
     state.hideWaitScheduled = false;
@@ -31,8 +32,9 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
         if (state.showWait > 0) {
           try {
             spinnerService.show('s7Spinner');
-          } catch (err) {};
-          
+          } catch (err) {
+            // Can happend during unit tests
+          }
           // Schedule hide
           if (!state.hideWaitScheduled) {
             state.hideWaitScheduled = true;
@@ -74,7 +76,7 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
 });
 
 // This interceptor could be configurable (for URL patterns, or so ..)
-savet7App.factory('waitServiceInterceptor', function($q,waitService) {
+savet7App.factory('waitServiceInterceptor', function($q, waitService) {
 
   var waitServiceInterceptor = {
     request : function(config) {
@@ -101,7 +103,8 @@ savet7App.factory('waitServiceInterceptor', function($q,waitService) {
           && rejection.config.url.indexOf('/api/') >= 0) {
         waitService.hideWait();
       }
-      return $q.reject(rejection);;
+      return $q.reject(rejection);
+      ;
     }
   };
 
