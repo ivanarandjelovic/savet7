@@ -116,15 +116,15 @@ module.exports = function(config) {
       // strip this from the file path
       stripPrefix : 'src/main/resources/public'
 
-      // - setting this option will create only a single module that contains
-      // templates
-      // from all the files, so you can load them all with module('foo')
-      // - you may provide a function(htmlPath, originalPath) instead of a
-      // string
-      // if you'd like to generate modules dynamically
-      // htmlPath is a originalPath stripped and/or prepended
-      // with all provided suffixes and prefixes
-      //moduleName : 'savet7templates'
+    // - setting this option will create only a single module that contains
+    // templates
+    // from all the files, so you can load them all with module('foo')
+    // - you may provide a function(htmlPath, originalPath) instead of a
+    // string
+    // if you'd like to generate modules dynamically
+    // htmlPath is a originalPath stripped and/or prepended
+    // with all provided suffixes and prefixes
+    // moduleName : 'savet7templates'
     }
 
   })

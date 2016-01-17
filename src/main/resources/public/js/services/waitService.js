@@ -15,7 +15,10 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
 
   var _hideWaitTimeout = function() {
     if (state.showWait === 0) {
-      spinnerService.hide('s7Spinner');
+      try {
+        spinnerService.hide('s7Spinner');
+      } catch (err) {
+      }
     }
     state.hideWaitScheduled = false;
   };
@@ -26,7 +29,10 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
       // Schedule show:
       $timeout(function() {
         if (state.showWait > 0) {
-          spinnerService.show('s7Spinner');
+          try {
+            spinnerService.show('s7Spinner');
+          } catch (err) {};
+          
           // Schedule hide
           if (!state.hideWaitScheduled) {
             state.hideWaitScheduled = true;

@@ -32,6 +32,7 @@ describe("WaitService test", function() {
     timeout = $timeout;
 
     $httpBackend.when('GET', '/translations/en.json').respond('');
+    $httpBackend.when('GET', '/translations/rs.json').respond('');
 
     // register our spinner
     spinnerServiceObj._register(s7spinner);

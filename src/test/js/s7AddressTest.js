@@ -33,6 +33,8 @@ describe('Unit testing s7Building directive', function() {
     $rootScope = _$rootScope_;
     
     $httpBackend.when('GET', '/translations/en.json').respond('');
+    $httpBackend.when('GET', '/translations/rs.json').respond('');
+
   }));
 
   it('Replaces the element with the appropriate content (and state)', function() {
