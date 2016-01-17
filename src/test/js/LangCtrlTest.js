@@ -10,13 +10,12 @@ describe("LangCtrl test", function() {
   beforeEach(function() {
     module('savet7App');
   });
-  
+
   beforeEach(function() {
     module('/partials/building-list.html');
   });
-  
 
-  var $controller, $timeout, $httpBackend,$translate;
+  var $controller, $timeout, $httpBackend, $translate, langCtrl, langScope;
 
   beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_) {
     // The injector unwraps the underscores (_) from around the parameter names
@@ -32,29 +31,53 @@ describe("LangCtrl test", function() {
     $httpBackend.when('GET', '/translations/rs.json').respond(function() {
       return [ 200, rs_json, {} ];
     });
+
+    langScope = {};
+    langCtrl = $controller('langCtrl', {
+      $scope : langScope
+    });
   }));
 
   it('check default langData', function() {
-    var $scope = {};
-    var controller = $controller('langCtrl', {
-      $scope : $scope
-    });
-    //$timeout.flush();
     $httpBackend.flush();
-    expect($scope.langData).not.toBeNull();
-    expect($scope.langData.langCd).toBe('en');
+    expect(langScope.langData).not.toBeNull();
+    expect(langScope.langData.langCd).toBe('en');
   });
 
   it('check change to rs lang', function() {
-    var $scope = {};
-    var controller = $controller('langCtrl', {
-      $scope : $scope
-    });
-    //$timeout.flush();
-    $scope.useLang('rs');
-    //$timeout.flush();
+    langScope.useLang('rs');
     $httpBackend.flush();
-    expect($scope.langData.langCd).toBe('rs');
+    expect(langScope.langData.langCd).toBe('rs');
   });
+
+/*  
+ * This is not really working: 
+ * 
+  it('check translate to rs', function(done) {
+    $translate.use('rs').then(function() {
+      $translate('TEXT').then(function(text) {
+        expect(text).toBe('serbian');
+        done();
+      }, function() {
+        done("translation failed");
+      });
+    });
+    $httpBackend.flush();
+  });
+
+  it('check translate to en', function(done) {
+    langScope.useLang('en');
+    $httpBackend.flush();
+    $timeout.flush();
+    $translate('TEXT').then(function(text) {
+      expect(text).toBe('english');
+      done();
+    }, function() {
+      done("translation failed");
+    });
+    $httpBackend.flush();
+    $timeout.flush();
+    $httpBackend.flush();
+  });*/
 
 });
