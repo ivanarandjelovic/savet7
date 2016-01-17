@@ -15,13 +15,12 @@ describe("LangCtrl test", function() {
     module('/partials/building-list.html');
   });
 
-  var $controller, $timeout, $httpBackend, $translate, langCtrl, langScope;
+  var $controller, $httpBackend, $translate, langCtrl, langScope;
 
-  beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$translate_) {
     // The injector unwraps the underscores (_) from around the parameter names
     // when matching
     $controller = _$controller_;
-    $timeout = _$timeout_;
     $httpBackend = _$httpBackend_;
     $translate = _$translate_;
 
@@ -40,7 +39,6 @@ describe("LangCtrl test", function() {
 
   it('check default langData', function(done) {
     $httpBackend.flush();
-    console.log($translate.use());
     $translate('TEXT').then(function(text) {
       expect(text).toBe('english');
       done();
@@ -57,7 +55,6 @@ describe("LangCtrl test", function() {
       expect(text).toBe('serbian');
       done();
     });
-    console.log($translate.use());
     expect(langScope.langData.langCd).toBe('rs');
     $httpBackend.flush();
   });
