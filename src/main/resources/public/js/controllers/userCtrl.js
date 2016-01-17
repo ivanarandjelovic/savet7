@@ -7,11 +7,14 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
 
   $scope.loadUser = function() {
     $http.get('/userService/get').then(function(response) {
+      var user = response.data;
+      userService.setUser(user);
+      // Maybe it's good to refresh current view
+      $route.reload();
+    }, function(response) {
       if (response.status === 401) {
         // we are not logged in
         userService.setUser(null);
-      } else {
-        userService.setUser(response.data);
       }
       // Maybe it's good to refresh current view
       $route.reload();
@@ -74,9 +77,11 @@ savet7App.controller('loginInstanceCtrl', function($scope, $http, $uibModalInsta
     });
 
     $http.post('/login', data, config).then(function() {
+      console.log("success");
       // Yup, we are logged in
       $uibModalInstance.close(1);
     }, function() {
+      console.log("error");
       // Login error, show message:
       $translate('APP_LOGIN_BAD').then(function(text) {
         toastr.error(text);

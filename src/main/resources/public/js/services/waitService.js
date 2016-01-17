@@ -74,7 +74,7 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
 });
 
 // This interceptor could be configurable (for URL patterns, or so ..)
-savet7App.factory('waitServiceInterceptor', function(waitService) {
+savet7App.factory('waitServiceInterceptor', function($q,waitService) {
 
   var waitServiceInterceptor = {
     request : function(config) {
@@ -88,7 +88,7 @@ savet7App.factory('waitServiceInterceptor', function(waitService) {
           && rejection.config.url.indexOf('/api/') >= 0) {
         waitService.hideWait();
       }
-      return rejection;
+      return $q.reject(rejection);
     },
     response : function(response) {
       if (response.config.url !== undefined && response.config.url.indexOf('/api/') >= 0) {
@@ -101,7 +101,7 @@ savet7App.factory('waitServiceInterceptor', function(waitService) {
           && rejection.config.url.indexOf('/api/') >= 0) {
         waitService.hideWait();
       }
-      return rejection;
+      return $q.reject(rejection);;
     }
   };
 
