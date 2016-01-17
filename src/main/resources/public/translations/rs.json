@@ -14,6 +14,7 @@
 	"APP_LOGIN_SUCCESS" : "Ulogovani ste",
 	"APP_LOGOUT_SUCCESS" : "Izlogovani ste",
 	"APP_LOGIN_BAD" : "Korisničko ime ili lozinka su neispravni",
+  "APP_UNEXPECTED_SERVER_RESPONSE": "Neocekivani odgovor od servera!",
 	"EDIT_BUILDING_DETAILS" : "Izmena detalja zgrade:",
 	"ADD_BUILDING_DETAILS" : "Dodaj novu zgradu:",
 	"EDIT_ID" : "Id",

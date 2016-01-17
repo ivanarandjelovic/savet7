@@ -109,7 +109,7 @@ describe("UserCtrl test", function() {
 
     expect(userScope.loggedIn).toBeFalsy();
   });
-
+  
   it('when logged in then logout', function() {
 
     $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);

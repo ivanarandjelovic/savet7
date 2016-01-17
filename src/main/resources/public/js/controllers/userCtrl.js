@@ -9,14 +9,10 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
     $http.get('/userService/get').then(function(response) {
       var user = response.data;
       userService.setUser(user);
-      // Maybe it's good to refresh current view
       $route.reload();
-    }, function(response) {
-      if (response.status === 401) {
-        // we are not logged in
-        userService.setUser(null);
-      }
-      // Maybe it's good to refresh current view
+    }, function() {
+      // we are not logged in
+      userService.setUser(null);
       $route.reload();
     });
   };

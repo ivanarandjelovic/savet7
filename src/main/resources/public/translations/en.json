@@ -14,6 +14,7 @@
 	"APP_LOGIN_SUCCESS" : "Are you logged in",
 	"APP_LOGOUT_SUCCESS" : "You have been logged out",
 	"APP_LOGIN_BAD" : "Invalid username or password",
+	"APP_UNEXPECTED_SERVER_RESPONSE": "Unexpected server response!",
 	"EDIT_BUILDING_DETAILS" : "Edit building details:",
 	"ADD_BUILDING_DETAILS" : "Add new building:",
 	"EDIT_ID" : "Id",
