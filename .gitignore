@@ -3,6 +3,4 @@ build
 .gradle
 .settings
 
-/.idea/
-/savet7.iml
 /node_modules/
