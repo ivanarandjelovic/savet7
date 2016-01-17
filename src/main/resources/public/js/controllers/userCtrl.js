@@ -1,5 +1,4 @@
-savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $route, userService,
-    $translate) {
+savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $route, userService, $translate) {
 
   toastr.options.closeButton = true;
   toastr.options.positionClass = "toast-top-center";
@@ -7,16 +6,12 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
   $scope.loggedIn = false;
 
   $scope.loadUser = function() {
-    $http.get('/userService/get').then(function (response) {
-      var user = response.data;
-      userService.setUser(user);
-
-      // Maybe it's good to refresh current view
-      $route.reload();
-    }, function (response) {
+    $http.get('/userService/get').then(function(response) {
       if (response.status === 401) {
         // we are not logged in
         userService.setUser(null);
+      } else {
+        userService.setUser(response.data);
       }
       // Maybe it's good to refresh current view
       $route.reload();
