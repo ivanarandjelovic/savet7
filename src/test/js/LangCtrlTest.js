@@ -38,46 +38,28 @@ describe("LangCtrl test", function() {
     });
   }));
 
-  it('check default langData', function() {
+  it('check default langData', function(done) {
     $httpBackend.flush();
-    expect(langScope.langData).not.toBeNull();
-    expect(langScope.langData.langCd).toBe('en');
-  });
-
-  it('check change to rs lang', function() {
-    langScope.useLang('rs');
-    $httpBackend.flush();
-    expect(langScope.langData.langCd).toBe('rs');
-  });
-
-/*  
- * This is not really working: 
- * 
-  it('check translate to rs', function(done) {
-    $translate.use('rs').then(function() {
-      $translate('TEXT').then(function(text) {
-        expect(text).toBe('serbian');
-        done();
-      }, function() {
-        done("translation failed");
-      });
-    });
-    $httpBackend.flush();
-  });
-
-  it('check translate to en', function(done) {
-    langScope.useLang('en');
-    $httpBackend.flush();
-    $timeout.flush();
+    console.log($translate.use());
     $translate('TEXT').then(function(text) {
       expect(text).toBe('english');
       done();
-    }, function() {
-      done("translation failed");
     });
+    expect(langScope.langData).not.toBeNull();
+    expect(langScope.langData.langCd).toBe('en');
     $httpBackend.flush();
-    $timeout.flush();
+  });
+
+  it('check change to rs lang', function(done) {
+    langScope.useLang('rs');
     $httpBackend.flush();
-  });*/
+    $translate('TEXT').then(function(text) {
+      expect(text).toBe('serbian');
+      done();
+    });
+    console.log($translate.use());
+    expect(langScope.langData.langCd).toBe('rs');
+    $httpBackend.flush();
+  });
 
 });
