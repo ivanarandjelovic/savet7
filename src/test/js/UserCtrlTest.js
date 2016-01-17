@@ -49,35 +49,64 @@ describe("UserCtrl test", function() {
   }));
 
   it('initial state', function() {
-    $httpBackend.when('GET', '/userService/get').respond(function() {
-      return [ 200, user_get_not_logged_in, {} ];
-    });
+    // $httpBackend.expectGET('/userService/get').respond(function() {
+    // return [ 200, user_get_logged_in, {} ];
+    // });
     expect(userScope.loggedIn).toBeFalsy();
   });
 
   it('when logged in', function() {
-    $httpBackend.when('GET', '/userService/get').respond(function() {
+
+    $httpBackend.expectGET('/userService/get').respond(function() {
       return [ 200, user_get_logged_in, {} ];
     });
-    userScope.loadUser();
     $httpBackend.flush();
+
+    userScope.loadUser();
+
     expect(userScope.loggedIn).toBeTruthy();
   });
-  
-  it('when logged in then logout', function() {
-    
-    $httpBackend.when('GET', '/userService/get').respond(function() {
+
+  it('when service returns error', function() {
+    $httpBackend.expectGET('/userService/get').respond(function() {
       return [ 200, user_get_logged_in, {} ];
     });
+    $httpBackend.flush();
+
     userScope.loadUser();
-    $httpBackend.flush();
+
     expect(userScope.loggedIn).toBeTruthy();
-    
-    $httpBackend.when('GET', '/logout').respond(function() {
-      return [ 200, {}, {} ];
-    });
-    userScope.logout();
+
+    $httpBackend.expectGET('/userService/get').respond(401, null);
     $httpBackend.flush();
+
+    userScope.loadUser();
+
+    expect(userScope.loggedIn).toBeFalsy();
+  });
+
+  it('when logged in then logout', function() {
+
+    $httpBackend.expectGET('/userService/get').respond(function() {
+      return [ 200, user_get_logged_in, {} ];
+    });
+    $httpBackend.flush();
+    
+    userScope.loadUser();
+
+    $httpBackend.expectGET('/userService/get').respond(function() {
+      return [ 200, user_get_logged_in, {} ];
+    });
+    $httpBackend.flush();
+    
+    
+    expect(userScope.loggedIn).toBeTruthy();
+
+    userScope.logout();
+  
+    $httpBackend.expectGET('/logout').respond(200, null);
+    $httpBackend.flush();
+
     expect(userScope.loggedIn).toBeFalsy();
   });
 
