@@ -23,11 +23,35 @@ describe("UserCtrl test", function() {
     module('/partials/building-list.html');
   });
 
-  var $controller, $timeout, $httpBackend, $translate, userCtrl, userScope, $rootScope, $timeout;
-var getServiceHandler;
-  
-  
-  beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$timeout_) {
+  // Mock uibModal.open result
+  var fakeModal = {
+    result : {
+      then : function(confirmCallback, cancelCallback) {
+        // Store the callbacks for later when the user clicks on the OK or
+        // Cancel button of the dialog
+        this.confirmCallBack = confirmCallback;
+        this.cancelCallback = cancelCallback;
+      }
+    },
+    close : function(item) {
+      // The user clicked OK on the modal dialog, call the stored confirm
+      // callback with the selected item
+      this.result.confirmCallBack(item);
+    },
+    dismiss : function(type) {
+      // The user clicked cancel on the modal dialog, call the stored cancel
+      // callback
+      if (this.cancelCallback) {
+        this.result.cancelCallback(type);
+      }
+    }
+  };
+
+  var $controller, $timeout, $httpBackend, $translate, userCtrl, userScope, $rootScope, $timeout, $uibModal;
+  var getServiceHandler;
+
+  beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$timeout_,
+      _$uibModal_) {
     // The injector unwraps the underscores (_) from around the parameter names
     // when matching
     $controller = _$controller_;
@@ -36,6 +60,9 @@ var getServiceHandler;
     $translate = _$translate_;
     $rootScope = _$rootScope_;
     $timeout = _$timeout_;
+    $uibModal = _$uibModal_;
+
+    spyOn($uibModal, 'open').and.returnValue(fakeModal);
 
     $httpBackend.when('GET', '/translations/en.json').respond(function() {
       return [ 200, en_json, {} ];
@@ -44,7 +71,7 @@ var getServiceHandler;
       return [ 200, rs_json, {} ];
     });
 
-    getServiceHandler = $httpBackend.when('GET','/userService/get').respond(function() {
+    getServiceHandler = $httpBackend.when('GET', '/userService/get').respond(function() {
       return [ 200, user_get_not_logged_in, {} ];
     });
     userScope = $rootScope.$new();
@@ -61,7 +88,7 @@ var getServiceHandler;
   it('when logged in', function() {
 
     $httpBackend.expectGET('/userService/get');
-    getServiceHandler.respond(200,user_get_logged_in);
+    getServiceHandler.respond(200, user_get_logged_in);
     userScope.loadUser();
     $httpBackend.flush();
 
@@ -69,7 +96,7 @@ var getServiceHandler;
   });
 
   it('when service returns error', function() {
-    $httpBackend.expectGET('/userService/get').respond(200,user_get_logged_in);
+    $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);
     userScope.loadUser();
     $httpBackend.flush();
 
@@ -85,7 +112,7 @@ var getServiceHandler;
 
   it('when logged in then logout', function() {
 
-    $httpBackend.expectGET('/userService/get').respond(200,user_get_logged_in);
+    $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);
     userScope.loadUser();
     $httpBackend.flush();
     expect(userScope.loggedIn).toBeTruthy();
@@ -94,6 +121,22 @@ var getServiceHandler;
     userScope.logout();
     $httpBackend.flush();
 
+    expect(userScope.loggedIn).toBeFalsy();
+  });
+
+  it('login with OK button', function() {
+    expect(userScope.loggedIn).toBeFalsy();
+    userScope.login();
+    $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);
+    fakeModal.close();
+    $httpBackend.flush();
+    expect(userScope.loggedIn).toBeTruthy();
+  });
+
+  it('login with Cancel button', function() {
+    expect(userScope.loggedIn).toBeFalsy();
+    userScope.login();
+    fakeModal.dismiss();
     expect(userScope.loggedIn).toBeFalsy();
   });
 
