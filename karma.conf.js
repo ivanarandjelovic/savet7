@@ -27,7 +27,7 @@ module.exports = function(config) {
         'src/main/resources/public/js/services/*.js', 'src/main/resources/public/js/controllers/*.js',
         'src/main/resources/public/js/directives/*.js', 'src/main/resources/public/js/lib/**.js', '**/*.html',
         'src/test/js/angular/angular-mocks.js', 'src/test/js/**/*Mock.js', 'src/test/js/**/*.json',
-        'src/test/js/**/*Test.js', 'src/test/js/*Test.js' ],
+         'src/test/js/**Test.js' ],
 
     // list of files to exclude
     exclude : [],

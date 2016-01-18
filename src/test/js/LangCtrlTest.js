@@ -15,14 +15,15 @@ describe("LangCtrl test", function() {
     module('/partials/building-list.html');
   });
 
-  var $controller, $httpBackend, $translate, langCtrl, langScope;
+  var $controller, $httpBackend, $translate, $rootScope, langCtrl, langScope;
 
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$translate_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$translate_, _$rootScope_) {
     // The injector unwraps the underscores (_) from around the parameter names
     // when matching
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $translate = _$translate_;
+    $rootScope = _$rootScope_;
 
     $httpBackend.when('GET', '/translations/en.json').respond(function() {
       return [ 200, en_json, {} ];
@@ -31,7 +32,7 @@ describe("LangCtrl test", function() {
       return [ 200, rs_json, {} ];
     });
 
-    langScope = {};
+    langScope = $rootScope.$new();
     langCtrl = $controller('langCtrl', {
       $scope : langScope
     });
@@ -55,8 +56,8 @@ describe("LangCtrl test", function() {
       expect(text).toBe('serbian');
       done();
     });
+    langScope.$apply();
     expect(langScope.langData.langCd).toBe('rs');
-    $httpBackend.flush();
   });
 
 });
