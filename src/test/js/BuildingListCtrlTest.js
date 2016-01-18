@@ -53,6 +53,11 @@ describe("BuidlingListCtrl test", function() {
 		getServiceHandler = $httpBackend.when('GET', '/api/buildings?page=0').respond(function() {
 			return [ 200, buildingsJSON, {} ];
 		});
+		
+    get1ServiceHandler = $httpBackend.when('GET', '/api/buildings/1?projection=inlineAddress').respond(function() {
+      return [ 200, buildingsJSON._embedded.buildings[0], {} ];
+    });
+    
 		postServiceHandler = $httpBackend.when('POST', '/api/addresses/').respond(function() {
 			return [ 200, address_json, {} ];
 		});
@@ -121,4 +126,38 @@ describe("BuidlingListCtrl test", function() {
     });
     
 	});
+	
+	describe('Details of a building', function() {
+    beforeEach(function() {
+      scope = $rootScope.$new();
+      
+      controller = $controller('buildingDetailCtrl', {
+        $scope : scope,
+        $routeParams : {buildingId : 1}
+      });
+      $httpBackend.flush();
+    });
+
+    it('should test initial state', function() {
+      expect(scope.building).toEqual(buildingsJSON._embedded.buildings[0]);
+    });
+
+    it('should change page to edit building', function() {
+      scope.edit();
+      expect($location.path()).toBe("/editBuilding/"+buildingsJSON._embedded.buildings[0].id);
+    });
+    
+    it('should go to edit existing address', function() {
+      scope.editAddress();
+      expect($location.path()).toBe("/editAddress/" + scope.building.address.id + "/" + scope.building.id);
+    });
+    
+    it('should go to add new address when building has no addressId', function() {
+      scope.building.address = null; 
+      scope.editAddress();
+      expect($location.path()).toBe("/editAddress//" + scope.building.id);
+    });
+    
+  });
+	
 });
