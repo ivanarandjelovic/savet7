@@ -1,4 +1,4 @@
-savet7App.controller('buildingListCtrl', function($scope, $http, userService) {
+savet7App.controller('buildingListCtrl', function($scope, $http, $location, userService) {
 
   $scope.currentPage = 1;
   $scope.totalPages = 0;
@@ -15,10 +15,8 @@ savet7App.controller('buildingListCtrl', function($scope, $http, userService) {
         $scope.totalPages = response.data.page.totalPages;
         $scope.totalItems = response.data.page.totalElements;
         $scope.itemsPerPage = response.data.page.size;
-      }, function(response) {
-        if (response.status === 401) {
-          // we are not logged in
-        }
+      }, function() {
+          // we are probably not logged in or server error happend
       });
     }
   };

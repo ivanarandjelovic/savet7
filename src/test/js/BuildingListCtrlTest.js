@@ -17,8 +17,10 @@ describe("BuidlingListCtrl test", function() {
 			}
 		}
 	};
-
-	beforeEach(function() {
+	
+  var user = { username : "test" };
+  
+  	beforeEach(function() {
 		module('savet7App');
 	});
 
@@ -26,11 +28,11 @@ describe("BuidlingListCtrl test", function() {
 		module('/partials/building-list.html');
 	});
 
-	var scope,controller, $controller, $timeout, $httpBackend, $translate, $rootScope, $location;
+	var scope,controller, $controller, $timeout, $httpBackend, $translate, $rootScope, $location, userServiceObj;
 
 	var getServiceHandler, postServiceHandler, putServiceHandler, patchServiceHandler;
 
-	beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$location_) {
+	beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$location_, userService) {
 		// The injector unwraps the underscores (_) from around the parameter names
 		// when matching
 		$controller = _$controller_;
@@ -39,6 +41,7 @@ describe("BuidlingListCtrl test", function() {
 		$translate = _$translate_;
 		$rootScope = _$rootScope_;
 		$location = _$location_;
+		userServiceObj = userService;
 
 		$httpBackend.when('GET', '/translations/en.json').respond(function() {
 			return [ 200, en_json, {} ];
@@ -47,8 +50,8 @@ describe("BuidlingListCtrl test", function() {
 			return [ 200, rs_json, {} ];
 		});
 
-		getServiceHandler = $httpBackend.when('GET', '/api/addresses/2').respond(function() {
-			return [ 200, address_json, {} ];
+		getServiceHandler = $httpBackend.when('GET', '/api/buildings?page=0').respond(function() {
+			return [ 200, buildingsJSON, {} ];
 		});
 		postServiceHandler = $httpBackend.when('POST', '/api/addresses/').respond(function() {
 			return [ 200, address_json, {} ];
@@ -76,129 +79,45 @@ describe("BuidlingListCtrl test", function() {
 
 		it('initial state', function() {
 			expect(scope.loggedIn).toBeFalsy();
+			expect(scope.buildings).toBeUndefined();
 		});
 
-//		it('cancel scrren', function() {
-//			addresScope.cancel();
-//			expect($location.path()).toBe("/buildings/" + addresScope.buildingId);
-//		});
-//
-//		it('error showing', function() {
-//
-//			addresScope.addressForm.testField.$invalid = true;
-//			addresScope.addressForm.testField.$touched = true;
-//			addresScope.submitted = false;
-//			expect(addresScope.showError('testField')).toBeTruthy();
-//
-//			addresScope.addressForm.testField.$invalid = true;
-//			addresScope.addressForm.testField.$touched = false;
-//			addresScope.submitted = false;
-//			expect(addresScope.showError('testField')).toBeFalsy();
-//
-//			addresScope.addressForm.testField.$invalid = false;
-//			addresScope.addressForm.testField.$touched = false;
-//			addresScope.submitted = false;
-//			expect(addresScope.showError('testField')).toBeFalsy();
-//
-//			addresScope.addressForm.testField.$invalid = true;
-//			addresScope.addressForm.testField.$touched = false;
-//			addresScope.submitted = true;
-//			expect(addresScope.showError('testField')).toBeTruthy();
-//
-//			addresScope.addressForm.testField.$invalid = false;
-//			addresScope.addressForm.testField.$touched = true;
-//			addresScope.submitted = true;
-//			expect(addresScope.showError('testField')).toBeFalsy();
-//
-//			addresScope.addressForm.testField.$invalid = false;
-//			addresScope.addressForm.testField.$touched = false;
-//			addresScope.submitted = true;
-//			expect(addresScope.showError('testField')).toBeFalsy();
-//		});
-//
-//		it('add address - success', function() {
-//			addresScope.addressForm.$valid = true;
-//			addresScope.submit();
-//			$httpBackend.flush();
-//			expect($location.path()).toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeFalsy();
-//		});
-//
-//		it('add address - error', function() {
-//			addresScope.addressForm.$valid = true;
-//			postServiceHandler.respond(500);
-//			addresScope.submit();
-//			$httpBackend.flush();
-//			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeFalsy();
-//			expect(toastr.warning).toHaveBeenCalledWith('Creation failed!?');
-//		});
-//
-//		it('add address - sucess  - building update error', function() {
-//			addresScope.addressForm.$valid = true;
-//			putServiceHandler.respond(500);
-//			addresScope.submit();
-//			$httpBackend.flush();
-//			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeFalsy();
-//			expect(toastr.warning).toHaveBeenCalledWith('Building updated failed!?');
-//		});
-//
-//		it('add address - form has errors', function() {
-//			addresScope.addressForm.$valid = false;
-//			addresScope.submit();
-//			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeTruthy();
-//		});
-
-	});
-
-//	describe('Editing existing address', function() {
-//
-//		beforeEach(function() {
-//			addresScope = $rootScope.$new();
-//			addresScope.addressForm = {};
-//			addresScope.addressForm.testField = {};
-//
-//			addresCtrl = $controller('editAddressCtrl', {
-//				$scope : addresScope,
-//				$routeParams : {
-//					buildingId : 1,
-//					addressId : 2
-//				}
-//			});
-//			$httpBackend.flush();
-//		});
-//
-//		it('initial state', function() {
-//			expect(addresScope.adding).toBeFalsy();
-//			expect(addresScope.buildingId).toBe(1);
-//			expect(addresScope.address.id).toBe(2);
-//		});
-//
-//		it('cancel scrren', function() {
-//			addresScope.cancel();
-//			expect($location.path()).toBe("/buildings/" + addresScope.buildingId);
-//		});
-//
-//		it('edit address - success', function() {
-//			addresScope.addressForm.$valid = true;
-//			addresScope.submit();
-//			$httpBackend.flush();
-//			expect($location.path()).toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeFalsy();
-//		});
-//
-//		it('edit address - error', function() {
-//			addresScope.addressForm.$valid = true;
-//			patchServiceHandler.respond(500);
-//			addresScope.submit();
-//			$httpBackend.flush();
-//			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
-//			expect(addresScope.showFormError).toBeFalsy();
-//			expect(toastr.warning).toHaveBeenCalledWith('Update failed!?');
-//		});
-//
-//	});
-
+    it('logged in load buildings', function() {
+      userServiceObj.setUser(user);
+      scope.$apply();
+      expect(scope.loggedIn).toBeTruthy();
+      getServiceHandler.respond(401);
+      scope.loadBuildings();
+      $httpBackend.flush();
+      expect(scope.buildings).toBeUndefined();
+    });
+    
+    it('logged in load buildings but error response', function() {
+      userServiceObj.setUser(user);
+      scope.$apply();
+      expect(scope.loggedIn).toBeTruthy();
+      scope.loadBuildings();
+      $httpBackend.flush();
+      expect(scope.buildings).toEqual(buildingsJSON._embedded.buildings);
+    });
+    
+    it('go to adding new building', function() {
+      scope.addBuilding();
+      expect($location.path()).toBe("/addBuilding/");
+    });
+    
+    it('should change page and load new buildings', function() {
+      userServiceObj.setUser(user);
+      scope.$apply();
+      expect(scope.loggedIn).toBeTruthy();
+      
+      scope.currentPage = 2;
+      getServiceHandler = $httpBackend.expectGET('/api/buildings?page=1').respond(function() {
+        return [ 200, buildingsJSON, {} ];
+      });
+      scope.pageChanged();
+      $httpBackend.flush();
+      expect(scope.buildings).toEqual(buildingsJSON._embedded.buildings);
+    });
+    
 });
