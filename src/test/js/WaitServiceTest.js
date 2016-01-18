@@ -25,11 +25,12 @@ describe("WaitService test", function() {
     module('savet7App');
   });
 
-  beforeEach(inject(function(waitService, waitServiceInterceptor, spinnerService, $timeout, $httpBackend) {
+  beforeEach(inject(function(waitService, waitServiceInterceptor, spinnerService, $timeout, $httpBackend, $rootScope) {
     waitServiceObj = waitService;
     waitServiceInterceptorObj = waitServiceInterceptor;
     spinnerServiceObj = spinnerService;
     timeout = $timeout;
+    this.$rootScope=$rootScope;
 
     $httpBackend.when('GET', '/translations/en.json').respond('');
     $httpBackend.when('GET', '/translations/rs.json').respond('');
@@ -150,6 +151,42 @@ describe("WaitService test", function() {
     expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
     expect(s7spinner.getState().visible).toBeFalsy();
 
+  });
+
+  it('should show spinner for route changes', function() {
+    this.$rootScope.$emit('$routeChangeStart', { event: null});
+    expect(waitServiceObj.getState().showWait).toEqual(1);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
+
+    timeout.flush(delayDurationTimeMs+1);
+    expect(waitServiceObj.getState().showWait).toEqual(1);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
+
+    this.$rootScope.$emit('$routeChangeSuccess', { event: null});
+    timeout.flush(minWaitDurationTimeMs+1);
+    expect(waitServiceObj.getState().showWait).toEqual(0);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
+  });
+
+  it('should show spinner for route changes with error', function() {
+    this.$rootScope.$emit('$routeChangeStart', { event: null});
+    expect(waitServiceObj.getState().showWait).toEqual(1);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
+
+    timeout.flush(delayDurationTimeMs+1);
+    expect(waitServiceObj.getState().showWait).toEqual(1);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeTruthy();
+    expect(s7spinner.getState().visible).toBeTruthy();
+
+    this.$rootScope.$emit('$routeChangeError', { event: null});
+    timeout.flush(minWaitDurationTimeMs+1);
+    expect(waitServiceObj.getState().showWait).toEqual(0);
+    expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
+    expect(s7spinner.getState().visible).toBeFalsy();
   });
 
   it('should show spinner for successfull calls to API', function() {
