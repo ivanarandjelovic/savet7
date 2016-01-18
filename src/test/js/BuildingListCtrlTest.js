@@ -103,7 +103,7 @@ describe("BuidlingListCtrl test", function() {
     
     it('go to adding new building', function() {
       scope.addBuilding();
-      expect($location.path()).toBe("/addBuilding/");
+      expect($location.path()).toStartWith("/addBuilding/");
     });
     
     it('should change page and load new buildings', function() {
