@@ -120,4 +120,5 @@ describe("BuidlingListCtrl test", function() {
       expect(scope.buildings).toEqual(buildingsJSON._embedded.buildings);
     });
     
+	});
 });
