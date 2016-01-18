@@ -32,7 +32,7 @@ savet7App.controller('editAddressCtrl', function($scope, $http, $routeParams, $l
             // Go to the building now
             $scope.cancel();
           }, function () {
-            toastr.warning('building updated failed!?');
+            toastr.warning('Building updated failed!?');
           });
 
         }, function () {

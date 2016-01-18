@@ -59,6 +59,9 @@ describe("AddressCtrl test", function() {
 		putServiceHandler = $httpBackend.when('PUT', '/api/buildings/1/address').respond(function() {
 			return [ 200, {}, {} ];
 		});
+		
+		spyOn(toastr,'warning');
+		
 	}));
 
 	describe('Adding new address', function() {
@@ -136,6 +139,7 @@ describe("AddressCtrl test", function() {
 			$httpBackend.flush();
 			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
 			expect(addresScope.showFormError).toBeFalsy();
+			expect(toastr.warning).toHaveBeenCalledWith('Creation failed!?');
 		});
 
 		it('add address - sucess  - building update error', function() {
@@ -145,6 +149,7 @@ describe("AddressCtrl test", function() {
 			$httpBackend.flush();
 			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
 			expect(addresScope.showFormError).toBeFalsy();
+			expect(toastr.warning).toHaveBeenCalledWith('Building updated failed!?');
 		});
 
 		it('add address - form has errors', function() {
@@ -199,6 +204,7 @@ describe("AddressCtrl test", function() {
 			$httpBackend.flush();
 			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
 			expect(addresScope.showFormError).toBeFalsy();
+			expect(toastr.warning).toHaveBeenCalledWith('Update failed!?');
 		});
 
 	});
