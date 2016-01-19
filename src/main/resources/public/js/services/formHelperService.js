@@ -4,8 +4,8 @@ savet7App.service('formHelperService', function() {
   return {
 
     showError : function(fieldName, formName, $scope) {
-      return ($scope.addressForm[fieldName].$invalid && $scope.addressForm[fieldName].$touched)
-          || ($scope.addressForm[fieldName].$invalid && $scope.submitted);
+      return ($scope[formName][fieldName].$invalid && $scope[formName][fieldName].$touched)
+          || ($scope[formName][fieldName].$invalid && $scope.submitted);
     }
 
   };

@@ -61,7 +61,7 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http, $routeParams,
 
 });
 
-savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $location) {
+savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $location, formHelperService) {
 
   $scope.showFormError = false;
 
@@ -112,8 +112,7 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $
   };
 
   $scope.showError = function(fieldName) {
-    return ($scope.buildingForm[fieldName].$invalid && $scope.buildingForm[fieldName].$touched)
-        || ($scope.buildingForm[fieldName].$invalid && $scope.submitted);
+    return formHelperService.showError(fieldName, "buildingForm", $scope);
   };
 
 });

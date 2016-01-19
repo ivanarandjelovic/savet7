@@ -35,7 +35,7 @@ savet7App.controller('editAddressCtrl', function($scope, $http, $routeParams, $l
   };
 
   $scope.showError = function(fieldName) {
-    return formHelperService.showError(fieldName, $scope.addressForm, $scope);
+    return formHelperService.showError(fieldName, "addressForm", $scope);
   };
 
 });
