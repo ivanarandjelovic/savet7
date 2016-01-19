@@ -65,12 +65,8 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $
 
   $scope.showFormError = false;
 
-  if ($routeParams.buildingId === undefined) {
-    $scope.adding = true;
-    $scope.building = {};
-  } else {
-    $scope.adding = false;
-  }
+  $scope.adding = ($routeParams.buildingId === undefined);
+  $scope.building = {};
 
   if (!$scope.adding) {
     $http.get('/api/buildings/' + $routeParams.buildingId).success(function(data) {
