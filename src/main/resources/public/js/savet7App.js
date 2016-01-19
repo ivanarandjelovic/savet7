@@ -23,16 +23,22 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
     redirectTo : '/buildings'
   });
 } ]).run(function($rootScope, $location, waitService) {
+  var routeStarted = false;
   $rootScope.$on("$routeChangeStart", function(angularEvent, next, current) {
-    if (current !== undefined) {
-      waitService.showWait();
+    if (!routeStarted) {
+      if (current !== undefined) {
+        waitService.showWait();
+      }
+      routeStarted = true;
     }
   });
   $rootScope.$on("$routeChangeSuccess", function() {
     waitService.hideWait();
+    routeStarted = false;
   });
   $rootScope.$on("$routeChangeError", function() {
     waitService.hideWait();
+    routeStarted = false;
   });
 });
 ;
