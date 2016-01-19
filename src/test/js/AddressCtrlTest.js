@@ -139,7 +139,7 @@ describe("AddressCtrl test", function() {
 			$httpBackend.flush();
 			expect($location.path()).not.toBe("/buildings/" + addresScope.buildingId);
 			expect(addresScope.showFormError).toBeFalsy();
-			expect(toastr.warning).toHaveBeenCalledWith('Creation failed!?');
+			expect(toastr.warning).toHaveBeenCalledWith('Address creation failed!?');
 		});
 
 		it('add address - sucess  - building update error', function() {

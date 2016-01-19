@@ -1,4 +1,4 @@
-// Just holds state for now ...
+// Holds info/state about the currently logged in user
 savet7App.factory('userService', function() {
 
   var userServiceState = {
