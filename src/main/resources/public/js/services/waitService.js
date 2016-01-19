@@ -45,18 +45,19 @@ savet7App.factory('waitService', function(spinnerService, $timeout) {
         }
       }, delayDurationTimeMs);
     }
-    state.showWait = 1;
+    state.showWait = state.showWait + 1;
   };
 
   var _hideWait = function() {
-    state.showWait = 0;
+    state.showWait = Math.max(state.showWait - 1, 0);
     if (!state.hideWaitScheduled) {
       _hideWaitTimeout();
     }
   };
 
   return {
-    // Request wait screen to be shown - default when parameter absent (or hidden, if the parameter is false)
+    // Request wait screen to be shown - default when parameter absent (or
+    // hidden, if the parameter is false)
     showWait : function(showFlag) {
       if (showFlag === undefined || showFlag) {
         _showWait();
