@@ -48,6 +48,10 @@ describe("LoginInstanceCtrl test", function() {
       return [ 200, rs_json, {} ];
     });
 
+    getUserServiceHandler = $httpBackend.when('GET', '/userService/get').respond(function() {
+      return [ 200, user_get_not_logged_in, {} ];
+    });
+    
     fakeModal = {
       dismissValue : 'none',
       closeValue : 0,

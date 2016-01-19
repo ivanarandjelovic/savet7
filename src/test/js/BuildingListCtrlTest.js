@@ -1,4 +1,4 @@
-describe("BuidlingListCtrl test", function() {
+describe("BuildingListCtrl test", function() {
 
   var en_json = {
     "TEXT" : "english"
@@ -22,6 +22,14 @@ describe("BuidlingListCtrl test", function() {
     username : "test"
   };
 
+  var user_get_not_logged_in = {
+      "username" : null
+    };
+
+    var user_get_logged_in = {
+      "username" : "mike"
+    };
+    
   var oneBuildingJSON = buildingsJSON._embedded.buildings[0];
 
   beforeEach(function() {
@@ -31,10 +39,14 @@ describe("BuidlingListCtrl test", function() {
   beforeEach(function() {
     module('/partials/building-list.html');
   });
+  
+  beforeEach(function() {
+    module('/partials/building-detail.html');
+  });
 
   var scope, controller, $controller, $timeout, $httpBackend, $translate, $rootScope, $location, userServiceObj;
 
-  var getServiceHandler, postServiceHandler, putServiceHandler, patchServiceHandler;
+  var getServiceHandler, postServiceHandler, putServiceHandler, patchServiceHandler,getUserServiceHandler;
 
   beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$location_,
       userService) {
@@ -80,7 +92,9 @@ describe("BuidlingListCtrl test", function() {
     putServiceHandler = $httpBackend.when('PUT', '/api/buildings/1/address').respond(function() {
       return [ 200, {}, {} ];
     });
-
+    getUserServiceHandler = $httpBackend.when('GET', '/userService/get').respond(function() {
+      return [ 200, user_get_not_logged_in, {} ];
+    });
     spyOn(toastr, 'warning');
 
   }));

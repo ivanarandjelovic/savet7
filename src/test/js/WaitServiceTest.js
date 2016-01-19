@@ -155,7 +155,7 @@ describe("WaitService test", function() {
 
   it('should show spinner for route changes', function() {
     this.$rootScope.$emit('$routeChangeStart', "next");
-    expect(waitServiceObj.getState().showWait).toEqual(0);
+    expect(waitServiceObj.getState().showWait).toEqual(1);
     expect(waitServiceObj.getState().hideWaitScheduled).toBeFalsy();
     expect(s7spinner.getState().visible).toBeFalsy();
 

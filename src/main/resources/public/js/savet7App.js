@@ -24,11 +24,9 @@ savet7App.config([ '$routeProvider', function($routeProvider) {
   });
 } ]).run(function($rootScope, $location, waitService) {
   var routeStarted = false;
-  $rootScope.$on("$routeChangeStart", function(angularEvent, next, current) {
+  $rootScope.$on("$routeChangeStart", function() {
     if (!routeStarted) {
-      if (current !== undefined) {
-        waitService.showWait();
-      }
+      waitService.showWait();
       routeStarted = true;
     }
   });

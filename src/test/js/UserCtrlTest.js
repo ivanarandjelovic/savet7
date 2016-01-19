@@ -47,11 +47,11 @@ describe("UserCtrl test", function() {
     }
   };
 
-  var $controller, $timeout, $httpBackend, $translate, userCtrl, userScope, $rootScope, $timeout, $uibModal;
+  var $controller, $timeout, $httpBackend, $translate, userCtrl, userScope, $rootScope, $timeout, $uibModal,userService;
   var getServiceHandler;
 
   beforeEach(inject(function(_$controller_, _$timeout_, _$httpBackend_, _$translate_, _$rootScope_, _$timeout_,
-      _$uibModal_) {
+      _$uibModal_,_userService_) {
     // The injector unwraps the underscores (_) from around the parameter names
     // when matching
     $controller = _$controller_;
@@ -61,6 +61,7 @@ describe("UserCtrl test", function() {
     $rootScope = _$rootScope_;
     $timeout = _$timeout_;
     $uibModal = _$uibModal_;
+    userService = _userService_;
 
     spyOn($uibModal, 'open').and.returnValue(fakeModal);
 
@@ -89,7 +90,7 @@ describe("UserCtrl test", function() {
 
     $httpBackend.expectGET('/userService/get');
     getServiceHandler.respond(200, user_get_logged_in);
-    userScope.loadUser();
+    userService.reloadUser();
     $httpBackend.flush();
 
     expect(userScope.loggedIn).toBeTruthy();
@@ -97,14 +98,14 @@ describe("UserCtrl test", function() {
 
   it('when service returns error', function() {
     $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);
-    userScope.loadUser();
+    userService.reloadUser();
     $httpBackend.flush();
 
     expect(userScope.loggedIn).toBeTruthy();
 
     $httpBackend.expectGET('/userService/get').respond(401, null);
 
-    userScope.loadUser();
+    userService.reloadUser();
     $httpBackend.flush();
 
     expect(userScope.loggedIn).toBeFalsy();
@@ -113,7 +114,7 @@ describe("UserCtrl test", function() {
   it('when logged in then logout', function() {
 
     $httpBackend.expectGET('/userService/get').respond(200, user_get_logged_in);
-    userScope.loadUser();
+    userService.reloadUser();
     $httpBackend.flush();
     expect(userScope.loggedIn).toBeTruthy();
 

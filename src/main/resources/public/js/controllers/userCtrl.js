@@ -5,18 +5,6 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
 
   $scope.loggedIn = false;
 
-  $scope.loadUser = function() {
-    $http.get('/userService/get').then(function(response) {
-      var user = response.data;
-      userService.setUser(user);
-      $route.reload();
-    }, function() {
-      // we are not logged in
-      userService.setUser(null);
-      $route.reload();
-    });
-  };
-
   $scope.login = function() {
 
     var modalInstance = $uibModal.open({
@@ -27,7 +15,7 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
 
     modalInstance.result.then(function() {
       // Login was performed
-      $scope.loadUser();
+      userService.reloadUser();
       $translate('APP_LOGIN_SUCCESS').then(function(text) {
         toastr.success(text);
       });
@@ -37,16 +25,8 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
   };
 
   $scope.logout = function() {
-    $http.get('/logout').then(function() {
-      userService.setUser(null);
-      $translate('APP_LOGOUT_SUCCESS').then(function(text) {
-        toastr.warning(text);
-      });
-      $location.path("/");
-    });
+    userService.logout();
   };
-
-  $scope.loadUser();
 
   // Common part to make all controller user-aware
   $scope.loggedIn = userService.isLoggedIn();
@@ -59,20 +39,9 @@ savet7App.controller('userCtrl', function($scope, $http, $uibModal, $location, $
 
 });
 
-savet7App.controller('loginInstanceCtrl', function($scope, $http, $uibModalInstance, $translate) {
+savet7App.controller('loginInstanceCtrl', function($scope, $http, $uibModalInstance, $translate, userService) {
   $scope.login = function() {
-    var config = {
-      headers : {
-        'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8;'
-      }
-    };
-
-    var data = $.param({
-      username : $scope.username,
-      password : $scope.password
-    });
-
-    $http.post('/login', data, config).then(function() {
+    userService.login($scope.username, $scope.password).then(function() {
       // Yup, we are logged in
       $uibModalInstance.close(1);
     }, function() {
