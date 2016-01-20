@@ -61,7 +61,7 @@ module.exports = function(config) {
       // testsuite element
       suite : '',
       // add browser name to report and classes names
-      //useBrowserName : true
+      useBrowserName : true
     },
     // reporters : [ 'progress' ],
 
