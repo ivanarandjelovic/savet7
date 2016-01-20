@@ -1,4 +1,4 @@
-savet7App.controller('buildingListCtrl', function($scope, $http, $location, userService) {
+savet7App.controller('buildingListCtrl', function($scope, $location, userService, buildingsService) {
 
   $scope.currentPage = 1;
   $scope.totalPages = 0;
@@ -7,16 +7,12 @@ savet7App.controller('buildingListCtrl', function($scope, $http, $location, user
 
   $scope.loadBuildings = function() {
     if (userService.isLoggedIn() === true) {
-      var paging = "";
-      paging = "?page=" + ($scope.currentPage - 1);
-      $http.get('/api/buildings' + paging).then(function(response) {
-        $scope.buildings = response.data._embedded.buildings;
-        $scope.currentPage = response.data.page.number + 1;
-        $scope.totalPages = response.data.page.totalPages;
-        $scope.totalItems = response.data.page.totalElements;
-        $scope.itemsPerPage = response.data.page.size;
-      }, function() {
-          // we are probably not logged in or server error happend
+      buildingsService.loadBuildings($scope.currentPage - 1).then(function() {
+        $scope.buildings = buildingsService.getBuildings();
+        $scope.currentPage = buildingsService.getPageInfo().number + 1;
+        $scope.totalPages = buildingsService.getPageInfo().totalPages;
+        $scope.totalItems = buildingsService.getPageInfo().totalElements;
+        $scope.itemsPerPage = buildingsService.getPageInfo().size;
       });
     }
   };
@@ -41,10 +37,10 @@ savet7App.controller('buildingListCtrl', function($scope, $http, $location, user
   };
 });
 
-savet7App.controller('buildingDetailCtrl', function($scope, $http, $routeParams, $location) {
+savet7App.controller('buildingDetailCtrl', function($scope, $routeParams, $location, buildingsService) {
 
-  $http.get('/api/buildings/' + $routeParams.buildingId + '?projection=inlineAddress').success(function(data) {
-    $scope.building = data;
+  buildingsService.loadBuildingWithAddress($routeParams.buildingId).then(function() {
+    $scope.building = buildingsService.getBuilding();
   });
 
   $scope.edit = function() {
@@ -61,7 +57,8 @@ savet7App.controller('buildingDetailCtrl', function($scope, $http, $routeParams,
 
 });
 
-savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $location, formHelperService) {
+savet7App.controller('editBuildingCtrl', function($scope, $routeParams, $location, buildingsService,
+    formHelperService) {
 
   $scope.showFormError = false;
 
@@ -69,8 +66,8 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $
   $scope.building = {};
 
   if (!$scope.adding) {
-    $http.get('/api/buildings/' + $routeParams.buildingId).success(function(data) {
-      $scope.building = data;
+    buildingsService.loadBuilding($routeParams.buildingId).then(function() {
+      $scope.building = buildingsService.getBuilding();
     });
   }
 
@@ -81,17 +78,9 @@ savet7App.controller('editBuildingCtrl', function($scope, $http, $routeParams, $
     if ($scope.buildingForm.$valid) {
       $scope.showFormError = false;
       if ($scope.adding) {
-        $http.post('/api/buildings/', $scope.building).then(function(response) {
-          $location.path("/buildings/" + response.data.id);
-        }, function() {
-          toastr.warning('Creation failed!?');
-        });
+        buildingsService.addBuilding($scope.building);
       } else {
-        $http.patch('/api/buildings/' + $scope.building.id, $scope.building).then(function() {
-          $location.path("/buildings/" + $scope.building.id);
-        }, function() {
-          toastr.warning('Update failed!?');
-        });
+        buildingsService.updateBuilding($scope.building);
       }
     } else {
       $scope.showFormError = true;

@@ -130,7 +130,7 @@ describe("BuildingListCtrl test", function() {
       expect(scope.loggedIn).toBeTruthy();
       scope.loadBuildings();
       $httpBackend.flush();
-      expect(scope.buildings).toBeUndefined();
+      expect(scope.buildings).toBeEmptyArray();
     });
 
     it('go to adding new building', function() {
@@ -258,6 +258,7 @@ describe("BuildingListCtrl test", function() {
       });
       scope.submit();
       $httpBackend.flush();
+      scope.$apply();
       expect(scope.submitted).toBeTruthy();
       expect(scope.showFormError).toBeFalsy();
       expect($location.path()).toBe("/buildings/2");
