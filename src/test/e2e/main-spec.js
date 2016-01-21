@@ -7,7 +7,7 @@ describe('savet7 homepage test', function() {
 
   var open = function() {
     // browser.get('https://pacific-gorge-58447.herokuapp.com/');
-    browser.get('http://localhost:8080/');
+    browser.get(browser.params.baseUrl);
 
   }
 

@@ -17,6 +17,6 @@ exports.config = {
     }));
   },
   params : {
-    baseUrl: "http://localhost:8080/"
+    baseUrl: "http://pacific-gorge-58447.herokuapp.com/"
   }
 };
