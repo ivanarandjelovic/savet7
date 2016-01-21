@@ -15,7 +15,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply from: 'cobertura.gradle'
 //apply plugin: "jacoco"
-apply plugin: 'war'
+//apply plugin: 'war'
 
 //war {
 //	  baseName = 'savet7'
