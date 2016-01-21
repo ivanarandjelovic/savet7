@@ -127,5 +127,5 @@ module.exports = function(config) {
     // moduleName : 'savet7templates'
     }
 
-  })
+  });
 };
