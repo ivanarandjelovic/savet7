@@ -7,6 +7,7 @@
     "url": "https://github.com/ivanarandjelovic/savet7.git"
   },
   "devDependencies": {
+    "jasmine-reporters": "^2.1.1",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-coverage": "^0.5.3",
@@ -15,6 +16,7 @@
     "karma-junit-reporter": "^0.3.8",
     "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.3",
-    "phantomjs": "^1.9.19"
+    "phantomjs": "^1.9.19",
+    "protractor-jasmine2-html-reporter": "0.0.5"
   }
 }

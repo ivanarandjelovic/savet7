@@ -18,6 +18,5 @@ describe('savet7 homepage test', function() {
     expect(loginLink.isPresent()).toBeTruthy();
     expect(usernameInNav.isPresent()).toBeFalsy();
     expect(element(by.id('buildingListNotLoggedIn')).isPresent()).toBeTruthy();
-
   });
 });
