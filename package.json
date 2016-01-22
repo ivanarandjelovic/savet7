@@ -7,6 +7,7 @@
     "url": "https://github.com/ivanarandjelovic/savet7.git"
   },
   "devDependencies": {
+    "jasmine-core": "^2.4.1",
     "jasmine-reporters": "^2.1.1",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
