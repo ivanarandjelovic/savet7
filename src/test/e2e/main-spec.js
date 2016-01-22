@@ -10,11 +10,14 @@ describe('savet7 homepage test', function() {
   var open = function() {
     // browser.get('https://pacific-gorge-58447.herokuapp.com/');
     browser.get(browser.params.baseUrl);
-
   }
 
-  it('should check initial text and default language', function() {
+  beforeEach(function() {
+    browser.manage().deleteAllCookies();
     open();
+  });
+  
+  it('should check initial text and default language', function() {
     expect(title.getText()).toEqual('Savet7');
     expect(langSelectLink.getText()).toEqual("English");
     expect(loginLink.isPresent()).toBeTruthy();
@@ -23,7 +26,6 @@ describe('savet7 homepage test', function() {
   });
 
   it('should switch to serbian and test initial text', function() {
-    open();
     expect(langSelectLink.getText()).toEqual("English");
     langSelectLink.click();
     element(by.linkText("Serbian")).click();
@@ -36,7 +38,11 @@ describe('savet7 homepage test', function() {
 
   it('sgould login', function() {
     testUtil.login();
-
+  });
+  
+  it('sgould show buildings and iterate pages', function() {
+    testUtil.login();
+    expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe('Test building 1');
   });
 
 });
