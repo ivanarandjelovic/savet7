@@ -7,7 +7,7 @@ exports.config = {
   framework : "jasmine2",
   onPrepare : function() {
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
-      savePath : 'build/test-results/e2e',
+      savePath : 'build/test-results/js',
       consolidateAll : true
     }));
     jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
