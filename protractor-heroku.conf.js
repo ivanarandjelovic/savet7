@@ -3,7 +3,7 @@ var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
   //seleniumAddress : 'http://localhost:4444/wd/hub',
-  specs : [ 'src/test/e2e/main-spec.js' ],
+  specs : [ 'arc/test/e2e/util/**.js','src/test/e2e/*-spec.js' ],
   framework : "jasmine2",
   onPrepare : function() {
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
