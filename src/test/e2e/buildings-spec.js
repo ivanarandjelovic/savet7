@@ -35,6 +35,7 @@ describe('savet7 buildings test', function() {
     loggedInTest(done, function() {
       expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
           'Test building 1');
+      // Go to page "2"
       element.all(by.repeater('page in pages').row(1)).then(
           function(page) {
             page[0].element(by.css('a')).click().then(
@@ -43,6 +44,7 @@ describe('savet7 buildings test', function() {
                       'Test building 21');
                 });
           });
+      // Go to page "3"
       element.all(by.repeater('page in pages').row(2)).then(
           function(page) {
             console.log(page[0]);
@@ -52,6 +54,14 @@ describe('savet7 buildings test', function() {
                       'Test building 41');
                 });
           });
+    });
+  });
+
+  fit('should edit one building', function(done) {
+    loggedInTest(done, function() {
+      element(by.linkText('Add building')).click().then(function() {
+        expect(element(by.css('h2')).getText()).toBe('Add new building:');
+      });
     });
   });
 

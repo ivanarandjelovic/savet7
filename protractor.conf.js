@@ -3,7 +3,7 @@ var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
   // seleniumAddress : 'http://localhost:4444/wd/hub',
-  specs : [ 'arc/test/e2e/util/**.js', 'src/test/e2e/*-spec.js' ],
+  specs : [ 'src/test/e2e/*-spec.js' ],
   framework : "jasmine2",
   onPrepare : function() {
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
@@ -18,11 +18,12 @@ exports.config = {
   },
   params : {
     baseUrl : "http://localhost:8080/"
-  },
-  capabilities: {
-    browserName: 'chrome',
-    // Share tests and run 5 browsers at the most
-    shardTestFiles: true,
-    maxInstances: 5
   }
+  /*,
+  capabilities : {
+    browserName : 'chrome',
+    // Share tests and run 5 browsers at the most (but then reports are not generated properly)
+    shardTestFiles : true,
+    maxInstances : 5
+  }*/
 };

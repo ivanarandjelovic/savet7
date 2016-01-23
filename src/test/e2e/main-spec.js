@@ -49,7 +49,7 @@ describe('savet7 homepage test', function() {
     });
   });
 
-  it('sgould show buildings and iterate pages and logout', function(done) {
+  it('should login, show buildings, check one and logout', function(done) {
     testUtil.login().then(
         function() {
           expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
