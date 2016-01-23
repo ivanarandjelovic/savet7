@@ -11,7 +11,7 @@
 	"APP_LOGIN_USERNAME" : "Username",
 	"APP_LOGIN_PASSWORD" : "Password",
 	"APP_LOGIN_TO" : "Login to",
-	"APP_LOGIN_SUCCESS" : "Are you logged in",
+	"APP_LOGIN_SUCCESS" : "You are logged in",
 	"APP_LOGOUT_SUCCESS" : "You have been logged out",
 	"APP_LOGIN_BAD" : "Invalid username or password",
 	"APP_UNEXPECTED_SERVER_RESPONSE": "Unexpected server response!",

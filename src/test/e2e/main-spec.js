@@ -16,7 +16,12 @@ describe('savet7 homepage test', function() {
     browser.manage().deleteAllCookies();
     open();
   });
-  
+
+  afterEach(function() {
+    browser.executeScript('window.sessionStorage.clear();');
+    browser.executeScript('window.localStorage.clear();');
+  });
+
   it('should check initial text and default language', function() {
     expect(title.getText()).toEqual('Savet7');
     expect(langSelectLink.getText()).toEqual("English");
@@ -36,13 +41,23 @@ describe('savet7 homepage test', function() {
     expect(element(by.tagName('h3')).getText()).toBe('Lista zgrada');
   });
 
-  it('sgould login', function() {
-    testUtil.login();
+  it('sgould login and logout', function(done) {
+    testUtil.login().then(function() {
+      testUtil.logout(done).then(function() {
+        done();
+      });
+    });
   });
-  
-  it('sgould show buildings and iterate pages', function() {
-    testUtil.login();
-    expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe('Test building 1');
+
+  it('sgould show buildings and iterate pages and logout', function(done) {
+    testUtil.login().then(
+        function() {
+          expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
+              'Test building 1');
+          testUtil.logout(done).then(function() {
+            done();
+          });
+        });
   });
 
 });
