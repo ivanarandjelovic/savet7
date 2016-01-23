@@ -18,5 +18,11 @@ exports.config = {
   },
   params : {
     baseUrl : "http://localhost:8080/"
+  },
+  capabilities: {
+    browserName: 'chrome',
+    // Share tests and run 5 browsers at the most
+    shardTestFiles: true,
+    maxInstances: 5
   }
 };
