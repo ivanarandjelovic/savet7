@@ -7,6 +7,7 @@ var login = function(done) {
   var langSelectLink = element(by.id("langSelectLink"));
   var lang = langSelectLink.getText();
   var toast;
+  var toastCloseButton = element(by.css('.toast-close-button'));
 
   element(by.id("loginLink")).click();
   element(by.model('username')).sendKeys('user');
@@ -23,8 +24,10 @@ var login = function(done) {
           message = 'Ulogovani ste';
         }
         expect(toast.getText()).toBe(message);
-        browser.wait(EC.stalenessOf(toast), 20000).then(function() {
-          deferred.fulfill();
+        toastCloseButton.click().then(function() {
+          browser.wait(EC.stalenessOf(toast), 20000).then(function() {
+            deferred.fulfill();
+          });
         });
       });
     });
@@ -52,6 +55,7 @@ var _logout = function(deferred) {
 
   var langSelectLink = element(by.id("langSelectLink"));
   var lang = langSelectLink.getText();
+  var toastCloseButton = element(by.css('.toast-close-button'));
   element(by.id("logoutLink")).click().then(function() {
     toast = element(by.css('.toast-message'));
     browser.wait(EC.visibilityOf(toast), 20000) // wait until toast is
@@ -65,8 +69,10 @@ var _logout = function(deferred) {
           message = 'Izlogovani ste';
         }
         expect(toast.getText()).toBe(message);
-        browser.wait(EC.stalenessOf(toast), 20000).then(function() {
-          deferred.fulfill();
+        toastCloseButton.click().then(function() {
+          browser.wait(EC.stalenessOf(toast), 20000).then(function() {
+            deferred.fulfill();
+          });
         });
       });
     });
