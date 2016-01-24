@@ -13,7 +13,10 @@ public class BuildingValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        System.out.println("Validator called !!!!!!!!!!!!!!!!!");
+        Building b = (Building) target;
+        if (b.getName() == null || b.getName().length() < 5) {
+            errors.rejectValue("name", "name.short");
+        }
     }
 
 }

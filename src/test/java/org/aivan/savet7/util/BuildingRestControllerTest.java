@@ -1,6 +1,6 @@
 package org.aivan.savet7.util;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -99,7 +99,7 @@ public class BuildingRestControllerTest extends SecurityTest {
 
         Building b1 = new Building();
         b1.setId(new Long(3));
-        b1.setName("n3");
+        b1.setName("Building test");
 
         String buildingJson = json(b1);
         mockMvc.perform(post("/api/buildings").session(session).contentType(contentTypeJson).content(buildingJson))
@@ -112,7 +112,7 @@ public class BuildingRestControllerTest extends SecurityTest {
 
         Building b3 = new Building();
         b3.setId(new Long(3));
-        b3.setName("n3");
+        b3.setName("Building test");
 
         Address a3 = new Address();
         a3.setStreet("street3");
@@ -124,6 +124,21 @@ public class BuildingRestControllerTest extends SecurityTest {
                 .andExpect(status().isCreated());
 
     }
+    
+    @Test
+    public void createBadAddress() throws Exception {
+        MockHttpSession session = loginWithUser();
+
+       Address a3 = new Address();
+        a3.setStreet("shrt");
+
+        String buildingJson = json(a3);
+        mockMvc.perform(post("/api/addresses/").session(session).contentType(contentTypeJson).content(buildingJson))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$..validationErrors", hasSize(1)))
+                .andExpect(jsonPath("$.validationErrors[0].fieldName", is("street")))
+                .andExpect(jsonPath("$.validationErrors[0].errorCode", containsString("size")));
+    }
+
 
     @Test
     public void createBuildingShortName() throws Exception {
@@ -135,7 +150,9 @@ public class BuildingRestControllerTest extends SecurityTest {
 
         String buildingJson = json(b3_short_name);
         mockMvc.perform(post("/api/buildings").session(session).contentType(contentTypeJson).content(buildingJson))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$..validationErrors", hasSize(1)))
+                .andExpect(jsonPath("$.validationErrors[0].fieldName", is("name")))
+                .andExpect(jsonPath("$.validationErrors[0].errorCode", is("name.short")));
     }
 
     @Test

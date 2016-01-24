@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Address {
@@ -14,6 +15,7 @@ public class Address {
     Long id;
 
     @Column
+    @Size(min = 5, max = 200)
     String street;
 
     @Column
