@@ -54,7 +54,6 @@ describe('savet7 buildings test', function() {
       // Go to page "3"
       element.all(by.repeater('page in pages').row(2)).then(
           function(page) {
-            console.log(page[0]);
             page[0].element(by.css('a')).click().then(
                 function() {
                   expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
