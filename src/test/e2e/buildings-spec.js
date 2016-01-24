@@ -13,7 +13,7 @@ describe('savet7 buildings test', function() {
   var editAddressButton = element(by.css('[ng-click="editAddress()"]'));
   var streetField = element(by.model('address.street'));
   var backButton = element(by.linkText('Back'));
-  
+
   var open = function() {
     // browser.get('https://pacific-gorge-58447.herokuapp.com/');
     browser.get(browser.params.baseUrl);
@@ -40,24 +40,24 @@ describe('savet7 buildings test', function() {
 
   it('Should iterate pages with buildings', function(done) {
     loggedInTest(done, function() {
-      expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
-          'Test building 1');
+      expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText())
+          .toBeDefined();
       // Go to page "2"
-      element.all(by.repeater('page in pages').row(1)).then(
+      element.all(by.repeater('page in pages')).then(
           function(page) {
-            page[0].element(by.css('a')).click().then(
+            page[1].element(by.css('a')).click().then(
                 function() {
-                  expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
-                      'Test building 21');
+                  expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText())
+                      .toBeDefined();
                 });
           });
       // Go to page "3"
-      element.all(by.repeater('page in pages').row(2)).then(
+      element.all(by.repeater('page in pages')).then(
           function(page) {
-            page[0].element(by.css('a')).click().then(
+            page[2].element(by.css('a')).click().then(
                 function() {
-                  expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
-                      'Test building 41');
+                  expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText())
+                      .toBeDefined();
                 });
           });
     });
@@ -99,6 +99,42 @@ describe('savet7 buildings test', function() {
       expect(element(by.binding('address.street')).getText()).toBe('address 12345');
       backButton.click();
       expect(element(by.tagName('h3')).getText()).toBe('Building list');
+    });
+  });
+
+  it('should edit building then edit address', function(done) {
+    var newBuildingName = "building_test_" + (new Date());
+    loggedInTest(done, function() {
+      element.all(by.repeater('building in buildings')).then(
+          function(rows) {
+            rows[0].element(by.css('a')).getText().then(
+                function(text) {
+                  buildingName = text;
+
+                  element(by.linkText(buildingName)).click();
+                  expect(element(by.css('.panel-title')).getText()).toBe('Building details');
+                  expect(element(by.binding('building.name')).getText()).toBe(buildingName);
+                  editBuildingButton.click();
+                  nameField.clear();
+                  nameField.sendKeys(newBuildingName);
+                  saveButton.click();
+                  expect(element(by.binding('building.name')).getText()).toBe(newBuildingName);
+                  editAddressButton.click();
+                  streetField.clear();
+                  streetField.sendKeys('address xx');
+                  saveButton.click();
+                  expect(element(by.css('.panel-title')).getText()).toBe('Building details');
+                  expect(element(by.binding('address.street')).getText()).toContain('address xx');
+                  expect(element(by.binding('building.name')).getText()).toBe(newBuildingName);
+                  backButton.click();
+                  expect(element(by.tagName('h3')).getText()).toBe('Building list');
+                  expect(element(by.repeater('building in buildings').row(0).column('building.name')).getText()).toBe(
+                      newBuildingName);
+                  expect(element(by.repeater('building in buildings').row(0).column('address.street')).getText())
+                      .toContain('address xx');
+
+                });
+          });
     });
   });
 
