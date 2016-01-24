@@ -15,7 +15,7 @@ public class Savet7ValidationErrors {
         validationErrors.add(error);
     }
 
-    public void addValidationErrors(Savet7ValidationErrors validationErrors) {
-        this.validationErrors.addAll(validationErrors.getValidationErrors());
-    }
+//    public void addValidationErrors(Savet7ValidationErrors validationErrors) {
+//        this.validationErrors.addAll(validationErrors.getValidationErrors());
+//    }
 }

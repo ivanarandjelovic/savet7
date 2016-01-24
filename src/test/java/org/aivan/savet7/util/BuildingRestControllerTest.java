@@ -154,6 +154,21 @@ public class BuildingRestControllerTest extends SecurityTest {
                 .andExpect(jsonPath("$.validationErrors[0].fieldName", is("name")))
                 .andExpect(jsonPath("$.validationErrors[0].errorCode", is("name.short")));
     }
+    
+    @Test
+    public void createBuildingNoName() throws Exception {
+        MockHttpSession session = loginWithUser();
+
+        Building b3_short_name = new Building();
+        b3_short_name.setId(new Long(3));
+        b3_short_name.setName(null);
+
+        String buildingJson = json(b3_short_name);
+        mockMvc.perform(post("/api/buildings").session(session).contentType(contentTypeJson).content(buildingJson))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$..validationErrors", hasSize(1)))
+                .andExpect(jsonPath("$.validationErrors[0].fieldName", is("name")))
+                .andExpect(jsonPath("$.validationErrors[0].errorCode", is("name.short")));
+    }
 
     @Test
     public void wrongMethod() throws Exception {

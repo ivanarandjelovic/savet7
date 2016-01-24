@@ -51,23 +51,23 @@ public class Savet7ErrorHandler {
         return errors;
     }
     
-    @ExceptionHandler(value = org.springframework.transaction.TransactionSystemException.class)
-    @ResponseStatus(org.springframework.http.HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public Savet7ValidationErrors constraintValidationHandler(org.springframework.transaction.TransactionSystemException tre) {
-        Savet7ValidationErrors errors = new Savet7ValidationErrors();
-
-          Throwable current = tre;
-          
-          while(current.getCause()!= null && current.getCause()!= current) {
-              current = current.getCause();
-              if(current instanceof ConstraintViolationException) {
-                  errors.addValidationErrors(constraintValidationHandler((ConstraintViolationException)current));
-              }
-          }
-        
-        return errors;
-    }
+//    @ExceptionHandler(value = org.springframework.transaction.TransactionSystemException.class)
+//    @ResponseStatus(org.springframework.http.HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    public Savet7ValidationErrors constraintValidationHandler(org.springframework.transaction.TransactionSystemException tre) {
+//        Savet7ValidationErrors errors = new Savet7ValidationErrors();
+//
+//          Throwable current = tre;
+//          
+//          while(current.getCause()!= null && current.getCause()!= current) {
+//              current = current.getCause();
+//              if(current instanceof ConstraintViolationException) {
+//                  errors.addValidationErrors(constraintValidationHandler((ConstraintViolationException)current));
+//              }
+//          }
+//        
+//        return errors;
+//    }
     
 
 }
