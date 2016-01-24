@@ -3,9 +3,12 @@ package org.aivan.savet7.config;
 import org.aivan.savet7.model.Address;
 import org.aivan.savet7.model.Building;
 import org.aivan.savet7.model.User;
+import org.aivan.savet7.model.validators.BuildingValidator;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.core.event.BeforeCreateEvent;
+import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 @Configuration
@@ -26,6 +29,12 @@ public class RepositoryConfig extends RepositoryRestMvcConfiguration {
         config.exposeIdsFor(Building.class);
         config.exposeIdsFor(Address.class);
         config.exposeIdsFor(User.class);
+    }
+
+    @Override
+    protected void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
+        validatingListener.addValidator("beforeCreate", new BuildingValidator());
+        validatingListener.addValidator("beforeSave", new BuildingValidator());
     }
 
 }
