@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -114,9 +115,8 @@ public class BuildingRestControllerTest extends SecurityTest {
     }
 
     /**
-     * This test in complicated too much only because of apparent bug in spring
-     * mvcMock where POST requests do not have body content at all. So we have
-     * to find other ways to test if the required action was executed
+     * Adding "accept" header solved the problem of empty response but test remains "as is" since
+     * it works.
      * 
      * @throws Exception
      */
@@ -132,12 +132,11 @@ public class BuildingRestControllerTest extends SecurityTest {
         a3.setStreet("street3");
 
         String addressJson = json(a3);
-        mockMvc.perform(post("/api/addresses").session(session).contentType(contentTypeJson).content(addressJson))
-                .andExpect(status().isCreated());// .andExpect(jsonPath("$.street",
-                                                 // is(a3.getState())));
+        mockMvc.perform(addCommonStuff(post("/api/addresses"), session).content(addressJson))
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.street", is(a3.getStreet())));
 
         String buildingJson = json(b3);
-        mockMvc.perform(post("/api/buildings").session(session).contentType(contentTypeJson).content(buildingJson))
+        mockMvc.perform(addCommonStuff(post("/api/buildings"), session).content(buildingJson))
                 .andExpect(status().isCreated());
 
         Long b_id = null;
@@ -158,8 +157,10 @@ public class BuildingRestControllerTest extends SecurityTest {
             }
         }
 
-        mockMvc.perform(put("/api/buildings/" + b_id + "/address").session(session).contentType(contentTypeUriList)
-                .content("http://localhost:8080/api/addresses/" + a_id)).andExpect(status().isNoContent());
+        mockMvc.perform(
+                put("/api/buildings/" + b_id + "/address").session(session).accept(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(contentTypeUriList).content("http://localhost:8080/api/addresses/" + a_id))
+                .andExpect(status().isNoContent());
 
         Building b = buildingRepository.getOne(b_id);
         Assert.assertEquals(b.getAddress().getId(), a_id);

@@ -22,6 +22,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -41,8 +42,7 @@ public abstract class SecurityTest {
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     protected MediaType contentTypeForm = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
             MediaType.APPLICATION_FORM_URLENCODED.getSubtype(), Charset.forName("utf8"));
-    protected MediaType contentTypeUriList = new MediaType("text",
-            "uri-list", Charset.forName("utf8"));
+    protected MediaType contentTypeUriList = new MediaType("text", "uri-list", Charset.forName("utf8"));
     protected MockMvc mockMvc;
     protected String userName = "user";
     protected String userPassword = "userPassword";
@@ -120,6 +120,15 @@ public abstract class SecurityTest {
         return createMockSession(mockMvc.perform(post("/login").contentType(contentTypeForm)
                 .param("username", adminName).param("password", adminPassword)).andExpect(status().isOk()).andReturn()
                 .getRequest().getSession());
+    }
+
+    /**
+     * Adds session and couple of headers that we need when sending json in
+     * request and expecting json as a response
+     */
+    protected MockHttpServletRequestBuilder addCommonStuff(MockHttpServletRequestBuilder requestBuilder,
+            MockHttpSession session) {
+        return requestBuilder.session(session).accept(MediaType.APPLICATION_JSON_UTF8).contentType(contentTypeJson);
     }
 
 }
