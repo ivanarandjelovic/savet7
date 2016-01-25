@@ -58,9 +58,6 @@ public class BuildingRestControllerTest extends SecurityTest {
         b2.setId(new Long(2));
         b2.setName("n2");
 
-        this.buildingList.add(buildingRepository.save(b1));
-        this.buildingList.add(buildingRepository.save(b2));
-
         Address a1 = new Address();
         a1.setId(new Long(1));
         a1.setStreet("Street1");
@@ -86,6 +83,16 @@ public class BuildingRestControllerTest extends SecurityTest {
         this.addressList.add(addressRepository.save(a1));
         this.addressList.add(addressRepository.save(a2));
 
+        b1.setAddress(this.addressList.get(0));
+        b2.setAddress(this.addressList.get(1));
+
+        this.buildingList.add(buildingRepository.save(b1));
+        this.buildingList.add(buildingRepository.save(b2));
+
+        List<Address> addrs = addressRepository.findAll();
+        for (Address a : addrs) {
+            System.out.println("a="+a);
+        }
     }
 
     @Test
@@ -115,8 +122,8 @@ public class BuildingRestControllerTest extends SecurityTest {
     }
 
     /**
-     * Adding "accept" header solved the problem of empty response but test remains "as is" since
-     * it works.
+     * Adding "accept" header solved the problem of empty response but test
+     * remains "as is" since it works.
      * 
      * @throws Exception
      */
