@@ -1,8 +1,11 @@
 package org.aivan.savet7.util;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,6 +17,7 @@ import org.aivan.savet7.model.Address;
 import org.aivan.savet7.model.Building;
 import org.aivan.savet7.repository.AddressJpaRepository;
 import org.aivan.savet7.repository.BuildingJpaRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +26,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Savet7Main.class)
@@ -57,7 +62,8 @@ public class BuildingRestControllerTest extends SecurityTest {
 
         Address a1 = new Address();
         a1.setId(new Long(1));
-        a1.setState("Street1");
+        a1.setStreet("Street1");
+        a1.setState("State1");
         a1.setNumber("n1");
         a1.setApartment("a1");
         a1.setPostalCode("pk1");
@@ -67,7 +73,8 @@ public class BuildingRestControllerTest extends SecurityTest {
 
         Address a2 = new Address();
         a2.setId(new Long(2));
-        a2.setState("Street2");
+        a2.setStreet("Street2");
+        a2.setState("State2");
         a2.setNumber("n2");
         a2.setApartment("a2");
         a2.setPostalCode("pk2");
@@ -106,30 +113,64 @@ public class BuildingRestControllerTest extends SecurityTest {
                 .andExpect(status().isCreated());
     }
 
+    /**
+     * This test in complicated too much only because of apparent bug in spring
+     * mvcMock where POST requests do not have body content at all. So we have
+     * to find other ways to test if the required action was executed
+     * 
+     * @throws Exception
+     */
     @Test
+    @Transactional
     public void createBuildingWithAddress() throws Exception {
         MockHttpSession session = loginWithUser();
 
         Building b3 = new Building();
-        b3.setId(new Long(3));
         b3.setName("Building test");
 
         Address a3 = new Address();
         a3.setStreet("street3");
 
-        b3.setAddress(a3);
+        String addressJson = json(a3);
+        mockMvc.perform(post("/api/addresses").session(session).contentType(contentTypeJson).content(addressJson))
+                .andExpect(status().isCreated());// .andExpect(jsonPath("$.street",
+                                                 // is(a3.getState())));
 
         String buildingJson = json(b3);
         mockMvc.perform(post("/api/buildings").session(session).contentType(contentTypeJson).content(buildingJson))
                 .andExpect(status().isCreated());
 
+        Long b_id = null;
+        List<Building> buildings = buildingRepository.findAll();
+        for (Building b : buildings) {
+            if ("Building test".equals(b.getName())) {
+                b_id = b.getId();
+                break;
+            }
+        }
+
+        Long a_id = null;
+        List<Address> addrs = addressRepository.findAll();
+        for (Address addr : addrs) {
+            if ("street3".equals(addr.getStreet())) {
+                a_id = addr.getId();
+                break;
+            }
+        }
+
+        mockMvc.perform(put("/api/buildings/" + b_id + "/address").session(session).contentType(contentTypeUriList)
+                .content("http://localhost:8080/api/addresses/" + a_id)).andExpect(status().isNoContent());
+
+        Building b = buildingRepository.getOne(b_id);
+        Assert.assertEquals(b.getAddress().getId(), a_id);
+
     }
-    
+
     @Test
     public void createBadAddress() throws Exception {
         MockHttpSession session = loginWithUser();
 
-       Address a3 = new Address();
+        Address a3 = new Address();
         a3.setStreet("shrt");
 
         String buildingJson = json(a3);
@@ -138,7 +179,6 @@ public class BuildingRestControllerTest extends SecurityTest {
                 .andExpect(jsonPath("$.validationErrors[0].fieldName", is("street")))
                 .andExpect(jsonPath("$.validationErrors[0].errorCode", containsString("size")));
     }
-
 
     @Test
     public void createBuildingShortName() throws Exception {
@@ -154,7 +194,7 @@ public class BuildingRestControllerTest extends SecurityTest {
                 .andExpect(jsonPath("$.validationErrors[0].fieldName", is("name")))
                 .andExpect(jsonPath("$.validationErrors[0].errorCode", is("name.short")));
     }
-    
+
     @Test
     public void createBuildingNoName() throws Exception {
         MockHttpSession session = loginWithUser();
@@ -178,43 +218,5 @@ public class BuildingRestControllerTest extends SecurityTest {
         mockMvc.perform(get("/george/bookmarks/").session(session).content(this.json(new Building()))
                 .contentType(contentTypeJson)).andExpect(status().isNotFound());
     }
-
-    /*
-     * @Test public void userNotFound() throws Exception {
-     * mockMvc.perform(post("/george/bookmarks/") .content(this.json(new
-     * Bookmark())) .contentType(contentType))
-     * .andExpect(status().isNotFound()); }
-     */
-
-    /*
-     * @Test public void readSingleBookmark() throws Exception {
-     * mockMvc.perform(get("/" + userName + "/bookmarks/" + this.bookmark
-     * List.get(0).getId())) .andExpect(status().isOk())
-     * .andExpect(content().contentType(contentType))
-     * .andExpect(jsonPath("$.id",
-     * is(this.bookmarkList.get(0).getId().intValue())))
-     * .andExpect(jsonPath("$.uri", is("http://bookmark.com/1/" + userName)))
-     * .andExpect(jsonPath("$.description", is("A description"))); }
-     * 
-     * @Test public void readBookmarks() throws Exception {
-     * mockMvc.perform(get("/" + userName + "/bookmarks"))
-     * .andExpect(status().isOk())
-     * .andExpect(content().contentType(contentType)) .andExpect(jsonPath("$",
-     * hasSize(2))) .andExpect(jsonPath("$[0].id",
-     * is(this.bookmarkList.get(0).getId().intValue())))
-     * .andExpect(jsonPath("$[0].uri", is("http://bookmark.com/1/" + userName)))
-     * .andExpect(jsonPath("$[0].description", is("A description")))
-     * .andExpect(jsonPath("$[1].id",
-     * is(this.bookmarkList.get(1).getId().intValue())))
-     * .andExpect(jsonPath("$[1].uri", is("http://bookmark.com/2/" + userName)))
-     * .andExpect(jsonPath("$[1].description", is("A description"))); }
-     * 
-     * @Test public void createBookmark() throws Exception { String bookmarkJson
-     * = json(new Bookmark( this.account, "http://spring.io",
-     * "a bookmark to the best resource for Spring news and information"));
-     * this.mockMvc.perform(post("/" + userName + "/bookmarks")
-     * .contentType(contentType) .content(bookmarkJson))
-     * .andExpect(status().isCreated()); }
-     */
 
 }

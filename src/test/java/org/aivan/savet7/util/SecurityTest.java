@@ -41,6 +41,8 @@ public abstract class SecurityTest {
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     protected MediaType contentTypeForm = new MediaType(MediaType.APPLICATION_FORM_URLENCODED.getType(),
             MediaType.APPLICATION_FORM_URLENCODED.getSubtype(), Charset.forName("utf8"));
+    protected MediaType contentTypeUriList = new MediaType("text",
+            "uri-list", Charset.forName("utf8"));
     protected MockMvc mockMvc;
     protected String userName = "user";
     protected String userPassword = "userPassword";
