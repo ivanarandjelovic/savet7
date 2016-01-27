@@ -28,10 +28,13 @@
 </body>
 
 <script type="text/javascript">
-var s7AppFactory = React.createFactory(s7App);
+//var s7AppFactory = React.createFactory(s7App);
 
-ReactDOM.render(s7AppFactory(), document.getElementById('s7Container') );
-
+//ReactDOM.render(s7AppFactory(), document.getElementById('s7Container') );
+ReactDOM.render(
+    <s7App  />,
+    document.getElementById('s7Container')
+  );
 
 </script>
 </html>
