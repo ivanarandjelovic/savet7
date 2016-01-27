@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="savet7App">
+<html>
 <head>
 <title>Savet7</title>
 
@@ -17,24 +17,13 @@
 <script type="text/javascript" src="js/lib/react.js"></script>
 <script type="text/javascript" src="js/lib/react-dom.js"></script>
 <script type="text/javascript" src="js/lib/redux_3.6.js"></script>
-<script type="text/javascript" src="js/lib/babel.min.js"></script>
-
-<script type="text/babel" src="js/s7App.js"></script>
-
+<script type="text/javascript" src="js/lib/browser.min.js"></script>
 <body>
 
-<div class="s7Container"></div>
+	<div id="s7Container"></div>
 
 </body>
 
-<script type="text/javascript">
-//var s7AppFactory = React.createFactory(s7App);
+<script type="text/babel" src="js/s7App.js"></script>
 
-//ReactDOM.render(s7AppFactory(), document.getElementById('s7Container') );
-ReactDOM.render(
-    <s7App  />,
-    document.getElementById('s7Container')
-  );
-
-</script>
 </html>

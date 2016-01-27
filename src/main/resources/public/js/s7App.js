@@ -1,4 +1,4 @@
-s7App = React.createClass({
+var S7App = React.createClass({
   render: function() {
     return (
       <div>
@@ -54,5 +54,10 @@ s7App = React.createClass({
   }
 });
 
-alert("ok");
- 
+
+ReactDOM.render(
+    <S7App />,
+    document.getElementById('s7Container')
+  );
+
+
