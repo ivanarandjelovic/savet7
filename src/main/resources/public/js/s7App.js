@@ -20,27 +20,31 @@ var S7App = React.createClass({
         <div className="collapse navbar-collapse"
           id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav navbar-right">
-            <li ng-if="!loggedIn"><a href="" ng-click="login()"
+          
+          <ul className="nav navbar-nav" ng-controller="langCtrl">
+          
+          <li className="dropdown"><a className="dropdown-toggle"
+            data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false" id="langSelectLink">English<span className="caret"></span>
+          </a>
+            <ul className="dropdown-menu">
+              <li className="active"><a>English</a></li>
+              <li className=""><a>Serbian</a></li>
+            </ul></li>
+        </ul>
+
+          
+          <p className="navbar-text" ng-if="loggedIn">
+          Logged in as <b id="usernameInNav">username</b>
+          </p>
+
+          <li ng-if="!loggedIn"><a href="" ng-click="login()"
               id="loginLink">Login</a></li>
             <li ng-if="loggedIn"><a href="" ng-click="logout()"
               id="logoutLink">Logout</a></li>
 
+              </ul>
 
-          <p className="navbar-text navbar-right" ng-if="loggedIn">
-            Logged in as <b id="usernameInNav">username</b>
-          </p>
-          <ul className="nav navbar-nav navbar-right" ng-controller="langCtrl">
-            
-            <li className="dropdown"><a className="dropdown-toggle"
-              data-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false" id="langSelectLink">English<span className="caret"></span>
-            </a>
-              <ul className="dropdown-menu">
-                <li className="active"><a>English</a></li>
-                <li className=""><a>Serbian</a></li>
-              </ul></li>
-          </ul>
-				</ul>
         </div>
       </div>
     </nav>
