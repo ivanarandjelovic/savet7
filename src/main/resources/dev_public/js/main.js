@@ -1,14 +1,17 @@
 "use strict";
 
+import ReactDOM from 'react-dom';
+import routes from './routes';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+ReactDOM.render(routes, document.getElementById('s7App'));
 
-var S7App = require('./s7App');
+//var React = require('react');
+//var ReactDOM = require('react-dom');
 
-alert(1234);
+//var S7App = require('./components/s7App');
+//require('./s7Store');
 
-ReactDOM.render(
-    <S7App />,
-    document.getElementById('s7Container')
-  );
+//ReactDOM.render(
+//    <S7App />,
+//    document.getElementById('s7Container')
+//  );

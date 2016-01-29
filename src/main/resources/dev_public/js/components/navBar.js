@@ -1,11 +1,10 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+import Link from 'react-router';
 
-var S7App = React.createClass({
+var NavBar = React.createClass({
   render: function() {
 
     return (
-      <div>
       <nav className="navbar navbar-default">
       <div className="container-fluid">
         {/* Brand and toggle get grouped for better mobile display */}
@@ -47,20 +46,20 @@ var S7App = React.createClass({
             <li ng-if="loggedIn"><a href="" ng-click="logout()"
               id="logoutLink">Logout</a></li>
 
+              <li><Link to="home">Home</Link></li>
+              <li><Link to="buildingList">buildingList</Link></li>
+              <li><Link to="buildingDetail">buildingDetail</Link></li>
+               
               </ul>
 
         </div>
       </div>
     </nav>
-
-
-    <div className="container" ng-view></div>
-    </div>
     );
   }
 });
 
-module.exports = S7App;
+module.exports = NavBar;
 
 
 
