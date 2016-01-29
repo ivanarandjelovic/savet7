@@ -1,10 +1,6 @@
-"use strict";
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-alert("12345");
-  
 var S7App = React.createClass({
   render: function() {
 
@@ -64,6 +60,7 @@ var S7App = React.createClass({
   }
 });
 
+module.exports = S7App;
 
 
 

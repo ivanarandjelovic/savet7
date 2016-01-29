@@ -1,9 +1,9 @@
-"use strict";
-
 var Redux = require('redux');
 
 var s7Reducer = function(state, action) {
+
   var newState = {};
+
   if (state === undefined) {
     newState = {
       loginData : {
@@ -11,13 +11,13 @@ var s7Reducer = function(state, action) {
       }
     };
   }
-  
-  newState = [...newState, ...state];
-  
+
+  newState = Object.assign(newState, state);
+
   if (action.type === 'LOGIN_ACTION') {
     newState.loginData.username = action.username;
   }
-  
+
   return newState;
 
 }
@@ -30,18 +30,19 @@ var logger = function() {
 
 var unsubLogger = s7Store.subscribe(logger);
 
-
 s7Store.dispatch({
   type : "LOG_STORE",
-  username: null
+  username : null
 });
 
 s7Store.dispatch({
   type : "LOGIN_ACTION",
-  username: null
+  username : null
 });
 
 s7Store.dispatch({
   type : "LOGIN_ACTION",
-  username: "Spike"
+  username : "Spike"
 });
+
+module.exports = s7Store;

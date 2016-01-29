@@ -4,13 +4,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-console.log(React);
-console.log(ReactDOM);
+var S7App = require('./s7App');
 
-require('./s7Store');
-require('./s7App');
-
-alert("123");
+alert(1234);
 
 ReactDOM.render(
     <S7App />,
