@@ -6,7 +6,8 @@ var Content = React.createClass({
 
     return (
       <div className="container">
-        {/*<RouteHandler />*/}content!
+        {/* Render the child route component */}
+        {this.props.children}
       </div>
     );
   }

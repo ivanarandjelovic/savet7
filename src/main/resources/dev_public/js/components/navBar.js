@@ -1,9 +1,8 @@
 var React = require('react');
-import Link from 'react-router';
+import { Link } from 'react-router';
 
 var NavBar = React.createClass({
   render: function() {
-
     return (
       <nav className="navbar navbar-default">
       <div className="container-fluid">
@@ -41,14 +40,11 @@ var NavBar = React.createClass({
           Logged in as <b id="usernameInNav">username</b>
           </p>
 
-          <li ng-if="!loggedIn"><a href="" ng-click="login()"
-              id="loginLink">Login</a></li>
-            <li ng-if="loggedIn"><a href="" ng-click="logout()"
-              id="logoutLink">Logout</a></li>
+          <li><a href="" id="loginLink">Login</a></li>
+            <li><a href="" id="logoutLink">Logout</a></li>
 
-              <li><Link to="home">Home</Link></li>
-              <li><Link to="buildingList">buildingList</Link></li>
-              <li><Link to="buildingDetail">buildingDetail</Link></li>
+              <li><Link to="/">buildingList</Link></li>
+              <li><Link to="buildingDetails">buildingDetails</Link></li>
                
               </ul>
 

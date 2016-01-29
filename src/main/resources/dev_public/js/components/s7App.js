@@ -8,7 +8,7 @@ var S7App = React.createClass({
     return (
     <div>
       <NavBar />
-      <Content/>
+      <Content children={this.props.children}/>
     </div>
     );
   }
