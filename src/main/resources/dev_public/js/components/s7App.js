@@ -1,20 +1,22 @@
 var React = require('react');
 var NavBar = require('./navBar');
 var Content = require('./content');
+import { connect } from 'react-redux'
 
 var S7App = React.createClass({
   render: function() {
 
     return (
     <div>
-      <NavBar />
-      <Content children={this.props.children}/>
+      <NavBar loginData={this.props.loginData}/>
+      <Content {...this.props}/>
     </div>
     );
   }
 });
 
-module.exports = S7App;
+
+export default connect(state => state)(S7App);
 
 
 

@@ -37,7 +37,7 @@ var NavBar = React.createClass({
 
           
           <p className="navbar-text" ng-if="loggedIn">
-          Logged in as <b id="usernameInNav">username</b>
+          Logged in as <b id="usernameInNav">{this.props.loginData.username}</b>
           </p>
 
           <li><a href="" id="loginLink">Login</a></li>

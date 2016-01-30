@@ -9,6 +9,9 @@ import S7App from './components/s7App';
 import BuildingList from './components/buildingList';
 import BuildingDetails from './components/buildingDetails';
 import NotFound from './components/notFoundPage';
+var Provider = require('react-redux').Provider;
+
+var S7Store = require('./s7Store');
 
 /*const historyOptions = {
   queryKey : false
@@ -16,13 +19,15 @@ import NotFound from './components/notFoundPage';
 //<Router history={createHistory(historyOptions)}>
 
 const routes = (
-  <Router history={browserHistory}>
-    <Route path='/' component={ S7App }>
-      <IndexRoute component={ BuildingList }/>
-      <Route path='buildingDetails/:buildingId' component={ BuildingDetails } />
-      <Route path='*' component={NotFound}/>
-    </Route>
-  </Router>
+  <Provider store={S7Store}>
+    <Router history={browserHistory}>
+      <Route path='/' component={ S7App }>
+        <IndexRoute component={ BuildingList }/>
+        <Route path='buildingDetails' component={ BuildingDetails } />
+        <Route path='*' component={NotFound}/>
+      </Route>
+    </Router>
+  </Provider>
 );
 
 export default routes;

@@ -30,7 +30,7 @@ var logger = function() {
 
 var unsubLogger = s7Store.subscribe(logger);
 
-s7Store.dispatch({
+/*s7Store.dispatch({
   type : "LOG_STORE",
   username : null
 });
@@ -43,6 +43,6 @@ s7Store.dispatch({
 s7Store.dispatch({
   type : "LOGIN_ACTION",
   username : "Spike"
-});
+});*/
 
 module.exports = s7Store;
