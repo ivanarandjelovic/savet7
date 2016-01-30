@@ -23,7 +23,9 @@ const routes = (
     <Router history={browserHistory}>
       <Route path='/' component={ S7App }>
         <IndexRoute component={ BuildingList }/>
-        <Route path='buildingDetails' component={ BuildingDetails } />
+        <Route
+          path='buildingDetails'
+          component={ BuildingDetails } />
         <Route path='*' component={NotFound}/>
       </Route>
     </Router>

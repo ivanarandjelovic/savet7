@@ -10,19 +10,29 @@ var BuildingList = React.createClass({
       return <span>Empty list</span>;
     } else {
     return (
-        <table className="table table-striped">
+      <table className="table table-striped">
         {
           this.props.buildings.map(function(building) {
-            return (<tr><td><Link to="buildingDetails/{building.id}"><span>{building.name}</span></Link></td><td>Address here</td></tr>);
+            return (
+              <tr>
+                <td>
+                  <Link to="buildingDetails/{building.id}">
+                    <span>
+                      {building.name}
+                    </span>
+                  </Link>
+                </td>
+                <td>
+                  Address here
+                </td>
+              </tr>
+            );
           })
         }
-      </table> 
+      </table>
     );
     }
   }
 });
 
 module.exports = BuildingList;
-
-
-

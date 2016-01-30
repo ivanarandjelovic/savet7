@@ -5,13 +5,10 @@ var BuildingDetails = React.createClass({
 
     return (
       <div>
-      BuildingDetails
+        BuildingDetails
       </div >
     );
   }
 });
 
 module.exports = BuildingDetails;
-
-
-
