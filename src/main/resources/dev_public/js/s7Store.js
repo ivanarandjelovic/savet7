@@ -15,7 +15,9 @@ var s7Reducer = function(state, action) {
   newState = Object.assign(newState, state);
 
   if (action.type === 'LOGIN_ACTION') {
-    newState.loginData.username = action.username;
+    newState.loginData = {
+      username: action.username
+    };
   }
 
   return newState;

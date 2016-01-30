@@ -2,7 +2,32 @@ var React = require('react');
 import { Link } from 'react-router';
 
 var NavBar = React.createClass({
+
+  login: function() {
+    console.log(this.props);
+    this.props.dispatch({
+      type: 'LOGIN_ACTION',
+      username: 'Tester'
+    });
+
+  },
+
+  logout: function() {
+    this.props.dispatch({
+      type: 'LOGIN_ACTION',
+      username: null
+    });
+
+  },
+
   render: function() {
+    var loggedInText = null;
+    if(this.props.loginData.username === null) {
+      loggedInText = <span>Logged out</span>;
+    } else {
+      loggedInText = <span>Logged in as <b>{this.props.loginData.username}</b></span>;
+    }
+
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -61,14 +86,14 @@ var NavBar = React.createClass({
 
 
             <p className="navbar-text" ng-if="loggedIn">
-              Logged in as <b id="usernameInNav">{this.props.loginData.username}</b>
-          </p>
+          {loggedInText}
+        </p>
 
           <li>
-            <a href="" id="loginLink">Login</a>
+            <a onClick={this.login} id="loginLink">Login</a>
           </li>
           <li>
-            <a href="" id="logoutLink">Logout</a>
+            <a onClick={this.logout} id="logoutLink">Logout</a>
           </li>
 
           <li>

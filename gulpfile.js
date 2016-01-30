@@ -55,9 +55,9 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
-  
+
   var bundler = watchify(browserify(config.paths.mainJs, { debug: true }).transform(babel));
-  
+
   function rebundle() {
     bundler.bundle()
       .on('error', function(err) { console.error(err); this.emit('end'); })
@@ -67,9 +67,9 @@ gulp.task('js', function() {
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(config.paths.dist + '/js'));
   }
-  
+
   rebundle();
-  
+
   return bundler
   .on('update', function () { // When any files update
       var updateStart = Date.now();
@@ -77,7 +77,7 @@ gulp.task('js', function() {
       connect.reload();
       console.log('Updated!', (Date.now() - updateStart) + 'ms');
   })
-  
+
 /*	browserify(config.paths.mainJs)
 		//.transform(reactify)
 	  .transform(babel())
@@ -125,7 +125,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
 	gulp.watch(config.paths.html, ['html']);
-	gulp.watch(config.paths.js, ['lint']);
+	//gulp.watch(config.paths.js, ['lint']);
 });
 
 gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);

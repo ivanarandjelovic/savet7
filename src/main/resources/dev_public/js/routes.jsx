@@ -5,10 +5,10 @@ import { Router, Route, IndexRoute } from 'react-router';
 //import createHistory from 'history/lib/createHashHistory'
 import { browserHistory } from 'react-router'
 
-import S7App from './components/s7App';
-import BuildingList from './components/buildingList';
-import BuildingDetails from './components/buildingDetails';
-import NotFound from './components/notFoundPage';
+import S7App from './components/s7App.jsx';
+import BuildingList from './components/buildingList.jsx';
+import BuildingDetails from './components/buildingDetails.jsx';
+import NotFound from './components/notFoundPage.jsx';
 var Provider = require('react-redux').Provider;
 
 var S7Store = require('./s7Store');
