@@ -15,12 +15,6 @@ var NavBar = React.createClass({
   },
 
   render: function() {
-    var loggedInText = null;
-    if(this.props.loginData.username === null) {
-      loggedInText = <span>Logged out</span>;
-    } else {
-      loggedInText = <span>Logged in as <b>{this.props.loginData.username}</b></span>;
-    }
 
     return (
       <nav className="navbar navbar-default">
@@ -77,16 +71,7 @@ var NavBar = React.createClass({
                 </ul>
               </li>
             </ul>
-
-
-            <p className="navbar-text" ng-if="loggedIn">
-          {loggedInText}
-        </p>
-          <LoginLink/>
-          <li>
-            <a onClick={this.closeModal} id="logoutLink">Logout</a>
-          </li>
-
+          { this.props.loginData.loggedIn ? <li><a onClick={this.closeModal} id="logoutLink">Logout</a></li> : <LoginLink/>}
           <li>
             <Link to="/">buildingList</Link>
           </li>

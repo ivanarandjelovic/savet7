@@ -1,36 +1,19 @@
-var Redux = require('redux');
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+import rootReducer from './reducers/rootReducer'
 
-var s7Reducer = function(state, action) {
+const loggerMiddleware = createLogger()
 
-  var newState = {};
 
-  if (state === undefined) {
-    newState = {
-      loginData : {
-        username : 'Mike'
-      }
-    };
-  }
 
-  newState = Object.assign(newState, state);
-
-  if (action.type === 'LOGIN_ACTION') {
-    newState.loginData = {
-      username: action.username
-    };
-  }
-
-  return newState;
-
-}
-
-var s7Store = Redux.createStore(s7Reducer);
-
-var logger = function() {
-  console.log("s7Store: ", s7Store.getState());
-};
-
-var unsubLogger = s7Store.subscribe(logger);
+const s7Store = createStore(
+  rootReducer,
+  applyMiddleware(
+    thunkMiddleware, // lets us dispatch() functions
+    loggerMiddleware // neat middleware that logs actions
+  )
+)
 
 /*s7Store.dispatch({
   type : "LOG_STORE",
