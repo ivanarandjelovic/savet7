@@ -1,16 +1,10 @@
-var React = require('react');
-import { Link } from 'react-router';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Modal from 'react-modal'
+import { Link } from 'react-router'
+import LoginLink from './loginLink.jsx'
 
 var NavBar = React.createClass({
-
-  login: function() {
-    console.log(this.props);
-    this.props.dispatch({
-      type: 'LOGIN_ACTION',
-      username: 'Tester'
-    });
-
-  },
 
   logout: function() {
     this.props.dispatch({
@@ -88,12 +82,9 @@ var NavBar = React.createClass({
             <p className="navbar-text" ng-if="loggedIn">
           {loggedInText}
         </p>
-
+          <LoginLink/>
           <li>
-            <a onClick={this.login} id="loginLink">Login</a>
-          </li>
-          <li>
-            <a onClick={this.logout} id="logoutLink">Logout</a>
+            <a onClick={this.closeModal} id="logoutLink">Logout</a>
           </li>
 
           <li>

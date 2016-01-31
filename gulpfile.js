@@ -27,7 +27,8 @@ var config = {
       		'node_modules/bootstrap/dist/css/bootstrap.min.css',
       		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
 					'node_modules/toastr/build/toastr.css',
-					'node_modules/font-awesome/font-awesome.css'
+					'node_modules/font-awesome/font-awesome.css',
+          './src/main/resources/dev_public/css/*.css'
     	],
 		dist: './src/main/resources/public',
 		mainJs: './src/main/resources/dev_public/js/main.js'
@@ -125,6 +126,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
 	gulp.watch(config.paths.html, ['html']);
+  gulp.watch(config.paths.css, ['css']);
 	//gulp.watch(config.paths.js, ['lint']);
 });
 
