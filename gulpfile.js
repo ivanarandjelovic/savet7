@@ -58,7 +58,7 @@ gulp.task('html', function() {
 
 // We need the files in ./bin folder so that Tomcat can read them
 var copyToEclipseBin = function() {
-  gulp.src(['./src/main/resources/public/**/*']).pipe(gulp.dest('./bin/public'));  
+  gulp.src(['./src/main/resources/public/**/*']).pipe(gulp.dest('./bin/public'));
 };
 
 gulp.task('js', function() {

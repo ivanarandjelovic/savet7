@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
 import LoginLink from './loginLink.jsx'
+var loginActions = require('../actions/loginActions');
 
 var NavBar = React.createClass({
 
   logout: function() {
-    this.props.dispatch({
-      type: 'LOGIN_ACTION',
-      username: null
-    });
-
+    this.props.dispatch(loginActions.logout());
   },
 
   render: function() {
@@ -48,30 +45,26 @@ var NavBar = React.createClass({
             id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav navbar-right">
 
-              <ul
-                className="nav navbar-nav"
-                ng-controller="langCtrl">
-
-                <li className="dropdown">
-                  <a
-                    className="dropdown-toggle"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    id="langSelectLink">English<span className="caret"></span>
-                </a>
-                <ul className="dropdown-menu">
-                  <li className="active">
-                    <a>English</a>
-                  </li>
-                  <li className="">
-                    <a>Serbian</a>
-                  </li>
-                </ul>
+            <li className="dropdown">
+              <a
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                id="langSelectLink">English<span className="caret"></span>
+            </a>
+            <ul className="dropdown-menu">
+              <li className="active">
+                <a>English</a>
+              </li>
+              <li className="">
+                <a>Serbian</a>
               </li>
             </ul>
-          { this.props.loginData.loggedIn ? <li><a onClick={this.closeModal} id="logoutLink">Logout</a></li> : <LoginLink/>}
+          </li>
+          { this.props.loginData.loggedIn ? <li className="navbar-text">Logged in as <b>{this.props.loginData.username}</b></li> : ''}
+          { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>Logout</a></li> : <LoginLink/>}
           <li>
             <Link to="/">buildingList</Link>
           </li>
