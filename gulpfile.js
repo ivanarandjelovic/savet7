@@ -53,7 +53,13 @@ gulp.task('open', ['connect'], function() {
 gulp.task('html', function() {
 	gulp.src(config.paths.html)
 		.pipe(gulp.dest(config.paths.dist));
+  copyToEclipseBin();
 });
+
+// We need the files in ./bin folder so that Tomcat can read them
+var copyToEclipseBin = function() {
+  gulp.src(['./src/main/resources/public/**/*']).pipe(gulp.dest('./bin/public'));  
+};
 
 gulp.task('js', function() {
 
@@ -67,6 +73,7 @@ gulp.task('js', function() {
       .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(config.paths.dist + '/js'));
+    copyToEclipseBin();
   }
 
   rebundle();
@@ -75,7 +82,7 @@ gulp.task('js', function() {
   .on('update', function () { // When any files update
       var updateStart = Date.now();
       rebundle();
-      connect.reload();
+      //connect.reload();
       console.log('Updated!', (Date.now() - updateStart) + 'ms');
   })
 
@@ -101,21 +108,23 @@ gulp.task('minify', function() {
 gulp.task('css', function() {
 	gulp.src(config.paths.css)
 		.pipe(concat('bundle.css'))
-		.pipe(gulp.dest(config.paths.dist + '/css'))
-		.pipe(connect.reload());
+		.pipe(gulp.dest(config.paths.dist + '/css'));
+		//.pipe(connect.reload());
+  copyToEclipseBin();
 });
 
 // Migrates images to dist folder
 // Note that I could even optimize my images here
 gulp.task('images', function () {
     gulp.src(config.paths.images)
-        .pipe(gulp.dest(config.paths.dist + '/images'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(config.paths.dist + '/images'));
+        //.pipe(connect.reload());
 
     //publish favicon
     gulp.src('./src/favicon.ico')
-        .pipe(gulp.dest(config.paths.dist))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(config.paths.dist));
+        //.pipe(connect.reload());
+    copyToEclipseBin();
 });
 
 gulp.task('lint', function() {
@@ -130,4 +139,4 @@ gulp.task('watch', function() {
 	//gulp.watch(config.paths.js, ['lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'lint', /*'open',*/ 'watch']);
