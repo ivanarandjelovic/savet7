@@ -16,8 +16,16 @@ var loginActions = {
         dispatch(loginActions.setUsername(data)) // Use a normal function to set the received state
       );
     }
-  }
+  },
 
+  login: (username, password) => {
+    return dispatch => {
+      $.post('http://localhost:8080/login', {username, password}, (data) =>
+        dispatch(loginActions.fetchUser())
+      );
+    }
+  }
+  
 };
 
 module.exports = loginActions;

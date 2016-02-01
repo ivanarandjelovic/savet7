@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class Savet7Configuration {
 
     private boolean useSlowFilter = false;
+    private boolean allowCORS = false;
 
     public boolean isUseSlowFilter() {
         return useSlowFilter;
@@ -14,5 +15,15 @@ public class Savet7Configuration {
     public void setUseSlowFilter(boolean useSlowFilter) {
         this.useSlowFilter = useSlowFilter;
     }
+
+    public boolean isAllowCORS() {
+        return allowCORS;
+    }
+
+    public void setAllowCORS(boolean allowCORS) {
+        this.allowCORS = allowCORS;
+    }
+    
+    
 
 }

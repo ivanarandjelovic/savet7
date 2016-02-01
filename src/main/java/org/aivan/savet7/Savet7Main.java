@@ -1,6 +1,7 @@
 package org.aivan.savet7;
 
 import org.aivan.savet7.config.Savet7Configuration;
+import org.aivan.savet7.filter.CorsFilter;
 import org.aivan.savet7.filter.SlowFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -28,11 +29,24 @@ public class Savet7Main extends SpringBootServletInitializer {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean corsFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        
+        CorsFilter corsFilter = new CorsFilter(savet7Configuration.isAllowCORS());
+        registrationBean.setFilter(corsFilter);
+        registrationBean.setOrder(1);
+        
+        return registrationBean;
+    }
+    
+    @Bean
+    public FilterRegistrationBean slowFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        
         SlowFilter slowFilter = new SlowFilter(savet7Configuration.isUseSlowFilter());
         registrationBean.setFilter(slowFilter);
-        registrationBean.setOrder(1);
+        registrationBean.setOrder(2);
+        
         return registrationBean;
     }
 }

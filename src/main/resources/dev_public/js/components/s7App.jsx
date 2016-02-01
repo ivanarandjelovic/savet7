@@ -9,7 +9,8 @@ import {
 var S7App = React.createClass({
 
   componentWillMount : function() {
-    this.props.dispatch(loginActions.fetchUser());
+    //this.props.dispatch(loginActions.fetchUser());
+  	this.props.dispatch(loginActions.login("user","user"));
   },
 
   render: function() {
