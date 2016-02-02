@@ -1,4 +1,7 @@
 var React = require('react');
+import {
+  connect
+} from 'react-redux'
 
 var BuildingDetails = React.createClass({
   render: function() {
@@ -11,4 +14,6 @@ var BuildingDetails = React.createClass({
   }
 });
 
-module.exports = BuildingDetails;
+//module.exports = BuildingDetails;
+
+export default connect(state => state)(BuildingDetails);
