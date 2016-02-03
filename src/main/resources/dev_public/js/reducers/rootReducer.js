@@ -16,7 +16,10 @@ var rootReducer = function(state, action) {
   if (action.type === 'LOGIN_ACTION') {
     newState.loginData = {
       username: action.username,
-      loggedIn: (action.username === null ? false : true)
+      loggedIn: (!!action.username ? true : false),
+      loginFailed: action.loginFailed,
+      loginSuccess: action.loginSuccess,
+      logoutSuccess: action.logoutSuccess
     };
   }
 

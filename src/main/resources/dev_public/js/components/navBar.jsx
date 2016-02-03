@@ -64,7 +64,7 @@ var NavBar = React.createClass({
             </ul>
           </li>
           { this.props.loginData.loggedIn ? <li className="navbar-text">Logged in as <b>{this.props.loginData.username}</b></li> : ''}
-          { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>Logout</a></li> : <LoginLink/>}
+          { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>Logout</a></li> : <LoginLink {...this.props}/>}
           <li>
             <Link to="/">buildingList</Link>
           </li>

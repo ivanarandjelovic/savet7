@@ -11,6 +11,14 @@ var loginActions = {
     }
   },
 
+  clearLoginData : () => {
+    return {
+      type: 'LOGIN_ACTION',
+      loginFailed: false,
+      loginSuccess: false
+    }
+  },
+
   fetchUser: () => {
     return dispatch => {
       $.get('http://localhost:8080/userService/get', (data) =>
@@ -24,8 +32,12 @@ var loginActions = {
       $.post('http://localhost:8080/login', {
         username, password
       }, (data) => {
-        dispatch(loginActions.fetchUser())
-        //toastr.success("You have been logged in");
+        // Login success
+        dispatch(loginActions.fetchUser());
+        dispatch({type: 'LOGIN_ACTION', loginSuccess : true});
+      }).fail(() => {
+        // Login failed:
+        dispatch({type: 'LOGIN_ACTION', loginFailed : true});
       });
     }
   },
@@ -34,7 +46,7 @@ var loginActions = {
     return dispatch => {
       $.post('http://localhost:8080/logout', null, (data) => {
         dispatch(loginActions.fetchUser());
-        //toastr.warning("You have been logged out");
+        dispatch({type: 'LOGIN_ACTION', logoutSuccess : true});
       });
     }
   }

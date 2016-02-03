@@ -1,11 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var loginActions = require('../actions/loginActions');
 
 var LoginLink = React.createClass({
 
+  mixins: [LinkedStateMixin],
+
   getInitialState: function() {
-    return {modalIsOpen: false};
+    return {modalIsOpen: false, username: '', password: ''};
   },
 
   openModal: function() {
@@ -27,7 +31,7 @@ var LoginLink = React.createClass({
   },
 
   handleLoginClicked: function() {
-    // TODO: trigger login here!
+    this.props.dispatch(loginActions.login(this.state.username,this.state.password));
   },
 
   render: function() {
@@ -54,8 +58,33 @@ var LoginLink = React.createClass({
               <h4 className="modal-title">Login to Savet7</h4>
             </div>
             <div className="modal-body">
-              <h4>Really long content...</h4>
-              <p>Test text</p>
+              <form role="form">
+                <div className="form-group">
+
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter username"
+                    id="username"
+                    onClick={this.handleChange}
+                    valueLink={this.linkState('username')}/>
+
+                </div>
+
+                <div className="form-group">
+
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    id="password"
+                    onClick={this.handleChange}
+                    valueLink={this.linkState('password')}/>
+                </div>
+
+              </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-default" onClick={this.handleModalCloseRequest}>Cancel</button>
