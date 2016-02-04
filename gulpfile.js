@@ -20,7 +20,8 @@ var config = {
 		html: './src/main/resources/dev_public/*.html',
 		js: [
 		       './src/main/resources/dev_public/**/*.js',
-		       './src/main/resources/dev_public/**/*.jsx'
+		       './src/main/resources/dev_public/**/*.jsx',
+           './src/main/resources/dev_public/**/*.json'
 		    ],
 		images: './src/main/resources/dev_public/images/*',
 		css: [

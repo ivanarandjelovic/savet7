@@ -15,12 +15,14 @@ var S7App = React.createClass({
 
   componentWillMount : function() {
     this.setState( {currentLangCd: this.props.appData.langCd});
-    //this.props.dispatch(loginActions.fetchUser());
-  	//this.props.dispatch(loginActions.login("user","user"));
+    // refresh current user:
+    this.props.dispatch(loginActions.fetchUser());
   },
 
   componentWillReceiveProps: function(newProps) {
-    if(this.state.currentLangCd !== this.props.appData.langCd) {
+    // Setting the state will trigger render if the language is changed
+    if( (this.state.currentLangCd === undefined && this.props.appData.langCd != undefined )
+      || (this.state.currentLangCd !== this.props.appData.langCd) ) {
       this.setState({currentLangCd: this.props.appData.langCd});
     }
   },

@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import LoginLink from './loginLink.jsx'
 import LanguageSelect from './languageSelect.jsx'
 var loginActions = require('../actions/loginActions');
+var translate = require('counterpart');
 
 var NavBar = React.createClass({
 
@@ -26,7 +27,7 @@ var NavBar = React.createClass({
               data-target="#bs-example-navbar-collapse-1"
               aria-expanded="false">
               <span className="sr-only">
-                Toggle navigation
+                {translate('APP_NAV_TOGGLE')}
               </span>
               <span
                 className="icon-bar">
@@ -37,7 +38,7 @@ var NavBar = React.createClass({
                 className="icon-bar">
               </span>
             </button>
-            <a className="navbar-brand" href="#">Savet7</a>
+            <a className="navbar-brand" href="#">{translate('APP_TITLE')}</a>
           </div>
 
           {/* Collect the nav links, forms, and other content for toggling */}
@@ -47,8 +48,8 @@ var NavBar = React.createClass({
             <ul className="nav navbar-nav navbar-right">
 
           <LanguageSelect {...this.props}/>
-          { this.props.loginData.loggedIn ? <li className="navbar-text">Logged in as <b>{this.props.loginData.username}</b></li> : ''}
-          { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>Logout</a></li> : <LoginLink {...this.props}/>}
+          { this.props.loginData.loggedIn ? <li className="navbar-text">{translate('APP_LOGIN_AS')} <b>{this.props.loginData.username}</b></li> : ''}
+          { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>{translate('APP_LOGIN_LOGOUT')}</a></li> : <LoginLink {...this.props}/>}
           <li>
             <Link to="/">buildingList</Link>
           </li>

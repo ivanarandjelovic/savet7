@@ -1,6 +1,7 @@
 var React = require('react');
 var toastr = require('toastr');
 var loginActions = require('../actions/loginActions');
+var translate = require('counterpart');
 
 var ToastrManager = React.createClass({
 
@@ -11,15 +12,15 @@ var ToastrManager = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.loginData.loginFailed) {
-      toastr.error("Invalid login!");
+      toastr.error(translate('APP_LOGIN_BAD'));
       this.props.dispatch(loginActions.clearLoginData());
     }
     if (nextProps.loginData.loginSuccess) {
-      toastr.success("Login successfull.");
+      toastr.success(translate('APP_LOGIN_SUCCESS'));
       this.props.dispatch(loginActions.clearLoginData());
     }
     if (nextProps.loginData.logoutSuccess) {
-      toastr.warning("Logout successfull.");
+      toastr.warning(translate('APP_LOGOUT_SUCCESS'));
       this.props.dispatch(loginActions.clearLoginData());
     }
 

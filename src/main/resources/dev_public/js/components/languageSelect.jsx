@@ -26,10 +26,10 @@ var LanguageSelect = React.createClass({
       </a>
       <ul className="dropdown-menu">
         <li className={(translate.getLocale() === 'en' ? 'active' : '')} onClick={() => this.handleLanguageChange('en')}>
-          <a href="#">English</a>
+          <a href="#">{translate('APP_LANG_ENGLISH')}</a>
         </li>
         <li className={(translate.getLocale() === 'rs' ? 'active' : '')} onClick={() => this.handleLanguageChange('rs')}>
-          <a href="#">Serbian</a>
+          <a href="#">{translate('APP_LANG_SERBIAN')}</a>
         </li>
       </ul>
     </li>

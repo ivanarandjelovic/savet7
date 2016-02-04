@@ -4,12 +4,15 @@ var rootReducer = function(state, action) {
 
   if (state === undefined) {
     newState = {
-      loginData : {
-        username : null,
+      loginData: {
+        username: null,
         loggedIn: false
       },
       appData: {
         langCd: undefined
+      },
+      data: {
+        buildings: undefined
       }
     };
   }
@@ -26,12 +29,17 @@ var rootReducer = function(state, action) {
     };
   }
 
-  if(action.type === 'APP_ACTION_LANGUAGE') {
+  if (action.type === 'APP_ACTION_LANGUAGE') {
     newState.appData.langCd = action.langCd;
   }
 
-  return newState;
+  if (action.type === 'BUILDINGS_SET') {
+    newState.data = {
+      buildings: action.buildings
+    };
+  }
 
+  return newState;
 }
 
 module.exports = rootReducer;
