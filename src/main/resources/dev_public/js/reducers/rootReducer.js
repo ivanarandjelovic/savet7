@@ -7,6 +7,9 @@ var rootReducer = function(state, action) {
       loginData : {
         username : null,
         loggedIn: false
+      },
+      appData: {
+        langCd: undefined
       }
     };
   }
@@ -21,6 +24,10 @@ var rootReducer = function(state, action) {
       loginSuccess: action.loginSuccess,
       logoutSuccess: action.logoutSuccess
     };
+  }
+
+  if(action.type === 'APP_ACTION_LANGUAGE') {
+    newState.appData.langCd = action.langCd;
   }
 
   return newState;

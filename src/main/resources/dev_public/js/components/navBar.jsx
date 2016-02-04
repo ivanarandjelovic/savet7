@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
 import { Link } from 'react-router'
 import LoginLink from './loginLink.jsx'
+import LanguageSelect from './languageSelect.jsx'
 var loginActions = require('../actions/loginActions');
 
 var NavBar = React.createClass({
@@ -45,24 +46,7 @@ var NavBar = React.createClass({
             id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav navbar-right">
 
-            <li className="dropdown">
-              <a
-                className="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                id="langSelectLink">English<span className="caret"></span>
-            </a>
-            <ul className="dropdown-menu">
-              <li className="active">
-                <a>English</a>
-              </li>
-              <li className="">
-                <a>Serbian</a>
-              </li>
-            </ul>
-          </li>
+          <LanguageSelect {...this.props}/>
           { this.props.loginData.loggedIn ? <li className="navbar-text">Logged in as <b>{this.props.loginData.username}</b></li> : ''}
           { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>Logout</a></li> : <LoginLink {...this.props}/>}
           <li>

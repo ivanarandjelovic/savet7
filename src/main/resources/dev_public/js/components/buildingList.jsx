@@ -9,7 +9,7 @@ var BuildingList = React.createClass({
   render: function() {
 
     if(!this.props.loginData.loggedIn) {
-      return <span>{translate('not_logged_in')}</span>;
+      return <span>{translate('APP_NOT_LOGGED_IN')}</span>;
     } else if (this.props.buildings === undefined || this.props.buildings.length === 0) {
       return <span>Empty building list</span>;
     } else {
