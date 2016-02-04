@@ -3,12 +3,13 @@ import Link from 'react-router/lib/Link';
 import {
   connect
 } from 'react-redux'
+var translate = require('counterpart');
 
 var BuildingList = React.createClass({
   render: function() {
 
     if(!this.props.loginData.loggedIn) {
-      return <span>Not logged in!</span>;
+      return <span>{translate('not_logged_in')}</span>;
     } else if (this.props.buildings === undefined || this.props.buildings.length === 0) {
       return <span>Empty building list</span>;
     } else {
