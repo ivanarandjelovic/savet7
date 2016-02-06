@@ -8,28 +8,33 @@ var buildingActions = require('../actions/buildingActions');
 
 var BuildingList = React.createClass({
 
-  _refreshDataIfNeeded: function() {
-    if(this.state.loggedIn) {
+  _refreshDataIfNeeded: function(refresh) {
+    if(refresh) {
       this.props.dispatch(buildingActions.getBuildings());
     }
   },
 
   getInitialState: function() {
+    //console.log("getInitialState");
     return {loggedIn : this.props.loginData.loggedIn};
   },
 
   componentWillMount: function() {
-      this._refreshDataIfNeeded();
+    //console.log('componentWillMount');
+      this._refreshDataIfNeeded(this.state.loggedIn);
   },
 
   componentWillReceiveProps: function (newProps) {
+    //console.log('componentWillReceiveProps');
     if(this.state.loggedIn != newProps.loginData.loggedIn) {
       this.setState({loggedIn : newProps.loginData.loggedIn});
-      this._refreshDataIfNeeded();
+      this._refreshDataIfNeeded(newProps.loginData.loggedIn);
     }
   },
 
   render: function() {
+    //console.log('render');
+
     var buildings = undefined;
     if(this.props.data.buildings !== undefined) {
       var buildings = this.props.data.buildings._embedded.buildings;
@@ -42,10 +47,11 @@ var BuildingList = React.createClass({
     } else {
     return (
       <table className="table table-striped">
+          <tbody>
         {
           buildings.map(function(building) {
             return (
-              <tr>
+              <tr key={building.id}>
                 <td>
                   <Link to={`buildingDetails/${building.id}`}>
                     <span>
@@ -60,6 +66,7 @@ var BuildingList = React.createClass({
             );
           })
         }
+        </tbody>
       </table>
     );
     }
