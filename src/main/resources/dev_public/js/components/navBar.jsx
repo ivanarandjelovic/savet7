@@ -38,7 +38,7 @@ var NavBar = React.createClass({
                 className="icon-bar">
               </span>
             </button>
-            <a className="navbar-brand" href="#">{translate('APP_TITLE')}</a>
+            <Link to="/" className="navbar-brand">{translate('APP_TITLE')}</Link>
           </div>
 
           {/* Collect the nav links, forms, and other content for toggling */}

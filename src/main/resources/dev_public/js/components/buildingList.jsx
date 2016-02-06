@@ -10,6 +10,7 @@ import Address from './address.jsx'
 var BuildingList = React.createClass({
 
   _refreshDataIfNeeded: function(refresh) {
+//    console.log('_refreshDataIfNeeded ='+refresh);
     if(refresh) {
       this.props.dispatch(buildingActions.getBuildings());
     }
@@ -21,14 +22,15 @@ var BuildingList = React.createClass({
   },
 
   componentWillMount: function() {
-    //console.log('componentWillMount');
+//    console.log('componentWillMount = '+this.props.loginData.loggedIn);
       this._refreshDataIfNeeded(this.state.loggedIn);
   },
 
   componentWillReceiveProps: function (newProps) {
-    //console.log('componentWillReceiveProps');
+//    console.log('componentWillReceiveProps = '+newProps.loginData.loggedIn);
     if(this.state.loggedIn != newProps.loginData.loggedIn) {
       this.setState({loggedIn : newProps.loginData.loggedIn});
+//      console.log("state update to "+newProps.loginData.loggedIn);
       this._refreshDataIfNeeded(newProps.loginData.loggedIn);
     }
   },
