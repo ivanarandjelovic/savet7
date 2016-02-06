@@ -24,7 +24,7 @@ const routes = (
       <Route path='/' component={ S7App }>
         <IndexRoute component={ BuildingList }/>
         <Route
-          path='buildingDetails'
+          path='buildingDetails/:buildingId'
           component={ BuildingDetails } />
         <Route path='*' component={NotFound}/>
       </Route>

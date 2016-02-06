@@ -1,11 +1,9 @@
 var React = require('react');
 var NavBar = require('./navBar.jsx');
 var Content = require('./content.jsx');
-var ToastrManager = require('./toastrManager.jsx')
+import ToastrManager from './toastrManager.jsx'
 var loginActions = require('../actions/loginActions');
-import {
-  connect
-} from 'react-redux'
+import { connect } from 'react-redux'
 
 var S7App = React.createClass({
 
@@ -31,12 +29,12 @@ var S7App = React.createClass({
 
     return (
       <div>
-        <ToastrManager {...this.props}/>
+        <ToastrManager />
         <NavBar {...this.props}/>
-        <Content {...this.props}/>
+        <Content children={this.props.children}/>
       </div>
     );
   }
 });
 
-export default connect(state => state)(S7App);
+export default connect(state => { return { appData: state.appData, loginData: state.loginData};} )(S7App);

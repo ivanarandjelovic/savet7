@@ -2,6 +2,7 @@ var React = require('react');
 var toastr = require('toastr');
 var loginActions = require('../actions/loginActions');
 var translate = require('counterpart');
+import { connect } from 'react-redux'
 
 var ToastrManager = React.createClass({
 
@@ -33,4 +34,5 @@ var ToastrManager = React.createClass({
   }
 });
 
-module.exports = ToastrManager;
+//module.exports = ToastrManager;
+export default connect(function(state) { return {loginData: state.loginData}; } )(ToastrManager);

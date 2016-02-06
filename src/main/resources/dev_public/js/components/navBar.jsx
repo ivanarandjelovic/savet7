@@ -50,12 +50,6 @@ var NavBar = React.createClass({
           <LanguageSelect {...this.props}/>
           { this.props.loginData.loggedIn ? <li className="navbar-text">{translate('APP_LOGIN_AS')} <b>{this.props.loginData.username}</b></li> : ''}
           { this.props.loginData.loggedIn ? <li><a href="#" onClick={this.logout}>{translate('APP_LOGIN_LOGOUT')}</a></li> : <LoginLink {...this.props}/>}
-          <li>
-            <Link to="/">buildingList</Link>
-          </li>
-          <li>
-            <Link to="buildingDetails">buildingDetails</Link>
-          </li>
 
         </ul>
 

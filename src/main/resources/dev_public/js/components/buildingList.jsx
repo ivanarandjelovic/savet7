@@ -1,10 +1,8 @@
-var React = require('react');
-import Link from 'react-router/lib/Link';
-import {
-  connect
-} from 'react-redux'
-var translate = require('counterpart');
-var buildingActions = require('../actions/buildingActions');
+import React from 'react'
+import Link from 'react-router/lib/Link'
+import { connect } from 'react-redux'
+import translate from 'counterpart'
+import buildingActions from '../actions/buildingActions'
 import Address from './address.jsx'
 
 var BuildingList = React.createClass({
@@ -78,4 +76,4 @@ var BuildingList = React.createClass({
 
 //module.exports = BuildingList;
 
-export default connect(state => state)(BuildingList);
+export default connect(state => { return { loginData: state.loginData, data: state.data };})(BuildingList);
