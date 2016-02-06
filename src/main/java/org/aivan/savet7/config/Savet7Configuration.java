@@ -7,6 +7,7 @@ public class Savet7Configuration {
 
     private boolean useSlowFilter = false;
     private boolean allowCORS = false;
+    private String allowCORSOrigin;
 
     public boolean isUseSlowFilter() {
         return useSlowFilter;
@@ -22,6 +23,14 @@ public class Savet7Configuration {
 
     public void setAllowCORS(boolean allowCORS) {
         this.allowCORS = allowCORS;
+    }
+
+    public String getAllowCORSOrigin() {
+        return allowCORSOrigin;
+    }
+
+    public void setAllowCORSOrigin(String allowCORSOrigin) {
+        this.allowCORSOrigin = allowCORSOrigin;
     }
     
     

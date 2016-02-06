@@ -32,7 +32,7 @@ public class Savet7Main extends SpringBootServletInitializer {
     public FilterRegistrationBean corsFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         
-        CorsFilter corsFilter = new CorsFilter(savet7Configuration.isAllowCORS());
+        CorsFilter corsFilter = new CorsFilter(savet7Configuration.isAllowCORS(), savet7Configuration.getAllowCORSOrigin());
         registrationBean.setFilter(corsFilter);
         registrationBean.setOrder(1);
         

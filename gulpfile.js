@@ -83,7 +83,7 @@ gulp.task('js', function() {
   .on('update', function () { // When any files update
       var updateStart = Date.now();
       rebundle();
-      //connect.reload();
+      connect.reload();
       console.log('Updated!', (Date.now() - updateStart) + 'ms');
   })
 
@@ -109,8 +109,8 @@ gulp.task('minify', function() {
 gulp.task('css', function() {
 	gulp.src(config.paths.css)
 		.pipe(concat('bundle.css'))
-		.pipe(gulp.dest(config.paths.dist + '/css'));
-		//.pipe(connect.reload());
+		.pipe(gulp.dest(config.paths.dist + '/css'))
+		.pipe(connect.reload());
   copyToEclipseBin();
 });
 
@@ -118,13 +118,13 @@ gulp.task('css', function() {
 // Note that I could even optimize my images here
 gulp.task('images', function () {
     gulp.src(config.paths.images)
-        .pipe(gulp.dest(config.paths.dist + '/images'));
-        //.pipe(connect.reload());
+        .pipe(gulp.dest(config.paths.dist + '/images'))
+        .pipe(connect.reload());
 
     //publish favicon
     gulp.src('./src/favicon.ico')
-        .pipe(gulp.dest(config.paths.dist));
-        //.pipe(connect.reload());
+        .pipe(gulp.dest(config.paths.dist))
+        .pipe(connect.reload());
     copyToEclipseBin();
 });
 
@@ -140,4 +140,4 @@ gulp.task('watch', function() {
 	//gulp.watch(config.paths.js, ['lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css', 'images', 'lint', /*'open',*/ 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);

@@ -11,7 +11,7 @@ var loginActions = {
     }
   },
 
-  clearLoginData : () => {
+  clearLoginData: () => {
     return {
       type: 'LOGIN_ACTION',
       loginFailed: false,
@@ -21,7 +21,12 @@ var loginActions = {
 
   fetchUser: () => {
     return dispatch => {
-      $.get('http://localhost:8080/userService/get', (data) =>
+      $.get({
+          url: 'http://localhost:8080/userService/get',
+          xhrFields: {
+            withCredentials: true
+          }
+        }, (data) =>
         dispatch(loginActions.setUsername(data)) // Use a normal function to set the received state
       );
     }
@@ -29,24 +34,43 @@ var loginActions = {
 
   login: (username, password) => {
     return dispatch => {
-      $.post('http://localhost:8080/login', {
+      $.post({
+          url: 'http://localhost:8080/login',
+          xhrFields: {
+            withCredentials: true
+          }
+        }, {
         username, password
       }, (data) => {
         // Login success
         dispatch(loginActions.fetchUser());
-        dispatch({type: 'LOGIN_ACTION', loginSuccess : true});
+        dispatch({
+          type: 'LOGIN_ACTION',
+          loginSuccess: true
+        });
       }).fail(() => {
         // Login failed:
-        dispatch({type: 'LOGIN_ACTION', loginFailed : true});
+        dispatch({
+          type: 'LOGIN_ACTION',
+          loginFailed: true
+        });
       });
     }
   },
 
   logout: () => {
     return dispatch => {
-      $.post('http://localhost:8080/logout', null, (data) => {
+      $.post({
+          url: 'http://localhost:8080/logout',
+          xhrFields: {
+            withCredentials: true
+          }
+        }, null, (data) => {
         dispatch(loginActions.fetchUser());
-        dispatch({type: 'LOGIN_ACTION', logoutSuccess : true});
+        dispatch({
+          type: 'LOGIN_ACTION',
+          logoutSuccess: true
+        });
       });
     }
   }

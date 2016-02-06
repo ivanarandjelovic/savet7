@@ -10,7 +10,12 @@ var buildingActions = {
 
   getBuildings: () => {
     return dispatch => {
-      $.get('http://localhost:8080/api/buildings', (data) => {
+      $.get({
+          url: 'http://localhost:8080/api/buildings',
+          xhrFields: {
+            withCredentials: true
+          }
+        }, (data) => {
         // Login success
         dispatch(buildingActions.setbuildings(data));
       });

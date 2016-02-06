@@ -15,10 +15,12 @@ public class CorsFilter implements  javax.servlet.Filter {
      * Is the filter enabled or not
      */
     private boolean enabled;
+    private String allowedOrigin;
 
-    public CorsFilter(boolean enabled) {
+    public CorsFilter(boolean enabled, String allowedOrigin) {
         super();
         this.enabled = enabled;
+        this.allowedOrigin = allowedOrigin;
     }
 
     @Override
@@ -26,9 +28,11 @@ public class CorsFilter implements  javax.servlet.Filter {
             throws IOException, ServletException {
         if (enabled) {
             HttpServletResponse resp = (HttpServletResponse) response;
-            resp.setHeader("Access-Control-Allow-Origin", "*");
+            resp.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+            resp.setHeader("Access-Control-Allow-Credentials", "true");
             resp.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
             resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+            
             resp.setHeader("Access-Control-Max-Age", "3600");
         }
         chain.doFilter(request, response);

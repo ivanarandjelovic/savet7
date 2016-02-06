@@ -20,6 +20,9 @@ import org.springframework.security.web.header.writers.StaticHeadersWriter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    Savet7Configuration savet7Configuration;
+
+    @Autowired
     private RESTAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
     private RESTAuthenticationFailureHandler authenticationFailureHandler;
@@ -45,11 +48,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable().authorizeRequests().antMatchers("/api/**")
                 .access("hasRole('USER') or hasRole('ADMIN')").and().logout().addLogoutHandler(logoutHandler);
 
-        http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
-                .addHeaderWriter(
-                        new StaticHeadersWriter("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE"))
-                .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "x-requested-with"))
-                .addHeaderWriter(new StaticHeadersWriter("Access-Control-Max-Age", "3600"));
+        if (savet7Configuration.isAllowCORS()) {
+            http.headers()
+                    .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin",
+                            savet7Configuration.getAllowCORSOrigin()))
+                    .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Credentials", "true"))
+                    .addHeaderWriter(
+                            new StaticHeadersWriter("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE"))
+                    .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "x-requested-with"))
+                    .addHeaderWriter(new StaticHeadersWriter("Access-Control-Max-Age", "3600"));
+        }
 
     }
 

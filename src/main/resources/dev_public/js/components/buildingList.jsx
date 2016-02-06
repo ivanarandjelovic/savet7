@@ -8,8 +8,25 @@ var buildingActions = require('../actions/buildingActions');
 
 var BuildingList = React.createClass({
 
+  _refreshDataIfNeeded: function() {
+    if(this.state.loggedIn) {
+      this.props.dispatch(buildingActions.getBuildings());
+    }
+  },
+
+  getInitialState: function() {
+    return {loggedIn : this.props.loginData.loggedIn};
+  },
+
   componentWillMount: function() {
-    this.props.dispatch(buildingActions.getBuildings());
+      this._refreshDataIfNeeded();
+  },
+
+  componentWillReceiveProps: function (newProps) {
+    if(this.state.loggedIn != newProps.loginData.loggedIn) {
+      this.setState({loggedIn : newProps.loginData.loggedIn});
+      this._refreshDataIfNeeded();
+    }
   },
 
   render: function() {
