@@ -5,6 +5,7 @@ import {
 } from 'react-redux'
 var translate = require('counterpart');
 var buildingActions = require('../actions/buildingActions');
+import Address from './address.jsx'
 
 var BuildingList = React.createClass({
 
@@ -60,7 +61,7 @@ var BuildingList = React.createClass({
                   </Link>
                 </td>
                 <td>
-                  Address here
+                  <Address address={building.address}/>
                 </td>
               </tr>
             );
