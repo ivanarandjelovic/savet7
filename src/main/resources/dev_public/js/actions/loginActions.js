@@ -12,14 +12,6 @@ var loginActions = {
     }
   },
 
-  clearLoginData: () => {
-    return {
-      type: 'LOGIN_ACTION',
-      loginFailed: false,
-      loginSuccess: false
-    }
-  },
-
   fetchUser: () => {
     return dispatch => {
       $.get({

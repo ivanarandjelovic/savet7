@@ -7,6 +7,7 @@ import LanguageSelect from './languageSelect.jsx'
 var loginActions = require('../actions/loginActions');
 var translate = require('counterpart');
 
+
 var NavBar = React.createClass({
 
   logout: function() {

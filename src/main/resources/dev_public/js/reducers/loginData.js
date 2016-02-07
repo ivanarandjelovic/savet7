@@ -6,10 +6,7 @@ var loginData = function(state = {
   if (action.type === 'LOGIN_ACTION') {
     state = {
       username: action.username,
-      loggedIn: (!!action.username ? true : false),
-      loginFailed: action.loginFailed,
-      loginSuccess: action.loginSuccess,
-      logoutSuccess: action.logoutSuccess
+      loggedIn: (!!action.username ? true : false)
     };
   }
 

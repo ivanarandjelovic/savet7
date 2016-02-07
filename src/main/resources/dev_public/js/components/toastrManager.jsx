@@ -34,15 +34,12 @@ var ToastrManager = React.createClass({
 
   loginError: function() {
     toastr.error(translate('APP_LOGIN_BAD'));
-    this.props.dispatch(loginActions.clearLoginData());
   },
   login: function() {
     toastr.success(translate('APP_LOGIN_SUCCESS'));
-    this.props.dispatch(loginActions.clearLoginData());
   },
   logout: function() {
     toastr.warning(translate('APP_LOGOUT_SUCCESS'));
-    this.props.dispatch(loginActions.clearLoginData());
   },
 
   render: function() {

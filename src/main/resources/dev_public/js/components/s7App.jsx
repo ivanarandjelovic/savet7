@@ -4,8 +4,12 @@ var Content = require('./content.jsx');
 import ToastrManager from './toastrManager.jsx'
 var loginActions = require('../actions/loginActions');
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
+import PubSubJs from 'pubsub-js'
 
 var S7App = React.createClass({
+
+  pubsubTokenLogout: null,
 
   getInitialState: () => {
     return {currentLangCd : undefined};
@@ -15,6 +19,9 @@ var S7App = React.createClass({
     this.setState( {currentLangCd: this.props.appData.langCd});
     // refresh current user:
     this.props.dispatch(loginActions.fetchUser());
+    this.pubsubTokenLogout = PubSubJs.subscribe('LOGOUT', function(msg, data) {
+      this.logout();
+    }.bind(this));
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -23,6 +30,10 @@ var S7App = React.createClass({
       || (this.state.currentLangCd !== this.props.appData.langCd) ) {
       this.setState({currentLangCd: this.props.appData.langCd});
     }
+  },
+
+  logout: function() {
+    browserHistory.replace("/");
   },
 
   render: function() {

@@ -4,32 +4,28 @@ import { connect } from 'react-redux'
 import translate from 'counterpart'
 import buildingActions from '../actions/buildingActions'
 import Address from './address.jsx'
-import PubSubJs from 'pubsub-js'
 
 var BuildingList = React.createClass({
-    pubsubToken: null,
 
-  refreshDataIfNeeded: function(refresh) {
-//    console.log('_refreshDataIfNeeded ='+refresh);
+  _refreshDataIfNeeded: function(refresh) {
     if(refresh) {
       this.props.dispatch(buildingActions.getBuildings());
     }
   },
 
   getInitialState: function() {
-    //console.log("getInitialState");
     return {loggedIn : this.props.loginData.loggedIn};
   },
 
   componentWillMount: function() {
-      this.pubsubToken = PubSubJs.subscribe('LOGIN', function(msg, data) {
-        this.refreshDataIfNeeded(true);
-      }.bind(this));
-      this.refreshDataIfNeeded(this.state.loggedIn);
+      this._refreshDataIfNeeded(this.state.loggedIn);
   },
 
-  compoentWillUnmount: function() {
-    PubSubJs.unsubscribe(this.pubsubToken);
+  componentWillReceiveProps: function (newProps) {
+    if(this.state.loggedIn != newProps.loginData.loggedIn) {
+      this.setState({loggedIn : newProps.loginData.loggedIn});
+      this._refreshDataIfNeeded(newProps.loginData.loggedIn);
+    }
   },
 
   render: function() {
