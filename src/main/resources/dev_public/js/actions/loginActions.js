@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import toastr from 'toastr'
+import PubSubJs from 'pubsub-js'
 
 var loginActions = {
 
@@ -48,12 +49,14 @@ var loginActions = {
           type: 'LOGIN_ACTION',
           loginSuccess: true
         });
+        PubSubJs.publish( 'LOGIN', null);
       }).fail(() => {
         // Login failed:
         dispatch({
           type: 'LOGIN_ACTION',
           loginFailed: true
         });
+        PubSubJs.publish( 'LOGIN_ERROR', null);
       });
     }
   },
@@ -71,6 +74,7 @@ var loginActions = {
           type: 'LOGIN_ACTION',
           logoutSuccess: true
         });
+        PubSubJs.publish( 'LOGOUT', null);
       });
     }
   }

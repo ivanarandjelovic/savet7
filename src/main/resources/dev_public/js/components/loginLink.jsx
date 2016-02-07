@@ -32,7 +32,7 @@ var LoginLink = React.createClass({
   },
 
   handleLoginClicked: function() {
-    this.props.dispatch(loginActions.login(this.state.username,this.state.password));
+    this.props.dispatch(loginActions.login(this.state.username, this.state.password));
   },
 
   render: function() {
@@ -56,33 +56,22 @@ var LoginLink = React.createClass({
                 <span aria-hidden="true">&times;</span>
                 <span className="sr-only">{translate('APP_CLOSE')}</span>
               </button>
-              <h4 className="modal-title">{translate('APP_LOGIN_TO')} {translate('APP_TITLE')}</h4>
+              <h4 className="modal-title">{translate('APP_LOGIN_TO')}
+                {translate('APP_TITLE')}</h4>
             </div>
             <div className="modal-body">
               <form role="form">
                 <div className="form-group">
 
                   <label htmlFor="username">{translate('APP_LOGIN_USERNAME')}</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter username"
-                    id="username"
-                    onClick={this.handleChange}
-                    valueLink={this.linkState('username')}/>
+                  <input type="text" className="form-control" placeholder="Enter username" id="username" onClick={this.handleChange} valueLink={this.linkState('username')}/>
 
                 </div>
 
                 <div className="form-group">
 
                   <label htmlFor="password">{translate('APP_LOGIN_PASSWORD')}</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                    id="password"
-                    onClick={this.handleChange}
-                    valueLink={this.linkState('password')}/>
+                  <input type="password" className="form-control" placeholder="Password" id="password" onClick={this.handleChange} valueLink={this.linkState('password')}/>
                 </div>
 
               </form>

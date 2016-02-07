@@ -16,6 +16,8 @@ document.getElementById('appTitle').innerHTML=translate('APP_TITLE');
 
 var oldLang = '';
 
+// Listen to the store chanegs and change window title when language changes
+// (a bot of overkill to subscribe to whole store for such a small and rare event, but OK)
 S7Store.subscribe(() => {
   var currentLang = S7Store.getState().appData.langCd;
   if(oldLang !== currentLang) {
