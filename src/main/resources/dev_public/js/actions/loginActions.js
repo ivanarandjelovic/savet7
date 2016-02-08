@@ -1,6 +1,5 @@
 var $ = require('jquery');
-import toastr from 'toastr'
-import PubSubJs from 'pubsub-js'
+var PubSubJs = require('pubsub-js');
 
 var loginActions = {
 
