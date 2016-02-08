@@ -15,7 +15,9 @@
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
       "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
+      "<rootDir>/node_modules/fbjs",
+      "<rootDir>/node_modules/jasmine-core",
+      "<rootDir>/node_modules/jasmine-reporters"
     ],
     "collectCoverage": true,
     "collectCoverageOnlyFrom": {
@@ -31,7 +33,8 @@
     "testPathDirs": [
       "src/test/js"
     ],
-    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js"
+    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/test/setup-jasmine-env.js"
   },
   "devDependencies": {
     "babel-jest": "^6.0.1",
