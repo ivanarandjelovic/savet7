@@ -4,3 +4,4 @@ build
 .settings
 
 /node_modules/
+/coverage/
