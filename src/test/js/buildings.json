@@ -1,0 +1,531 @@
+{
+  "_embedded" : {
+    "buildings" : [ {
+      "address" : {
+        "id" : 1,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "1",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 1",
+      "id" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/1"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/1{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/1/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 2,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "2",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 2",
+      "id" : 2,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/2"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/2{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/2/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 3,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "3",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 3",
+      "id" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/3"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/3{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/3/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 4,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "4",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 4",
+      "id" : 4,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/4"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/4{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/4/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 5,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "5",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 5",
+      "id" : 5,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/5"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/5{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/5/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 6,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "6",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 6",
+      "id" : 6,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/6"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/6{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/6/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 7,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "7",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 7",
+      "id" : 7,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/7"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/7{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/7/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 8,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "8",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 8",
+      "id" : 8,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/8"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/8{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/8/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 9,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "9",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 9",
+      "id" : 9,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/9"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/9{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/9/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 10,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "10",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 10",
+      "id" : 10,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/10"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/10{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/10/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 11,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "11",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 11",
+      "id" : 11,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/11"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/11{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/11/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 12,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "12",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 12",
+      "id" : 12,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/12"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/12{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/12/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 13,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "13",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 13",
+      "id" : 13,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/13"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/13{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/13/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 14,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "14",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 14",
+      "id" : 14,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/14"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/14{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/14/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 15,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "15",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 15",
+      "id" : 15,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/15"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/15{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/15/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 16,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "16",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 16",
+      "id" : 16,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/16"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/16{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/16/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 17,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "17",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 17",
+      "id" : 17,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/17"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/17{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/17/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 18,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "18",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 18",
+      "id" : 18,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/18"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/18{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/18/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 19,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "19",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 19",
+      "id" : 19,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/19"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/19{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/19/address"
+        }
+      }
+    }, {
+      "address" : {
+        "id" : 20,
+        "street" : "Kapetana Miloša Žunjića",
+        "number" : "35A",
+        "apartment" : "20",
+        "postalCode" : "11160",
+        "city" : "Beograd",
+        "state" : "",
+        "country" : "Srbija"
+      },
+      "name" : "Test building 20",
+      "id" : 20,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/buildings/20"
+        },
+        "building" : {
+          "href" : "http://localhost:8080/api/buildings/20{?projection}",
+          "templated" : true
+        },
+        "address" : {
+          "href" : "http://localhost:8080/api/buildings/20/address"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/buildings?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/buildings"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/buildings?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/buildings?page=8&size=20"
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/api/profile/buildings"
+    },
+    "search" : {
+      "href" : "http://localhost:8080/api/buildings/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 177,
+    "totalPages" : 9,
+    "number" : 0
+  }
+}

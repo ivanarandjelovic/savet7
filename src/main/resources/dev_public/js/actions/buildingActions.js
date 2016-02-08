@@ -1,3 +1,4 @@
+var $ = require('jquery');
 
 var buildingActions = {
 
@@ -9,6 +10,7 @@ var buildingActions = {
   },
 
   getBuildings: () => {
+    console.log($.get);
     return dispatch => {
       $.get({
           url: 'http://localhost:8080/api/buildings',
