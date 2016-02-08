@@ -3,7 +3,8 @@ var reporters = require('jasmine-reporters');
 
 var junitReporter = new reporters.JUnitXmlReporter({
     savePath: 'build/reports/js',
-    consolidateAll: false
+    consolidateAll: false,
+    filePrefix: 'TEST-'
 });
 
 jasmine.VERBOSE = true;
