@@ -1,4 +1,4 @@
-import $ from 'jquery'
+var $ = require('jquery');
 import toastr from 'toastr'
 import PubSubJs from 'pubsub-js'
 
