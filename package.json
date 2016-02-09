@@ -10,7 +10,9 @@
     "test": "jest"
   },
   "jest": {
-    "testFileExtensions": ["js"],
+    "testFileExtensions": [
+      "js"
+    ],
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
@@ -24,7 +26,8 @@
     "collectCoverageOnlyFrom": {
       "src/main/resources/dev_public/js/actions/appActions.js": true,
       "src/main/resources/dev_public/js/actions/loginActions.js": true,
-      "src/main/resources/dev_public/js/actions/buildingActions.js": true
+      "src/main/resources/dev_public/js/actions/buildingActions.js": true,
+      "src/main/resources/dev_public/js/components/address.jsx": true
     },
     "moduleFileExtensions": [
       "js",
@@ -70,6 +73,7 @@
     "pubsub-js": "^1.5.3",
     "react": "^0.14.7",
     "react-addons-linked-state-mixin": "^0.14.7",
+    "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-modal": "^0.6.1",
     "react-redux": "^4.1.2",
