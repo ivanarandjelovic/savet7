@@ -2,7 +2,7 @@
 
 import ReactDOM from 'react-dom';
 import routes from './routes.jsx';
-//window.$ = window.jQuery = require('jquery');
+window.$ = window.jQuery = require('jquery');
 require('bootstrap');
 var S7Store = require('./s7Store');
 var translate = require('counterpart');

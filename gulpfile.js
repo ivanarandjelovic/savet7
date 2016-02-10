@@ -31,6 +31,10 @@ var config = {
       'node_modules/font-awesome/font-awesome.css',
       './src/main/resources/dev_public/css/*.css'
     ],
+    fonts: [
+      "node_modules/font-awesome/fonts/*",
+      "node_modules/bootstrap/fonts/*"
+    ],
     dist: './src/main/resources/public',
     mainJs: './src/main/resources/dev_public/js/main.js'
   }
@@ -137,6 +141,12 @@ gulp.task('images', function() {
   copyToEclipseBin();
 });
 
+// Fonts
+gulp.task('fonts', function() {
+    return gulp.src(config.paths.fonts)
+            .pipe(gulp.dest(config.paths.dist+'/fonts'));
+});
+
 gulp.task('lint', function() {
   // Exclude JSON files from the eslint check
   var eslintFiles = config.paths.js.slice();
@@ -155,4 +165,4 @@ gulp.task('watch', function() {
   //gulp.watch(config.paths.js, ['lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'fonts', 'lint', 'open', 'watch']);
