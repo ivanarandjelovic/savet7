@@ -3,7 +3,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 //import createHistory from 'history/lib/createHashHistory'
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 
 import S7App from './components/s7App.jsx';
 import BuildingList from './components/buildingList.jsx';
@@ -20,7 +20,7 @@ var S7Store = require('./s7Store');
 
 const routes = (
   <Provider store={S7Store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path='/' component={ S7App }>
         <IndexRoute component={ BuildingList }/>
         <Route
