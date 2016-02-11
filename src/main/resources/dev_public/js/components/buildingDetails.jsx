@@ -6,6 +6,7 @@ import translate from 'counterpart'
 import buildingActions from '../actions/buildingActions'
 import Address from './address.jsx'
 import Link from 'react-router/lib/Link'
+import IndexLink from 'react-router/lib/IndexLink'
 
 var BuildingDetails = React.createClass({
 
@@ -56,10 +57,10 @@ var BuildingDetails = React.createClass({
       				</button>
       			</div>
       		</div>
-      		<Link className="btn btn-default" to="/">{translate('APP_BACK')}</Link>
-      		<button className="btn btn-primary pull-right" ng-click="edit()">
+      		<IndexLink className="btn btn-default" to="/">{translate('APP_BACK')}</IndexLink>
+      		<Link className="btn btn-primary pull-right" to={"/editBuilding/"+building.id}>
       			<span className="glyphicon glyphicon-edit" /> {translate('APP_EDIT')}
-      		</button>
+      		</Link>
       	</div>
       </div>
     );

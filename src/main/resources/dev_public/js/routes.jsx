@@ -8,6 +8,7 @@ import { hashHistory } from 'react-router'
 import S7App from './components/s7App.jsx';
 import BuildingList from './components/buildingList.jsx';
 import BuildingDetails from './components/buildingDetails.jsx';
+import EditBuilding from './components/editBuilding.jsx';
 import NotFound from './components/notFoundPage.jsx';
 var Provider = require('react-redux').Provider;
 
@@ -26,6 +27,9 @@ const routes = (
         <Route
           path='buildingDetails/:buildingId'
           component={ BuildingDetails } />
+          <Route
+            path='editBuilding/:buildingId'
+            component={ EditBuilding } />
         <Route path='*' component={NotFound}/>
       </Route>
     </Router>
